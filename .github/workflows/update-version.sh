@@ -96,4 +96,12 @@ if [ -n "$versionInProj" ]; then
 else
     # Version tag not found in the csproj. Let's add it.
     echo "Project is packable - adding version tag..."
-    content=$(cat $file | sed --expression="s/<\/Project>/<PropertyGroup><Version
+    content=$(cat $file | sed --expression="s/<\/Project>/<PropertyGroup><Version>$fullVersionString<\/Version><\/PropertyGroup><\/Project>/g");
+fi
+
+if [ $? -ne 0 ]; then exit 1; fi
+echo "$content" && echo "$content" > $file;
+if [ $? -ne 0 ]; then exit 1; fi
+
+echo "DONE";
+echo "";
