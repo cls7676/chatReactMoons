@@ -20,4 +20,34 @@ public interface IEmbeddingIndex<TEmbedding>
     /// <param name="embedding">The input <see cref="Embedding{TEmbedding}"/> to use as the search.</param>
     /// <param name="limit">The max number of results to return.</param>
     /// <param name="minRelevanceScore">The minimum score to consider in the distance calculation.</param>
-    /// <returns>A tuple consisting of the <see
+    /// <returns>A tuple consisting of the <see cref="IEmbeddingWithMetadata{TEmbedding}"/> and the similarity score as a <see cref="double"/>.</returns>
+    IAsyncEnumerable<(IEmbeddingWithMetadata<TEmbedding>, double)> GetNearestMatchesAsync(
+        string collection,
+        Embedding<TEmbedding> embedding,
+        int limit = 1,
+        double minRelevanceScore = 0.0);
+}
+
+/// <summary>
+/// Common extension methods for <see cref="IEmbeddingIndex{TEmbedding}"/> objects.
+/// </summary>
+public static class EmbeddingIndexExtensions
+{
+    /// <summary>
+    /// Searches the index for the nearest match to the <see cref="Embedding{TEmbedding}"/>.
+    /// </summary>
+    public static async Task<(IEmbeddingWithMetadata<TEmbedding>, double)> GetNearestMatchAsync<TEmbedding>(this IEmbeddingIndex<TEmbedding> index,
+        string collection,
+        Embedding<TEmbedding> embedding,
+        double minScore = 0.0)
+        where TEmbedding : unmanaged
+    {
+        Verify.NotNull(index, "Embedding index cannot be NULL");
+        await foreach (var match in index.GetNearestMatchesAsync(collection, embedding, 1, minScore))
+        {
+            return match;
+        }
+
+        return default;
+    }
+}
