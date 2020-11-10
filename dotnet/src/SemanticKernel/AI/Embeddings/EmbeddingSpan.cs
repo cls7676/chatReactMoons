@@ -52,4 +52,36 @@ public ref struct EmbeddingSpan<TEmbedding>
     /// Calculates the dot product of this vector with another.
     /// </summary>
     /// <param name="other">The second vector.</param>
-    /// <returns>The dot product as a <see c
+    /// <returns>The dot product as a <see cref="double"/></returns>
+    public double Dot(EmbeddingSpan<TEmbedding> other)
+    {
+        return this.Span.DotProduct(other.Span);
+    }
+
+    /// <summary>
+    /// Calculates the Euclidean length of this vector.
+    /// </summary>
+    /// <returns>The Euclidean length as a <see cref="double"/></returns>
+    public double EuclideanLength()
+    {
+        return this.Span.EuclideanLength();
+    }
+
+    /// <summary>
+    /// Calculates the cosine similarity of this vector with another.
+    /// </summary>
+    /// <param name="other">The second vector.</param>
+    /// <returns>The cosine similarity as a <see cref="double"/>.</returns>
+    /// <remarks>This operation can be performed much faster if the vectors are known to be normalized, by
+    /// converting to a <see cref="EmbeddingReadOnlySpan{TEmbedding}"/> with constructor parameter 'isNormalized' true.</remarks>
+    public double CosineSimilarity(EmbeddingSpan<TEmbedding> other)
+    {
+        return this.Span.CosineSimilarity(other.Span);
+    }
+
+    /// <summary>
+    /// Gets a value that indicates whether <typeparamref name="TEmbedding"/> is supported.
+    /// </summary>
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Following 'IsSupported' pattern of System.Numerics.")]
+    public static bool IsSupported => SupportedTypes.IsSupported(typeof(TEmbedding));
+}
