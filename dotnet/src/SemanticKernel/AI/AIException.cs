@@ -111,4 +111,8 @@ public class AIException : Exception<AIException.ErrorCodes>
 
     private AIException(string message, Exception innerException) : base(message, innerException)
     {
-        // Not al
+        // Not allowed, error code is required
+    }
+
+    #endregion
+}
