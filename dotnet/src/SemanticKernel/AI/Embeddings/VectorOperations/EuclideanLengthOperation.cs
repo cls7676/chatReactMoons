@@ -31,3 +31,19 @@ public static class EuclideanLengthOperation
     public static double EuclideanLength<TNumber>(this Span<TNumber> x)
         where TNumber : unmanaged
     {
+        var readOnly = x.AsReadOnlySpan();
+        return readOnly.EuclideanLength();
+    }
+
+    /// <summary>
+    /// Calculate the Euclidean length of a vector of type <typeparamref name="TNumber"/>.
+    /// </summary>
+    /// <typeparam name="TNumber">The unmanaged data type (<see cref="float"/>, <see cref="double"/> currently supported).</typeparam>
+    /// <param name="vector">The vector.</param>
+    /// <returns>Euclidean length as a <see cref="double"/></returns>
+    public static double EuclideanLength<TNumber>(this TNumber[] vector)
+        where TNumber : unmanaged
+    {
+        return vector.AsReadOnlySpan().EuclideanLength();
+    }
+}
