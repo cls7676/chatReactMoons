@@ -52,4 +52,32 @@ public static class MultiplyOperation
     #region private ================================================================================
 
     private static unsafe void MultiplyByInPlaceImplementation(Span<float> x, float multiplier)
-  
+    {
+        fixed (float* pxBuffer = x)
+        {
+            float* px = pxBuffer;
+            float* pxMax = px + x.Length;
+            while (px < pxMax)
+            {
+                *px = *px * multiplier;
+                px++;
+            }
+        }
+    }
+
+    private static unsafe void MultiplyByInPlaceImplementation(Span<double> x, double multiplier)
+    {
+        fixed (double* pxBuffer = x)
+        {
+            double* px = pxBuffer;
+            double* pxMax = px + x.Length;
+            while (px < pxMax)
+            {
+                *px = *px * multiplier;
+                px++;
+            }
+        }
+    }
+
+    #endregion
+}
