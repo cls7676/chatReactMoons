@@ -209,3 +209,236 @@ Get user's location
   <step>Search for the user location in variables</step>
   <step>If the user location is unknown ask the user: What is your location?</step>
 </solution><!-- END -->
+
+<goal use=""geo.location"">
+Get user's location
+</goal>
+<variables />
+<solution>
+  <callFunction name=""geo.location"" />
+  <step>Get the location from the variables</step>
+  <step>If the user location is unknown ask the user to teach you how to find the value</step>
+</solution><!-- END -->
+
+<goal use=""GeoSkill.UseMyLocation"">
+Find my time zone
+</goal>
+<variables />
+<solution>
+  <callFunction name=""GeoSkill.UseMyLocation"" />
+  <step>Get the location from the variables</step>
+  <step>If the user location is unknown ask the user: What is your location?</step>
+  <step>Find the timezone for given location</step>
+  <step>If the user timezone is unknown ask the user to teach you how to find the value</step>
+</solution><!-- END -->
+
+<goal>
+summarize last week emails
+</goal>
+<variables />
+<solution>
+  <step>Find the current time and date</step>
+  <step>Get all emails from given time to time minus 7 days</step>
+  <step>Summarize the email in variables</step>
+</solution><!-- END -->
+
+<goal>
+Get the current date and time
+</goal>
+<variables />
+<solution>
+  <step>Find the current date and time</step>
+  <step>Get date and time from the variables</step>
+</solution><!-- END -->
+
+<goal use=""time.currentDate,time.currentTime,.GETTIMEZONE,me.myFirstName"">
+Get the current date and time
+</goal>
+<variables />
+<solution>
+  <callFunction name=""time.currentDate"" />
+  <callFunction name=""time.currentTime"" />
+  <callFunction name="".GETTIMEZONE"" />
+  <callFunction name=""me.myFirstName"" />
+  <step>Get date and time from the variables</step>
+</solution><!-- END -->
+
+<goal use=""time.currentDate,time.GetCurrentTime,time.timezone,me.UseMyFirstName"">
+how long until my wife's birthday?
+</goal>
+<variables />
+<solution>
+  <callFunction name=""time.currentDate"" />
+  <callFunction name=""time.GetCurrentTime"" />
+  <callFunction name=""time.timezone"" />
+  <callFunction name=""me.UseMyFirstName"" />
+  <step>Search for wife's birthday in memory</step>
+  <step>If the previous step is empty ask the user: when is your wife's birthday?</step>
+</solution><!-- END -->
+
+<goal>
+Search for wife's birthday in memory
+</goal>
+<variables />
+<solution>
+  <step>Find name of wife in variables</step>
+  <step>If the wife name is unknown ask the user</step>
+  <step>Search for wife's birthday in Facebook using the name in memory</step>
+  <step>Search for wife's birthday in Teams conversations filtering messages by name and using the name in memory</step>
+  <step>Search for wife's birthday in Emails filtering messages by name and using the name in memory</step>
+  <step>If the birthday cannot be found tell the user, ask the user to teach you how to find the value</step>
+</solution><!-- END -->
+
+<goal>
+Search for gift ideas
+</goal>
+<variables />
+<solution>
+  <step>Find topics of interest from personal conversations</step>
+  <step>Find topics of interest from personal emails</step>
+  <step>Search Amazon for gifts including topics in the variables</step>
+</solution><!-- END -->
+
+<goal>
+Count from 1 to 5
+</goal>
+<variables />
+<solution>
+  <step>Create a counter variable in memory with value 1</step>
+  <step>Show the value of the counter variable</step>
+  <step>If the counter variable is 5 stop</step>
+  <step>Increment the counter variable</step>
+</solution><!-- END -->
+
+<goal>
+foo bar
+</goal>
+<variables />
+<solution>
+  <noSolution>Sorry I don't know how to help with that</noSolution>
+</solution><!-- END -->
+
+The following is an incorrect example, because the solution uses a skill not listed in the 'use' attribute.
+
+<goal use="""">
+do something
+</goal>
+<variables />
+<solution>
+  <callFunction name=""time.timezone"" />
+</solution><!-- END -->
+
+End of examples.
+
+<manual>
+{{$SKILLS_MANUAL}}
+</manual>
+
+<goal use=""{{$SKILLS}}"">
+{{$INPUT}}
+</goal>
+";
+
+    internal const string SolveNextStepFunctionDefinition =
+        @"{{$INPUT}}
+
+Update the plan above:
+* If there are steps in the solution, then:
+    ** use the variables to execute the first step
+    ** if the variables contains a result, replace it with the result of the first step, otherwise store the result in the variables
+    ** Remove the first step.
+* Keep the XML syntax correct, with a new line after the goal.
+* Emit only XML.
+* If the list of steps is empty, answer the goal using information in the variables, putting the solution inside the solution tag.
+* Append <!-- END --> at the end.
+END OF INSTRUCTIONS.
+
+Possible updated plan:
+";
+
+    internal const string SummarizeConversationDefinition =
+        @"BEGIN CONTENT TO SUMMARIZE:
+{{$INPUT}}
+
+END CONTENT TO SUMMARIZE.
+
+Summarize the conversation in 'CONTENT TO SUMMARIZE', identifying main points of discussion and any conclusions that were reached.
+Do not incorporate other general knowledge.
+Summary is in plain text, in complete sentences, with no markup or tags.
+
+BEGIN SUMMARY:
+";
+
+    internal const string GetConversationActionItemsDefinition =
+        @"You are an action item extractor. You will be given chat history and need to make note of action items mentioned in the chat.
+Extract action items from the content if there are any. If there are no action, return nothing. If a single field is missing, use an empty string.
+Return the action items in json.
+
+Possible statuses for action items are: Open, Closed, In Progress.
+
+EXAMPLE INPUT WITH ACTION ITEMS:
+
+John Doe said: ""I will record a demo for the new feature by Friday""
+I said: ""Great, thanks John. We may not use all of it but it's good to get it out there.""
+
+EXAMPLE OUTPUT:
+{
+    ""actionItems"": [
+        {
+            ""owner"": ""John Doe"",
+            ""actionItem"": ""Record a demo for the new feature"",
+            ""dueDate"": ""Friday"",
+            ""status"": ""Open"",
+            ""notes"": """"
+        }
+    ]
+}
+
+EXAMPLE INPUT WITHOUT ACTION ITEMS:
+
+John Doe said: ""Hey I'm going to the store, do you need anything?""
+I said: ""No thanks, I'm good.""
+
+EXAMPLE OUTPUT:
+{
+    ""action_items"": []
+}
+
+CONTENT STARTS HERE.
+
+{{$INPUT}}
+
+CONTENT STOPS HERE.
+
+OUTPUT:";
+
+    internal const string GetConversationTopicsDefinition =
+        @"Analyze the following extract taken from a conversation transcript and extract key topics.
+- Topics only worth remembering.
+- Be brief. Short phrases.
+- Can use broken English.
+- Conciseness is very important.
+- Topics can include names of memories you want to recall.
+- NO LONG SENTENCES. SHORT PHRASES.
+- Return in JSON
+[Input]
+My name is Macbeth. I used to be King of Scotland, but I died. My wife's name is Lady Macbeth and we were married for 15 years. We had no children. Our beloved dog Toby McDuff was a famous hunter of rats in the forest.
+My tragic story was immortalized by Shakespeare in a play.
+[Output]
+{
+  ""topics"": [
+    ""Macbeth"",
+    ""King of Scotland"",
+    ""Lady Macbeth"",
+    ""Dog"",
+    ""Toby McDuff"",
+    ""Shakespeare"",
+    ""Play"",
+    ""Tragedy""
+  ]
+}
++++++
+[Input]
+{{$INPUT}}
+[Output]";
+}
