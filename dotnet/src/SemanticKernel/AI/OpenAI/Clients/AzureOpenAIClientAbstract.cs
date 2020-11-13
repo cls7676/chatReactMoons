@@ -105,3 +105,62 @@ public abstract class AzureOpenAIClientAbstract : OpenAIClientAbstract
     /// </summary>
     /// <returns>An async task</returns>
     /// <exception cref="AIException">AIException thrown during the request.</exception>
+    protected async Task CacheDeploymentsAsync()
+    {
+        var url = $"{this.Endpoint}/openai/deployments?api-version={this.AzureOpenAIApiVersion}";
+        HttpResponseMessage response = await this.HTTPClient.GetAsync(url);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new AIException(
+                AIException.ErrorCodes.ModelNotAvailable,
+                $"Unable to fetch the list of model deployments from Azure. Status code: {response.StatusCode}");
+        }
+
+        string json = await response.Content.ReadAsStringAsync();
+
+        lock (s_deploymentToModel)
+        {
+            try
+            {
+                var data = Json.Deserialize<AzureDeployments>(json);
+                if (data == null)
+                {
+                    throw new AIException(
+                        AIException.ErrorCodes.InvalidResponseContent,
+                        "Model not available. Unable to fetch the list of models.");
+                }
+
+                foreach (var deployment in data.Deployments)
+                {
+                    if (!deployment.IsAvailableDeployment() || string.IsNullOrEmpty(deployment.ModelName) ||
+                        string.IsNullOrEmpty(deployment.DeploymentName))
+                    {
+                        continue;
+                    }
+
+                    s_deploymentToModel[this.Endpoint + ":" + deployment.DeploymentName] = deployment.ModelName;
+                    s_modelToDeployment[this.Endpoint + ":" + deployment.ModelName] = deployment.DeploymentName;
+                }
+            }
+            catch (Exception e) when (e is not AIException)
+            {
+                throw new AIException(
+                    AIException.ErrorCodes.UnknownError,
+                    "Model not available. Unable to fetch the list of models.", e);
+            }
+        }
+
+        s_deploymentsCached[this.Endpoint] = true;
+    }
+
+    #region private ================================================================================
+
+    // Caching Azure details across multiple instances so we don't have to use "deployment names"
+    private static readonly ConcurrentDictionary<string, bool> s_deploymentsCached = new();
+    private static readonly ConcurrentDictionary<string, string> s_deploymentToModel = new();
+    private static readonly ConcurrentDictionary<string, string> s_modelToDeployment = new();
+
+    private string _azureOpenAIApiVersion = DefaultAzureAPIVersion;
+
+    #endregion
+}
