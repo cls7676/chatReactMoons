@@ -56,4 +56,18 @@ public sealed class AzureDeployments
         }
 
         /// <summary>
-        /// Returns true
+        /// Returns true if the deployment is active.
+        /// </summary>
+        /// <returns>Returns true if the deployment is active.</returns>
+        public bool IsAvailableDeployment()
+        {
+            return this.Type == "deployment" && this.Status == "succeeded";
+        }
+    }
+
+    /// <summary>
+    /// List of Azure OpenAI deployments
+    /// </summary>
+    [JsonPropertyName("data")]
+    public IList<AzureDeployment> Deployments { get; set; } = new List<AzureDeployment>();
+}
