@@ -49,4 +49,35 @@ public sealed class AzureTextCompletion : AzureOpenAIClientAbstract, ITextComple
     {
         Verify.NotNull(requestSettings, "Completion settings cannot be empty");
 
-        var deployme
+        var deploymentName = await this.GetDeploymentNameAsync(this._modelId);
+        var url = $"{this.Endpoint}/openai/deployments/{deploymentName}/completions?api-version={this.AzureOpenAIApiVersion}";
+
+        this.Log.LogDebug("Sending Azure OpenAI completion request to {0}", url);
+
+        if (requestSettings.MaxTokens < 1)
+        {
+            throw new AIException(
+                AIException.ErrorCodes.InvalidRequest,
+                $"MaxTokens {requestSettings.MaxTokens} is not valid, the value must be greater than zero");
+        }
+
+        var requestBody = Json.Serialize(new AzureCompletionRequest
+        {
+            Prompt = text,
+            Temperature = requestSettings.Temperature,
+            TopP = requestSettings.TopP,
+            PresencePenalty = requestSettings.PresencePenalty,
+            FrequencyPenalty = requestSettings.FrequencyPenalty,
+            MaxTokens = requestSettings.MaxTokens,
+            Stop = requestSettings.StopSequences is { Count: > 0 } ? requestSettings.StopSequences : null,
+        });
+
+        return await this.ExecuteCompleteRequestAsync(url, requestBody);
+    }
+
+    #region private ================================================================================
+
+    private readonly string _modelId;
+
+    #endregion
+}
