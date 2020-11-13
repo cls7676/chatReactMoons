@@ -58,4 +58,22 @@ public sealed class OpenAITextCompletion : OpenAIClientAbstract, ITextCompletion
 
         if (requestSettings.MaxTokens < 1)
         {
-            throw new AIExcepti
+            throw new AIException(
+                AIException.ErrorCodes.InvalidRequest,
+                $"MaxTokens {requestSettings.MaxTokens} is not valid, the value must be greater than zero");
+        }
+
+        var requestBody = Json.Serialize(new OpenAICompletionRequest
+        {
+            Prompt = text,
+            Temperature = requestSettings.Temperature,
+            TopP = requestSettings.TopP,
+            PresencePenalty = requestSettings.PresencePenalty,
+            FrequencyPenalty = requestSettings.FrequencyPenalty,
+            MaxTokens = requestSettings.MaxTokens,
+            Stop = requestSettings.StopSequences is { Count: > 0 } ? requestSettings.StopSequences : null,
+        });
+
+        return await this.ExecuteCompleteRequestAsync(url, requestBody);
+    }
+}
