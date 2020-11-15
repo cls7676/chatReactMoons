@@ -94,4 +94,82 @@ public class TimeSkill
         return DateTimeOffset.Now.ToString("hh:mm:ss tt", CultureInfo.CurrentCulture);
     }
 
-    /// <summary
+    /// <summary>
+    /// Get the current year
+    /// </summary>
+    /// <example>
+    /// {{time.year}} => 2025
+    /// </example>
+    /// <returns> The current year </returns>
+    [SKFunction("Get the current year")]
+    public string Year()
+    {
+        // Example: 2025
+        return DateTimeOffset.Now.ToString("yyyy", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current month name
+    /// </summary>
+    /// <example>
+    /// {time.month}} => January
+    /// </example>
+    /// <returns> The current month name </returns>
+    [SKFunction("Get the current month name")]
+    public string Month()
+    {
+        // Example: January
+        return DateTimeOffset.Now.ToString("MMMM", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current month number
+    /// </summary>
+    /// <example>
+    /// {{time.monthNumber}} => 01
+    /// </example>
+    /// <returns> The current month number </returns>
+    [SKFunction("Get the current month number")]
+    public string MonthNumber()
+    {
+        // Example: 01
+        return DateTimeOffset.Now.ToString("MM", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current day of the month
+    /// </summary>
+    /// <example>
+    /// {{time.day}} => 12
+    /// </example>
+    /// <returns> The current day of the month </returns>
+    [SKFunction("Get the current day of the month")]
+    public string Day()
+    {
+        // Example: 12
+        return DateTimeOffset.Now.ToString("DD", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current day of the week
+    /// </summary>
+    /// <example>
+    /// {{time.dayOfWeek}} => Sunday
+    /// </example>
+    /// <returns> The current day of the week </returns>
+    [SKFunction("Get the current day of the week")]
+    public string DayOfWeek()
+    {
+        // Example: Sunday
+        return DateTimeOffset.Now.ToString("dddd", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current clock hour
+    /// </summary>
+    /// <example>
+    /// {{time.hour}} => 9 PM
+    /// </example>
+    /// <returns> The current clock hour </returns>
+    [SKFunction("Get the current clock hour")]
+    public str
