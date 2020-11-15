@@ -172,4 +172,80 @@ public class TimeSkill
     /// </example>
     /// <returns> The current clock hour </returns>
     [SKFunction("Get the current clock hour")]
-    public str
+    public string Hour()
+    {
+        // Example: 9 PM
+        return DateTimeOffset.Now.ToString("h tt", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the current clock 24-hour number
+    /// </summary>
+    /// <example>
+    /// {{time.hourNumber}} => 21
+    /// </example>
+    /// <returns> The current clock 24-hour number </returns>
+    [SKFunction("Get the current clock 24-hour number")]
+    public string HourNumber()
+    {
+        // Example: 21
+        return DateTimeOffset.Now.ToString("HH", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the minutes on the current hour
+    /// </summary>
+    /// <example>
+    /// {{time.minute}} => 15
+    /// </example>
+    /// <returns> The minutes on the current hour </returns>
+    [SKFunction("Get the minutes on the current hour")]
+    public string Minute()
+    {
+        // Example: 15
+        return DateTimeOffset.Now.ToString("m", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the seconds on the current minute
+    /// </summary>
+    /// <example>
+    /// {{time.second}} => 7
+    /// </example>
+    /// <returns> The seconds on the current minute </returns>
+    [SKFunction("Get the seconds on the current minute")]
+    public string Second()
+    {
+        // Example: 7
+        return DateTimeOffset.Now.ToString("s", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the local time zone offset from UTC
+    /// </summary>
+    /// <example>
+    /// {{time.timeZoneOffset}} => -08:00
+    /// </example>
+    /// <returns> The local time zone offset from UTC </returns>
+    [SKFunction("Get the local time zone offset from UTC")]
+    public string TimeZoneOffset()
+    {
+        // Example: -08:00
+        return DateTimeOffset.Now.ToString("%K", CultureInfo.CurrentCulture);
+    }
+
+    /// <summary>
+    /// Get the local time zone name
+    /// </summary>
+    /// <example>
+    /// {{time.timeZoneName}} => PST
+    /// </example>
+    /// <remark>
+    /// Note: this is the "current" timezone and it can change over the year, e.g. from PST to PDT
+    /// </remark>
+    /// <returns> The local time zone name </returns>
+    [SKFunction("Get the local time zone name")]
+    public string TimeZoneName()
+    {
+        // Example: PST
+        // Note: this is t
