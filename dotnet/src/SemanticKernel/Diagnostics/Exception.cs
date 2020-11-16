@@ -59,4 +59,6 @@ public abstract class Exception<TErrorCode> : Exception where TErrorCode : Enum
 
     private static string BuildMessage(TErrorCode errorType, string? message)
     {
-        return message != null ? $"{errorType.ToString("G")}: {message
+        return message != null ? $"{errorType.ToString("G")}: {message}" : errorType.ToString("G");
+    }
+}
