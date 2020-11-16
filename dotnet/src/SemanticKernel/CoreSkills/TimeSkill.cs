@@ -248,4 +248,7 @@ public class TimeSkill
     public string TimeZoneName()
     {
         // Example: PST
-        // Note: this is t
+        // Note: this is the "current" timezone and it can change over the year, e.g. from PST to PDT
+        return TimeZoneInfo.Local.DisplayName;
+    }
+}
