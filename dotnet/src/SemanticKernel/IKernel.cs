@@ -54,4 +54,43 @@ public interface IKernel
         SemanticFunctionConfig functionConfig);
 
     /// <summary>
-    /// Build and registe
+    /// Build and register a function in the internal skill collection.
+    /// </summary>
+    /// <param name="skillName">Name of the skill containing the function. The name can contain only alphanumeric chars + underscore.</param>
+    /// <param name="functionName">Name of the semantic function. The name can contain only alphanumeric chars + underscore.</param>
+    /// <param name="functionConfig">Function configuration, e.g. I/O params, AI settings, localization details, etc.</param>
+    /// <returns>A C# function wrapping AI logic, usually defined with natural language</returns>
+    ISKFunction RegisterSemanticFunction(
+        string skillName,
+        string functionName,
+        SemanticFunctionConfig functionConfig);
+
+    /// <summary>
+    /// Import a set of functions from the given skill. The functions must have the `SKFunction` attribute.
+    /// Once these functions are imported, the prompt templates can use functions to import content at runtime.
+    /// </summary>
+    /// <param name="skillInstance">Instance of a class containing functions</param>
+    /// <param name="skillName">Name of the skill for skill collection and prompt templates. If the value is empty functions are registered in the global namespace.</param>
+    /// <returns>A list of all the semantic functions found in the directory, indexed by function name.</returns>
+    IDictionary<string, ISKFunction> ImportSkill(object skillInstance, string skillName = "");
+
+    /// <summary>
+    /// Set the semantic memory to use
+    /// </summary>
+    /// <param name="memory">Semantic memory instance</param>
+    void RegisterMemory(ISemanticTextMemory memory);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="input">Input to process</param>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function 
