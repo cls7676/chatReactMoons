@@ -147,4 +147,13 @@ public interface IKernel
     /// The function might be native or semantic, it's up to the caller handling it.
     /// </summary>
     /// <param name="skillName">Skill name</param>
-    /// <param name="functionName">Function nam
+    /// <param name="functionName">Function name</param>
+    /// <returns>Delegate to execute the function</returns>
+    ISKFunction Func(string skillName, string functionName);
+
+    /// <summary>
+    /// Create a new instance of a context, linked to the kernel internal state.
+    /// </summary>
+    /// <returns>SK context</returns>
+    SKContext CreateNewContext();
+}
