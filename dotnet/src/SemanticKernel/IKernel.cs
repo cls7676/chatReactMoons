@@ -93,4 +93,58 @@ public interface IKernel
     /// </summary>
     /// <param name="input">Input to process</param>
     /// <param name="pipeline">List of functions</param>
-    /// <returns>Result of the function 
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        string input,
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="variables">Input to process</param>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        ContextVariables variables,
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        CancellationToken cancellationToken,
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="input">Input to process</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        string input,
+        CancellationToken cancellationToken,
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Run a pipeline composed of synchronous and asynchronous functions.
+    /// </summary>
+    /// <param name="variables">Input to process</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <param name="pipeline">List of functions</param>
+    /// <returns>Result of the function composition</returns>
+    Task<SKContext> RunAsync(
+        ContextVariables variables,
+        CancellationToken cancellationToken,
+        params ISKFunction[] pipeline);
+
+    /// <summary>
+    /// Access registered functions by skill + name. Not case sensitive.
+    /// The function might be native or semantic, it's up to the caller handling it.
+    /// </summary>
+    /// <param name="skillName">Skill name</param>
+    /// <param name="functionName">Function nam
