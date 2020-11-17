@@ -50,4 +50,62 @@ public sealed class Kernel : IKernel, IDisposable
     public IPromptTemplateEngine PromptTemplateEngine => this._promptTemplateEngine;
 
     /// <summary>
-   
+    /// Return a new instance of the kernel builder, used to build and configure kernel instances.
+    /// </summary>
+    public static KernelBuilder Builder => new();
+
+    /// <summary>
+    /// Kernel constructor. See KernelBuilder for an easier and less error prone approach to create kernel instances.
+    /// </summary>
+    /// <param name="skillCollection"></param>
+    /// <param name="promptTemplateEngine"></param>
+    /// <param name="memory"></param>
+    /// <param name="config"></param>
+    /// <param name="log"></param>
+    public Kernel(
+        ISkillCollection skillCollection,
+        IPromptTemplateEngine promptTemplateEngine,
+        ISemanticTextMemory memory,
+        KernelConfig config,
+        ILogger log)
+    {
+        this._log = log;
+        this._config = config;
+        this._memory = memory;
+        this._promptTemplateEngine = promptTemplateEngine;
+        this._skillCollection = skillCollection;
+    }
+
+    /// <inheritdoc/>
+    public ISKFunction RegisterSemanticFunction(string functionName, SemanticFunctionConfig functionConfig)
+    {
+        return this.RegisterSemanticFunction(SkillCollection.GlobalSkill, functionName, functionConfig);
+    }
+
+    /// <inheritdoc/>
+    public ISKFunction RegisterSemanticFunction(string skillName, string functionName, SemanticFunctionConfig functionConfig)
+    {
+        // Future-proofing the name not to contain special chars
+        Verify.ValidSkillName(skillName);
+        Verify.ValidFunctionName(functionName);
+
+        ISKFunction function = this.CreateSemanticFunction(skillName, functionName, functionConfig);
+        this._skillCollection.AddSemanticFunction(function);
+
+        return function;
+    }
+
+    /// <inheritdoc/>
+    public IDictionary<string, ISKFunction> ImportSkill(object skillInstance, string skillName = "")
+    {
+        if (string.IsNullOrWhiteSpace(skillName))
+        {
+            skillName = SkillCollection.GlobalSkill;
+            this._log.LogTrace("Importing skill {0} in the global namespace", skillInstance.GetType().FullName);
+        }
+        else
+        {
+            this._log.LogTrace("Importing skill {0}", skillName);
+        }
+
+        var skill = new Dictionary<string, ISKFunction>(St
