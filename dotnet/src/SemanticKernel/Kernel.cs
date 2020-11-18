@@ -171,4 +171,71 @@ public sealed class Kernel : IKernel, IDisposable
 
             try
             {
-                cancellationToken.ThrowIfCancellati
+                cancellationToken.ThrowIfCancellationRequested();
+                await this._config.RetryMechanism.ExecuteWithRetryAsync(
+                    async () => { context = await f.InvokeAsync(context); },
+                    this._log,
+                    cancellationToken);
+
+                if (context.ErrorOccurred)
+                {
+                    this._log.LogError("Function call fail during pipeline step {0}: {1}.{2}", pipelineStepCount, f.SkillName, f.Name);
+                    return context;
+                }
+            }
+            catch (Exception e) when (!e.IsCriticalException())
+            {
+                this._log.LogError(e, "Something went wrong in pipeline step {0}: {1}.{2}. Error: {3}", pipelineStepCount, f.SkillName, f.Name, e.Message);
+                context.Fail(e.Message, e);
+                return context;
+            }
+        }
+
+        return context;
+    }
+
+    /// <inheritdoc/>
+    public ISKFunction Func(string skillName, string functionName)
+    {
+        if (this.Skills.HasNativeFunction(skillName, functionName))
+        {
+            return this.Skills.GetNativeFunction(skillName, functionName);
+        }
+
+        return this.Skills.GetSemanticFunction(skillName, functionName);
+    }
+
+    /// <inheritdoc/>
+    public SKContext CreateNewContext()
+    {
+        return new SKContext(
+            new ContextVariables(),
+            this._memory,
+            this._skillCollection.ReadOnlySkillCollection,
+            this._log);
+    }
+
+    /// <summary>
+    /// Dispose of resources.
+    /// </summary>
+    public void Dispose()
+    {
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (this._memory is IDisposable mem) { mem.Dispose(); }
+
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (this._skillCollection is IDisposable reg) { reg.Dispose(); }
+    }
+
+    #region private ================================================================================
+
+    private readonly ILogger _log;
+    private readonly KernelConfig _config;
+    private readonly ISkillCollection _skillCollection;
+    private ISemanticTextMemory _memory;
+    private readonly IPromptTemplateEngine _promptTemplateEngine;
+
+    private ISKFunction CreateSemanticFunction(
+        string skillName,
+        string functionName,
+        SemanticFunct
