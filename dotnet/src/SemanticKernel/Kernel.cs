@@ -238,4 +238,54 @@ public sealed class Kernel : IKernel, IDisposable
     private ISKFunction CreateSemanticFunction(
         string skillName,
         string functionName,
-        SemanticFunct
+        SemanticFunctionConfig functionConfig)
+    {
+        if (!functionConfig.PromptTemplateConfig.Type.EqualsIgnoreCase("completion"))
+        {
+            throw new AIException(
+                AIException.ErrorCodes.FunctionTypeNotSupported,
+                $"Function type not supported: {functionConfig.PromptTemplateConfig}");
+        }
+
+        ISKFunction func = SKFunction.FromSemanticConfig(skillName, functionName, functionConfig);
+
+        // Connect the function to the current kernel skill collection, in case the function
+        // is invoked manually without a context and without a way to find other functions.
+        func.SetDefaultSkillCollection(this.Skills);
+
+        func.SetAIConfiguration(CompleteRequestSettings.FromCompletionConfig(functionConfig.PromptTemplateConfig.Completion));
+
+        // TODO: allow to postpone this (e.g. use lazy init), allow to create semantic functions without a default backend
+        var backend = this._config.GetCompletionBackend(functionConfig.PromptTemplateConfig.DefaultBackends.FirstOrDefault());
+
+        switch (backend)
+        {
+            case AzureOpenAIConfig azureBackendConfig:
+                func.SetAIBackend(() => new AzureTextCompletion(
+                    azureBackendConfig.DeploymentName,
+                    azureBackendConfig.Endpoint,
+                    azureBackendConfig.APIKey,
+                    azureBackendConfig.APIVersion,
+                    this._log));
+                break;
+
+            case OpenAIConfig openAiConfig:
+                func.SetAIBackend(() => new OpenAITextCompletion(
+                    openAiConfig.ModelId,
+                    openAiConfig.APIKey,
+                    openAiConfig.OrgId,
+                    this._log));
+                break;
+
+            default:
+                throw new AIException(
+                    AIException.ErrorCodes.InvalidConfiguration,
+                    $"Unknown/unsupported backend configuration type {backend.GetType():G}, unable to prepare semantic function. " +
+                    $"Function description: {functionConfig.PromptTemplateConfig.Description}");
+        }
+
+        return func;
+    }
+
+    /// <summary>
+    /// Import a skill into the kernel skill collection, so that sem
