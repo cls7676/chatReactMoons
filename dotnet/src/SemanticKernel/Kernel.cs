@@ -288,4 +288,35 @@ public sealed class Kernel : IKernel, IDisposable
     }
 
     /// <summary>
-    /// Import a skill into the kernel skill collection, so that sem
+    /// Import a skill into the kernel skill collection, so that semantic functions and pipelines can consume its functions.
+    /// </summary>
+    /// <param name="skillInstance">Skill class instance</param>
+    /// <param name="skillName">Skill name, used to group functions under a shared namespace</param>
+    /// <param name="log">Application logger</param>
+    /// <returns>List of functions imported from the given class instance</returns>
+    private static IList<ISKFunction> ImportSkill(object skillInstance, string skillName, ILogger log)
+    {
+        log.LogTrace("Importing skill name: {0}", skillName);
+        MethodInfo[] methods = skillInstance.GetType()
+            .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod);
+        log.LogTrace("Methods found {0}", methods.Length);
+
+        // Filter out null functions
+        IEnumerable<ISKFunction> functions = from method in methods select SKFunction.FromNativeMethod(method, skillInstance, skillName, log);
+        List<ISKFunction> result = (from function in functions where function != null select function).ToList();
+        log.LogTrace("Methods imported {0}", result.Count);
+
+        // Fail if two functions have the same name
+        var uniquenessCheck = new HashSet<string>(from x in result select x.Name, StringComparer.OrdinalIgnoreCase);
+        if (result.Count > uniquenessCheck.Count)
+        {
+            throw new KernelException(
+                KernelException.ErrorCodes.FunctionOverloadNotSupported,
+                "Function overloads are not supported, please differentiate function names");
+        }
+
+        return result;
+    }
+
+    #endregion
+}
