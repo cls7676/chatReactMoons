@@ -96,4 +96,13 @@ public class KernelException : Exception<KernelException.ErrorCodes>
 
     private KernelException(string message) : base(message)
     {
-        // Not 
+        // Not allowed, error code is required
+    }
+
+    private KernelException(string message, Exception innerException) : base(message, innerException)
+    {
+        // Not allowed, error code is required
+    }
+
+    #endregion
+}
