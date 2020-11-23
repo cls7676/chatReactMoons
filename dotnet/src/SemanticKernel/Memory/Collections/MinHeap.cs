@@ -152,4 +152,88 @@ internal class MinHeap<T> : IEnumerable<T> where T : IComparable<T>
 
         // 0th item is always a sentinal
         capacity++;
-        if (capacit
+        if (capacity > this._items.Length)
+        {
+            Array.Resize(ref this._items, capacity);
+        }
+    }
+
+    public void EnsureCapacity()
+    {
+        if (this._count == this._items.Length)
+        {
+            Array.Resize(ref this._items, (this._count * 2) + 1);
+        }
+    }
+
+    private void UpHeap(int startAt)
+    {
+        int i = startAt;
+        T[] items = this._items;
+        T item = items[i];
+        int parent = i >> 1; //i / 2;
+
+        while (parent > 0 && items[parent].CompareTo(item) > 0)
+        {
+            // Child > parent. Exchange with parent, thus moving the child up the queue
+            items[i] = items[parent];
+            i = parent;
+            parent = i >> 1; //i / 2;
+        }
+
+        items[i] = item;
+    }
+
+    private void DownHeap(int startAt)
+    {
+        int i = startAt;
+        int count = this._count;
+        int maxParent = count >> 1;
+        T[] items = this._items;
+        T item = items[i];
+
+        while (i <= maxParent)
+        {
+            int child = i + i;
+            //
+            // Exchange the item with the smaller of its two children - if one is smaller, i.e.
+            //
+            // First, find the smaller child
+            //
+            if (child < count && items[child].CompareTo(items[child + 1]) > 0)
+            {
+                child++;
+            }
+
+            if (item.CompareTo(items[child]) <= 0)
+            {
+                // Heap condition is satisfied. Parent <= both its children
+                break;
+            }
+
+            // Else, swap parent with the smallest child
+            items[i] = items[child];
+            i = child;
+        }
+
+        items[i] = item;
+    }
+
+    public virtual IEnumerator<T> GetEnumerator()
+    {
+        // The 0'th item in the queue is a sentinal. i is 1 based.
+        for (int i = 1; i <= this._count; ++i)
+        {
+            yield return this._items[i];
+        }
+    }
+
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    {
+        return this.GetEnumerator();
+    }
+
+    /// <summary>
+    /// Heap Sort in-place. 
+    /// This is destructive. Once you do this, the heap order is lost. 
+    /// The advantage on in-place is that we don't need to do another allocation
