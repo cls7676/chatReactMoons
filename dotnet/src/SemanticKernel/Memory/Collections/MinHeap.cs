@@ -237,3 +237,36 @@ internal class MinHeap<T> : IEnumerable<T> where T : IComparable<T>
     /// Heap Sort in-place. 
     /// This is destructive. Once you do this, the heap order is lost. 
     /// The advantage on in-place is that we don't need to do another allocation
+    /// </summary>
+    public void SortDescending()
+    {
+        int count = this._count;
+        int i = count; // remember that the 0'th item in the queue is always a sentinal. So i is 1 based
+
+        while (this._count > 0)
+        {
+            //
+            // this deques the item with the current LOWEST relevancy
+            // We take that and place it at the 'back' of the array - thus inverting it
+            //
+            T item = this.RemoveTop();
+            this._items[i--] = item;
+        }
+
+        this._count = count;
+    }
+
+    /// <summary>
+    /// Restores heap order
+    /// </summary>
+    internal void Restore()
+    {
+        this.Clear();
+        this.Add(this._items, 1);
+    }
+
+    internal void Sort(IComparer<T> comparer)
+    {
+        Array.Sort(this._items, 1, this._count, comparer);
+    }
+}
