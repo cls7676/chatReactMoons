@@ -19,4 +19,66 @@ public sealed class SemanticTextMemory : ISemanticTextMemory, IDisposable
     private readonly IEmbeddingGenerator<string, float> _embeddingGenerator;
     private readonly IMemoryStore<float> _storage;
 
-    public Sem
+    public SemanticTextMemory(
+        IMemoryStore<float> storage,
+        IEmbeddingGenerator<string, float> embeddingGenerator)
+    {
+        this._embeddingGenerator = embeddingGenerator;
+        this._storage = storage;
+    }
+
+    /// <inheritdoc/>
+    public async Task SaveInformationAsync(
+        string collection,
+        string text,
+        string id,
+        string? description = null,
+        CancellationToken cancel = default)
+    {
+        var embeddings = await this._embeddingGenerator.GenerateEmbeddingAsync(text);
+        MemoryRecord data = MemoryRecord.LocalRecord(id, text, description, embeddings);
+
+        await this._storage.PutValueAsync(collection, key: id, value: data, cancel: cancel);
+    }
+
+    /// <inheritdoc/>
+    public async Task SaveReferenceAsync(
+        string collection,
+        string text,
+        string externalId,
+        string externalSourceName,
+        string? description = null,
+        CancellationToken cancel = default)
+    {
+        var embedding = await this._embeddingGenerator.GenerateEmbeddingAsync(text);
+        var data = MemoryRecord.ReferenceRecord(externalId: externalId, sourceName: externalSourceName, description, embedding);
+
+        await this._storage.PutValueAsync(collection, key: externalId, value: data, cancel: cancel);
+    }
+
+    /// <inheritdoc/>
+    public async Task<MemoryQueryResult?> GetAsync(
+        string collection,
+        string key,
+        CancellationToken cancel = default)
+    {
+        DataEntry<IEmbeddingWithMetadata<float>>? record = await this._storage.GetAsync(collection, key, cancel);
+
+        if (record == null || record.Value == null || record.Value.Value == null) { return null; }
+
+        MemoryRecord result = (MemoryRecord)(record.Value.Value);
+
+        return MemoryQueryResult.FromMemoryRecord(result, 1);
+    }
+
+    /// <inheritdoc/>
+    public async IAsyncEnumerable<MemoryQueryResult> SearchAsync(
+        string collection,
+        string query,
+        int limit = 1,
+        double minRelevanceScore = 0.7,
+        [EnumeratorCancellation] CancellationToken cancel = default)
+    {
+        Embedding<float> queryEmbedding = await this._embeddingGenerator.GenerateEmbeddingAsync(query);
+
+        IAsyncEnumerable<(IEmbeddingWithMetadata<float>, double)> results = this._
