@@ -61,4 +61,21 @@ internal struct Score : IComparable<Score>, IEquatable<Score>
 
     public static bool operator <(Score left, Score right)
     {
-        return left.CompareTo(right
+        return left.CompareTo(right) < 0;
+    }
+
+    public static bool operator <=(Score left, Score right)
+    {
+        return left.CompareTo(right) <= 0;
+    }
+
+    public static bool operator >(Score left, Score right)
+    {
+        return left.CompareTo(right) > 0;
+    }
+
+    public static bool operator >=(Score left, Score right)
+    {
+        return left.CompareTo(right) >= 0;
+    }
+}
