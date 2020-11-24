@@ -72,4 +72,28 @@ internal struct ScoredValue<T> : IComparable<ScoredValue<T>>, IEquatable<ScoredV
         return !(left == right);
     }
 
-    public static bool operator <(ScoredValue<
+    public static bool operator <(ScoredValue<T> left, ScoredValue<T> right)
+    {
+        return left.CompareTo(right) < 0;
+    }
+
+    public static bool operator <=(ScoredValue<T> left, ScoredValue<T> right)
+    {
+        return left.CompareTo(right) <= 0;
+    }
+
+    public static bool operator >(ScoredValue<T> left, ScoredValue<T> right)
+    {
+        return left.CompareTo(right) > 0;
+    }
+
+    public static bool operator >=(ScoredValue<T> left, ScoredValue<T> right)
+    {
+        return left.CompareTo(right) >= 0;
+    }
+
+    public static ScoredValue<T> Min()
+    {
+        return new ScoredValue<T>(default!, Score.Min);
+    }
+}
