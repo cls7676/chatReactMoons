@@ -81,4 +81,27 @@ public sealed class SemanticTextMemory : ISemanticTextMemory, IDisposable
     {
         Embedding<float> queryEmbedding = await this._embeddingGenerator.GenerateEmbeddingAsync(query);
 
-        IAsyncEnumerable<(IEmbeddingWithMetadata<float>, double)> results = this._
+        IAsyncEnumerable<(IEmbeddingWithMetadata<float>, double)> results = this._storage.GetNearestMatchesAsync(
+            collection, queryEmbedding, limit: limit, minRelevanceScore: minRelevanceScore);
+
+        await foreach ((IEmbeddingWithMetadata<float>, double) result in results.WithCancellation(cancel))
+        {
+            yield return MemoryQueryResult.FromMemoryRecord((MemoryRecord)result.Item1, result.Item2);
+        }
+    }
+
+    /// <inheritdoc/>
+    public async Task<IList<string>> GetCollectionsAsync(CancellationToken cancel = default)
+    {
+        return await this._storage.GetCollectionsAsync(cancel).ToListAsync(cancel);
+    }
+
+    public void Dispose()
+    {
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (this._embeddingGenerator is IDisposable emb) { emb.Dispose(); }
+
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (this._storage is IDisposable storage) { storage.Dispose(); }
+    }
+}
