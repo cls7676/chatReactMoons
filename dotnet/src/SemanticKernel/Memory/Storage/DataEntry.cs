@@ -45,4 +45,80 @@ public struct DataEntry<TValue> : IEquatable<DataEntry<TValue>>
     /// Gets the timestamp of the data.
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public DateTimeOffset
+    public DateTimeOffset? Timestamp { get; set; } = null;
+
+    /// <summary>
+    /// Gets the data value type.
+    /// </summary>
+    [JsonIgnore]
+    public Type ValueType => typeof(TValue);
+
+    /// <summary>
+    /// <c>true</c> if the data has a value.
+    /// </summary>
+    [JsonIgnore]
+    public bool HasValue => (this.Value != null);
+
+    /// <summary>
+    /// <c>true</c> if the data has a timestamp.
+    /// </summary>
+    [JsonIgnore]
+    public bool HasTimestamp => this.Timestamp.HasValue;
+
+    /// <summary>
+    /// The <see cref="Value"/> as a <see cref="string"/>.
+    /// </summary>
+    [JsonIgnore]
+    public string? ValueString
+    {
+        get
+        {
+            if (this.ValueType == typeof(string))
+            {
+                return this.Value?.ToString();
+            }
+
+            if (this.Value != null)
+            {
+                return JsonSerializer.Serialize(this.Value);
+            }
+
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Compares two objects for equality.
+    /// </summary>
+    /// <param name="other">The <see cref="DataEntry{TValue}"/> to compare.</param>
+    /// <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+    public bool Equals(DataEntry<TValue> other)
+    {
+        return (other != null)
+               && (this.Key == other.Key)
+               && (this.Value?.Equals(other.Value) == true)
+               && (this.Timestamp == other.Timestamp);
+    }
+
+    /// <summary>
+    /// Determines whether two object instances are equal.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current object.</param>
+    /// <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+    public override bool Equals(object obj)
+    {
+        return (obj is DataEntry<TValue> other) && this.Equals(other);
+    }
+
+    /// <summary>
+    /// Serves as the default hash function.
+    /// </summary>
+    /// <returns>A hash code for the current object.</returns>
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(this.Key, this.Value, this.Timestamp);
+    }
+
+    /// <summary>
+    /// Returns a string that represents the current object.
+   
