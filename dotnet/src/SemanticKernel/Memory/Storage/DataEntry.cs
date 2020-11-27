@@ -121,4 +121,58 @@ public struct DataEntry<TValue> : IEquatable<DataEntry<TValue>>
 
     /// <summary>
     /// Returns a string that represents the current object.
-   
+    /// </summary>
+    /// <returns>Returns a string that represents the current object.</returns>
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this);
+    }
+
+    /// <summary>
+    /// Parses a <see cref="DataEntry{TValue}"/> object from a serialized JSON string.
+    /// </summary>
+    /// <param name="json">The source JSON string.</param>
+    /// <param name="entry">The resulting <see cref="DataEntry{TValue}"/>, or null if empty.</param>
+    /// <returns>true if parsing is successful, false otherwise.</returns>
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Parse type from string.")]
+    [SuppressMessage("Design", "CA1031:Modify to catch a more specific allowed exception type, or rethrow exception",
+        Justification = "Does not throw an exception by design.")]
+    public static bool TryParse(string json, [NotNullWhen(true)] out DataEntry<TValue>? entry)
+    {
+        try
+        {
+            entry = JsonSerializer.Deserialize<DataEntry<TValue>>(json);
+            return true;
+        }
+        catch
+        {
+            entry = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Compares two embeddings for equality.
+    /// </summary>
+    /// <param name="left">The left <see cref="DataEntry{TValue}"/>.</param>
+    /// <param name="right">The right <see cref="DataEntry{TValue}"/>.</param>
+    /// <returns><c>true</c> if the embeddings contain identical data.</returns>
+    public static bool operator ==(DataEntry<TValue> left, DataEntry<TValue> right)
+    {
+        return left.Equals(right);
+    }
+
+    /// <summary>
+    /// Compares two embeddings for inequality.
+    /// </summary>
+    /// <param name="left">The left <see cref="DataEntry{TValue}"/>.</param>
+    /// <param name="right">The right <see cref="DataEntry{TValue}"/>.</param>
+    /// <returns><c>true</c> if the embeddings do not contain identical data.</returns>
+    public static bool operator !=(DataEntry<TValue> left, DataEntry<TValue> right)
+    {
+        return !(left == right);
+    }
+}
+
+/// <summary>
+/// Provides a collection of static methods for creating, manipulating, and otherwise ope
