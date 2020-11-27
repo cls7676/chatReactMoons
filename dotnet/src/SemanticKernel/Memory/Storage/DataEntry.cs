@@ -175,4 +175,51 @@ public struct DataEntry<TValue> : IEquatable<DataEntry<TValue>>
 }
 
 /// <summary>
-/// Provides a collection of static methods for creating, manipulating, and otherwise ope
+/// Provides a collection of static methods for creating, manipulating, and otherwise operating on generic <see cref="DataEntry{TValue}"/> objects.
+/// </summary>
+public static class DataEntry
+{
+    /// <summary>
+    /// Creates a new <see cref="DataEntry{TValue}"/> object.
+    /// </summary>
+    /// <typeparam name="TValue">The data value <see cref="Type"/>.</typeparam>
+    /// <param name="key">The storage key for the data.</param>
+    /// <param name="value">The data value.</param>
+    /// <param name="timestamp">The data timestamp.</param>
+    /// <returns>A <see cref="DataEntry{TValue}"/> object.</returns>
+    public static DataEntry<TValue> Create<TValue>(string key, TValue? value, DateTimeOffset? timestamp = null)
+    {
+        Verify.NotEmpty(key, "Data entry key cannot be NULL");
+
+        return new DataEntry<TValue>(key, value, timestamp);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="DataEntry{TValue}"/> object from a string value.
+    /// </summary>
+    /// <typeparam name="TValue">The data value <see cref="Type"/>.</typeparam>
+    /// <param name="key">The storage key for the data.</param>
+    /// <param name="value">The data value.</param>
+    /// <param name="timestamp">The data timestamp.</param>
+    /// <returns>A <see cref="DataEntry{TValue}"/> object.</returns>
+    public static DataEntry<TValue> Create<TValue>(string key, string value, DateTimeOffset? timestamp = null)
+    {
+        Verify.NotEmpty(key, "Data entry key cannot be NULL");
+
+        TValue? valueObj = ParseValueAs<TValue>(value);
+        return new DataEntry<TValue>(key, valueObj, timestamp);
+    }
+
+    /// <summary>
+    /// Parses a <see cref="DataEntry{TValue}"/> object from a serialized JSON string.
+    /// </summary>
+    /// <typeparam name="TValue">The data value <see cref="Type"/>.</typeparam>
+    /// <param name="json">A JSON serialized string representing a <see cref="DataEntry{TValue}"/>.</param>
+    /// <param name="entry">Receives a <see cref="DataEntry{TValue}"/> object if successfully parsed. Null otherwise.</param>
+    /// <returns><c>true</c> if parsing is successful; <c>false</c> otherwise</returns>
+    public static bool TryParse<TValue>(string json, [NotNullWhen(true)] out DataEntry<TValue>? entry)
+    {
+        return DataEntry<TValue>.TryParse(json, out entry);
+    }
+
+    #region privat
