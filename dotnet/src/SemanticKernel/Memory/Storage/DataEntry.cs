@@ -222,4 +222,61 @@ public static class DataEntry
         return DataEntry<TValue>.TryParse(json, out entry);
     }
 
-    #region privat
+    #region private ================================================================================
+
+    [SuppressMessage("Design", "CA1031:Modify to catch a more specific allowed exception type, or rethrow exception",
+        Justification = "Does not throw an exception by design.")]
+    internal static TCastTo? ParseValueAs<TCastTo>(string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            if (typeof(TCastTo) == typeof(string))
+            {
+                // Force cast (we already know this is type string)
+                return (TCastTo)Convert.ChangeType(value, typeof(TCastTo), CultureInfo.InvariantCulture);
+            }
+
+            return JsonSerializer.Deserialize<TCastTo>(value);
+        }
+
+        return default;
+    }
+
+    // TODO: method never used
+    private static DataEntry<TCastTo>? As<TCastTo, TCastFrom>(DataEntry<TCastFrom> data)
+    {
+        if (data == null)
+        {
+            return default;
+        }
+
+        if (data.ValueType == typeof(TCastTo))
+        {
+            // To and From types are the same. Just cast to satisfy the compiler.
+            return (DataEntry<TCastTo>)Convert.ChangeType(data, typeof(DataEntry<TCastTo>), CultureInfo.InvariantCulture);
+        }
+
+        if (!data.HasValue)
+        {
+            // Data has no 'value' set. Create a new DataEntry with the desired type, and copy over the other properties.
+            return new DataEntry<TCastTo>(data.Key, default, data.Timestamp);
+        }
+
+        if (data.ValueType == typeof(string))
+        {
+            // Convert from a string value data to another type. Try to deserialize value.
+            TCastTo? destinationValue = ParseValueAs<TCastTo>(data.ValueString);
+            if (destinationValue == null)
+            {
+                // Cast failed. Return null DataEntry.
+                return default;
+            }
+
+            return new DataEntry<TCastTo>(data.Key, destinationValue, data.Timestamp);
+        }
+
+        if (typeof(TCastTo) == typeof(string))
+        {
+            // Convert from another value type to string. Use serialized value from ValueString.
+            // TODO: entry is never used
+            var entry = new DataEn
