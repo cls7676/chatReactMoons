@@ -31,4 +31,59 @@ public sealed class ContextVariables : IEnumerable<KeyValuePair<string, string>>
     /// <summary>
     /// Updates the main input text with the new value after a function is complete.
     /// </summary>
-    /// <param name="content">The new input value, for the ne
+    /// <param name="content">The new input value, for the next function in the pipeline, or as a result for the user
+    /// if the pipeline reached the end.</param>
+    /// <returns>The current instance</returns>
+    public ContextVariables Update(string content)
+    {
+        this._variables[MainKey] = content;
+        return this;
+    }
+
+    /// <summary>
+    /// Updates all the local data with new data, merging the two datasets.
+    /// Do not discard old data
+    /// </summary>
+    /// <param name="newData">New data to be merged</param>
+    /// <param name="merge">Whether to merge and keep old data, or replace. False == discard old data.</param>
+    /// <returns>The current instance</returns>
+    public ContextVariables Update(ContextVariables newData, bool merge = true)
+    {
+        // If requested, discard old data and keep only the new one.
+        if (!merge) { this._variables.Clear(); }
+
+        foreach (KeyValuePair<string, string> varData in newData._variables)
+        {
+            this._variables[varData.Key] = varData.Value;
+        }
+
+        return this;
+    }
+
+    /// <summary>
+    /// This method allows to store additional data in the context variables, e.g. variables needed by functions in the
+    /// pipeline. These "variables" are visible also to semantic functions using the "{{varName}}" syntax, allowing
+    /// to inject more information into prompt templates.
+    /// </summary>
+    /// <param name="name">Variable name</param>
+    /// <param name="value">Value to store. If the value is NULL the variable is deleted.</param>
+    /// TODO: support for more complex data types, and plan for rendering these values into prompt templates.
+    public void Set(string name, string? value)
+    {
+        Verify.NotEmpty(name, "The variable name is empty");
+        if (value != null)
+        {
+            this._variables[name] = value;
+        }
+        else
+        {
+            this._variables.TryRemove(name, out _);
+        }
+    }
+
+    /// <summary>
+    /// Fetch a variable value from the context variables.
+    /// </summary>
+    /// <param name="name">Variable name</param>
+    /// <param name="value">Value</param>
+    /// <returns>Whether the value exists in the context variables</r
