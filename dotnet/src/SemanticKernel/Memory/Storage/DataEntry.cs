@@ -279,4 +279,22 @@ public static class DataEntry
         {
             // Convert from another value type to string. Use serialized value from ValueString.
             // TODO: entry is never used
-            var entry = new DataEn
+            var entry = new DataEntry<string>(data.Key, data.ValueString, data.Timestamp);
+            return (DataEntry<TCastTo>)Convert.ChangeType(data, typeof(DataEntry<TCastTo>), CultureInfo.InvariantCulture);
+        }
+
+        // Converting between two non-string value types... see if there's a cast available
+        try
+        {
+            TCastTo destValue = (TCastTo)Convert.ChangeType(data.Value, typeof(TCastTo), CultureInfo.InvariantCulture);
+            return new DataEntry<TCastTo>(data.Key, destValue, data.Timestamp);
+        }
+        catch (InvalidCastException)
+        {
+            // Cast failed. Return null DataEntry.
+            return default;
+        }
+    }
+
+    #endregion
+}
