@@ -155,4 +155,12 @@ public sealed class ContextVariables : IEnumerable<KeyValuePair<string, string>>
         return clone;
     }
 
-    #region private ===================================================================
+    #region private ================================================================================
+
+    private const string MainKey = "INPUT";
+
+    // Important: names are case insensitive
+    private readonly ConcurrentDictionary<string, string> _variables = new(StringComparer.InvariantCultureIgnoreCase);
+
+    #endregion
+}
