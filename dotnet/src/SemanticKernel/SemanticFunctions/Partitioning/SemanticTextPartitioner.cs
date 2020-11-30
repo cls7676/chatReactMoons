@@ -74,4 +74,56 @@ public static class SemanticTextPartitioner
 
         lines = truncatedLines;
 
-        
+        // Group lines in paragraphs
+        var paragraphs = new List<string>();
+        var currentParagraph = new StringBuilder();
+        foreach (var line in lines)
+        {
+            // "+1" to account for the "new line" added by AppendLine()
+            if (TokenCount(currentParagraph.ToString()) + TokenCount(line) + 1 >= maxTokensPerParagraph &&
+                currentParagraph.Length > 0)
+            {
+                paragraphs.Add(currentParagraph.ToString().Trim());
+                currentParagraph.Clear();
+            }
+
+            currentParagraph.AppendLine(line);
+        }
+
+        if (currentParagraph.Length > 0)
+        {
+            paragraphs.Add(currentParagraph.ToString().Trim());
+            currentParagraph.Clear();
+        }
+
+        // distribute text more evenly in the last paragraphs when the last paragraph is too short.
+        if (paragraphs.Count > 1)
+        {
+            var lastParagraph = paragraphs[^1];
+            var secondLastParagraph = paragraphs[^2];
+
+            if (TokenCount(lastParagraph) < maxTokensPerParagraph / 4)
+            {
+                var lastParagraphTokens = lastParagraph.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var secondLastParagraphTokens = secondLastParagraph.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                var lastParagraphTokensCount = lastParagraphTokens.Length;
+                var secondLastParagraphTokensCount = secondLastParagraphTokens.Length;
+
+                if (lastParagraphTokensCount + secondLastParagraphTokensCount <= maxTokensPerParagraph)
+                {
+                    var newSecondLastParagraph = new StringBuilder();
+                    for (var i = 0; i < secondLastParagraphTokensCount; i++)
+                    {
+                        newSecondLastParagraph.Append(secondLastParagraphTokens[i])
+                            .Append(' ');
+                    }
+
+                    for (var i = 0; i < lastParagraphTokensCount; i++)
+                    {
+                        newSecondLastParagraph.Append(lastParagraphTokens[i])
+                            .Append(' ');
+                    }
+
+                    paragraphs[^2] = newSecondLastParagraph.ToString().Trim();
+                    
