@@ -202,4 +202,86 @@ public static class SemanticTextPartitioner
             }
             else
             {
-                result = Split(result, m
+                result = Split(result, maxTokensPerLine, splitOption, trim, out inputWasSplit);
+            }
+
+            if (!inputWasSplit)
+            {
+                break;
+            }
+        }
+
+        return result ?? new List<string>();
+    }
+
+    private static List<string> Split(IEnumerable<string> input, int maxTokens, List<char>? separators, bool trim, out bool inputWasSplit)
+    {
+        inputWasSplit = false;
+        var result = new List<string>();
+        foreach (string text in input)
+        {
+            result.AddRange(Split(text, maxTokens, separators, trim, out bool split));
+            inputWasSplit = inputWasSplit || split;
+        }
+
+        return result;
+    }
+
+    private static List<string> Split(string input, int maxTokens, List<char>? separators, bool trim, out bool inputWasSplit)
+    {
+        inputWasSplit = false;
+        var asIs = new List<string> { trim ? input.Trim() : input };
+        if (TokenCount(input) <= maxTokens)
+        {
+            return asIs;
+        }
+
+        inputWasSplit = true;
+        var result = new List<string>();
+
+        int half = input.Length / 2;
+        int cutPoint = -1;
+
+        if (separators == null || separators.Count == 0)
+        {
+            cutPoint = half;
+        }
+        else if (input.Any(separators.Contains) && input.Length > 2)
+        {
+            for (var index = 0; index < input.Length - 1; index++)
+            {
+                if (!separators.Contains(input[index]))
+                {
+                    continue;
+                }
+
+                if (Math.Abs(half - index) < Math.Abs(half - cutPoint))
+                {
+                    cutPoint = index + 1;
+                }
+            }
+        }
+
+        if (cutPoint > 0)
+        {
+            var firstHalf = input[..cutPoint];
+            var secondHalf = input[cutPoint..];
+            if (trim)
+            {
+                firstHalf = firstHalf.Trim();
+                secondHalf = secondHalf.Trim();
+            }
+
+            // Recursion
+            result.AddRange(Split(firstHalf, maxTokens, separators, trim, out bool split1));
+            result.AddRange(Split(secondHalf, maxTokens, separators, trim, out bool split2));
+
+            inputWasSplit = split1 || split2;
+
+            return result;
+        }
+
+        return asIs;
+    }
+
+    priv
