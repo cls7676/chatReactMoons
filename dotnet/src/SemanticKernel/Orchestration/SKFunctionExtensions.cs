@@ -34,3 +34,63 @@ public static class SKFunctionExtensions
     /// <param name="maxTokens">Tokens count</param>
     /// <returns>Self instance</returns>
     public static ISKFunction UseMaxTokens(this ISKFunction skFunction, int maxTokens)
+    {
+        skFunction.RequestSettings.MaxTokens = maxTokens;
+        return skFunction;
+    }
+
+    /// <summary>
+    /// Change the LLM Temperature configuration
+    /// </summary>
+    /// <param name="skFunction">Semantic function</param>
+    /// <param name="temperature">Temperature value</param>
+    /// <returns>Self instance</returns>
+    public static ISKFunction UseTemperature(this ISKFunction skFunction, double temperature)
+    {
+        skFunction.RequestSettings.Temperature = temperature;
+        return skFunction;
+    }
+
+    /// <summary>
+    /// Change the Max Tokens configuration
+    /// </summary>
+    /// <param name="skFunction">Semantic function</param>
+    /// <param name="topP">TopP value</param>
+    /// <returns>Self instance</returns>
+    public static ISKFunction UseTopP(this ISKFunction skFunction, double topP)
+    {
+        skFunction.RequestSettings.TopP = topP;
+        return skFunction;
+    }
+
+    /// <summary>
+    /// Change the Max Tokens configuration
+    /// </summary>
+    /// <param name="skFunction">Semantic function</param>
+    /// <param name="presencePenalty">Presence penalty value</param>
+    /// <returns>Self instance</returns>
+    public static ISKFunction UsePresencePenalty(this ISKFunction skFunction, double presencePenalty)
+    {
+        skFunction.RequestSettings.PresencePenalty = presencePenalty;
+        return skFunction;
+    }
+
+    /// <summary>
+    /// Change the Max Tokens configuration
+    /// </summary>
+    /// <param name="skFunction">Semantic function</param>
+    /// <param name="frequencyPenalty">Frequency penalty value</param>
+    /// <returns>Self instance</returns>
+    public static ISKFunction UseFrequencyPenalty(this ISKFunction skFunction, double frequencyPenalty)
+    {
+        skFunction.RequestSettings.FrequencyPenalty = frequencyPenalty;
+        return skFunction;
+    }
+
+    /// <summary>
+    /// Execute a function with a custom set of context variables.
+    /// Use case: template engine: semantic function with custom input variable.
+    /// </summary>
+    /// <param name="function">Function to execute</param>
+    /// <param name="input">Custom function input</param>
+    /// <param name="memory">Semantic memory</
