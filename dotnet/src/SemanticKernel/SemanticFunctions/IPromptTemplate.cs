@@ -15,4 +15,13 @@ public interface IPromptTemplate
     /// <summary>
     /// Get the list of parameters required by the template, using configuration and template info.
     /// </summary>
-    /// <retu
+    /// <returns>List of parameters</returns>
+    IList<ParameterView> GetParameters();
+
+    /// <summary>
+    /// Render the template using the information in the context
+    /// </summary>
+    /// <param name="executionContext">Kernel execution context helpers</param>
+    /// <returns>Prompt rendered to string</returns>
+    public Task<string> RenderAsync(SKContext executionContext);
+}
