@@ -126,4 +126,80 @@ public static class SemanticTextPartitioner
                     }
 
                     paragraphs[^2] = newSecondLastParagraph.ToString().Trim();
-                    
+                    paragraphs.RemoveAt(paragraphs.Count - 1);
+                }
+            }
+        }
+
+        return paragraphs;
+    }
+
+    private static List<string> InternalSplitPlaintextLines(string text, int maxTokensPerLine, bool trim)
+    {
+        text = text.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);
+
+        var splitOptions = new List<List<char>?>
+        {
+            new List<char> { '\n', '\r' },
+            new List<char> { '.' },
+            new List<char> { '?', '!' },
+            new List<char> { ';' },
+            new List<char> { ':' },
+            new List<char> { ',' },
+            new List<char> { ')', ']', '}' },
+            new List<char> { ' ' },
+            new List<char> { '-' },
+            null
+        };
+
+        List<string>? result = null;
+        bool inputWasSplit;
+        foreach (var splitOption in splitOptions)
+        {
+            if (result is null)
+            {
+                result = Split(text, maxTokensPerLine, splitOption, trim, out inputWasSplit);
+            }
+            else
+            {
+                result = Split(result, maxTokensPerLine, splitOption, trim, out inputWasSplit);
+            }
+
+            if (!inputWasSplit)
+            {
+                break;
+            }
+        }
+
+        return result ?? new List<string>();
+    }
+
+    private static List<string> InternalSplitMarkdownLines(string text, int maxTokensPerLine, bool trim)
+    {
+        text = text.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);
+
+        var splitOptions = new List<List<char>?>
+        {
+            new List<char> { '.' },
+            new List<char> { '?', '!' },
+            new List<char> { ';', },
+            new List<char> { ':' },
+            new List<char> { ',', },
+            new List<char> { ')', ']', '}' },
+            new List<char> { ' ' },
+            new List<char> { '-' },
+            new List<char> { '\n', '\r' },
+            null
+        };
+
+        List<string>? result = null;
+        bool inputWasSplit;
+        foreach (var splitOption in splitOptions)
+        {
+            if (result is null)
+            {
+                result = Split(text, maxTokensPerLine, splitOption, trim, out inputWasSplit);
+            }
+            else
+            {
+                result = Split(result, m
