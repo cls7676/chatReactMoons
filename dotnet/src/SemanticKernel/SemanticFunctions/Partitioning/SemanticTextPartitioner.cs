@@ -284,4 +284,10 @@ public static class SemanticTextPartitioner
         return asIs;
     }
 
-    priv
+    private static int TokenCount(string input)
+    {
+        // TODO: partitioning methods should be configurable to allow for different tokenization strategies
+        //       depending on the model to be called. For now, we use an extremely rough estimate.
+        return input.Length / 4;
+    }
+}
