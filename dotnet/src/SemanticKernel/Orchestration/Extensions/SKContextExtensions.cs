@@ -49,3 +49,5 @@ internal static class SKContextExtensions
                 KernelException.ErrorCodes.SkillCollectionNotSet,
                 "Skill collection not found in the context");
         }
+    }
+}
