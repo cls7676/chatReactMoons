@@ -84,4 +84,57 @@ public class PromptTemplateEngine : IPromptTemplateEngine
                     result.Append(block.Render(executionContext.Variables));
                     break;
 
-                case BlockTypes.Code
+                case BlockTypes.Code:
+                    result.Append(await block.RenderCodeAsync(executionContext));
+                    break;
+
+                case BlockTypes.Undefined:
+                default:
+                    throw new InvalidEnumArgumentException(nameof(blocks), (int)block.Type, typeof(BlockTypes));
+            }
+        }
+
+        this._log.LogDebug("Rendered prompt: {0}", result);
+        return result.ToString();
+    }
+
+    /// <summary>
+    /// Given a list of blocks, render the Variable Blocks, replacing placeholders with the actual value in memory
+    /// </summary>
+    /// <param name="blocks">List of blocks, typically all the blocks found in a template</param>
+    /// <param name="variables">Container of all the temporary variables known to the kernel</param>
+    /// <returns>An updated list of blocks where Variable Blocks have rendered to Text Blocks</returns>
+    public IList<Block> RenderVariables(IList<Block> blocks, ContextVariables? variables)
+    {
+        this._log.LogTrace("Rendering variables");
+        return blocks.Select(block => block.Type != BlockTypes.Variable
+            ? block
+            : new TextBlock(block.Render(variables), this._log)).ToList();
+    }
+
+    /// <summary>
+    /// Given a list of blocks, render the Code Blocks, executing the functions and replacing placeholders with the functions result
+    /// </summary>
+    /// <param name="blocks">List of blocks, typically all the blocks found in a template</param>
+    /// <param name="executionContext">Access into the current kernel execution context</param>
+    /// <returns>An updated list of blocks where Code Blocks have rendered to Text Blocks</returns>
+    public async Task<IList<Block>> RenderCodeAsync(
+        IList<Block> blocks,
+        SKContext executionContext)
+    {
+        this._log.LogTrace("Rendering code");
+        var updatedBlocks = new List<Block>();
+        foreach (var block in blocks)
+        {
+            if (block.Type != BlockTypes.Code)
+            {
+                updatedBlocks.Add(block);
+            }
+            else
+            {
+                var codeResult = await block.RenderCodeAsync(executionContext);
+                updatedBlocks.Add(new TextBlock(codeResult, this._log));
+            }
+        }
+
+  
