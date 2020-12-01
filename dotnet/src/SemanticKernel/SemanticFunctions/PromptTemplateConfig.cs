@@ -108,4 +108,75 @@ public class PromptTemplateConfig
 
     /// <summary>
     /// Schema - Not currently used.
-    /// </
+    /// </summary>
+    [JsonPropertyName("schema")]
+    [JsonPropertyOrder(1)]
+    public int Schema { get; set; } = 1;
+
+    /// <summary>
+    /// Type, such as "completion", "embeddings", etc.
+    /// </summary>
+    /// <remarks>TODO: use enum</remarks>
+    [JsonPropertyName("type")]
+    [JsonPropertyOrder(2)]
+    public string Type { get; set; } = "completion";
+
+    /// <summary>
+    /// Description
+    /// </summary>
+    [JsonPropertyName("description")]
+    [JsonPropertyOrder(3)]
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Completion configuration parameters.
+    /// </summary>
+    [JsonPropertyName("completion")]
+    [JsonPropertyOrder(4)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CompletionConfig Completion { get; set; } = new();
+
+    /// <summary>
+    /// Default backends to use.
+    /// </summary>
+    [JsonPropertyName("default_backends")]
+    [JsonPropertyOrder(5)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string> DefaultBackends { get; set; } = new();
+
+    /// <summary>
+    /// Input configuration (that is, list of all input parameters).
+    /// </summary>
+    [JsonPropertyName("input")]
+    [JsonPropertyOrder(6)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public InputConfig Input { get; set; } = new();
+
+    /// <summary>
+    /// Remove some default properties to reduce the JSON complexity.
+    /// </summary>
+    /// <returns>Compacted prompt template configuration.</returns>
+    public PromptTemplateConfig Compact()
+    {
+        if (this.Completion.StopSequences.Count == 0)
+        {
+            this.Completion.StopSequences = null!;
+        }
+
+        if (this.DefaultBackends.Count == 0)
+        {
+            this.DefaultBackends = null!;
+        }
+
+        return this;
+    }
+
+    /// <summary>
+    /// Creates a prompt template configuration from JSON.
+    /// </summary>
+    /// <param name="json">JSON of the prompt template configuration.</param>
+    /// <returns>Prompt template configuration.</returns>
+    public static PromptTemplateConfig FromJson(string json)
+    {
+        var result = Json.Deserialize<PromptTemplateConfig>(json);
+        Veri
