@@ -14,4 +14,16 @@ namespace Microsoft.SemanticKernel.SkillDefinition;
 public sealed class SKFunctionAttribute : Attribute
 {
     /// <summary>
-    /// Function description, to be used by the planner to auto-discover 
+    /// Function description, to be used by the planner to auto-discover functions.
+    /// </summary>
+    public string Description { get; }
+
+    /// <summary>
+    /// Tag a C# function as a native function available to SK.
+    /// </summary>
+    /// <param name="description">Function description, to be used by the planner to auto-discover functions.</param>
+    public SKFunctionAttribute(string description)
+    {
+        this.Description = description;
+    }
+}
