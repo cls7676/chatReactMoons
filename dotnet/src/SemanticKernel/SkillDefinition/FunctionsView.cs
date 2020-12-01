@@ -71,3 +71,40 @@ public sealed class FunctionsView
         var sf = this.SemanticFunctions.ContainsKey(skillName)
                  && this.SemanticFunctions[skillName]
                      .Any(x => string.Equals(x.Name, functionName, StringComparison.OrdinalIgnoreCase));
+
+        var nf = this.NativeFunctions.ContainsKey(skillName)
+                 && this.NativeFunctions[skillName]
+                     .Any(x => string.Equals(x.Name, functionName, StringComparison.OrdinalIgnoreCase));
+
+        if (sf && nf)
+        {
+            throw new AmbiguousImplementationException("There are 2 functions with the same name, one native and one semantic");
+        }
+
+        return sf;
+    }
+
+    /// <summary>
+    /// Returns true if the function specified is unique and native
+    /// </summary>
+    /// <param name="skillName">Skill name</param>
+    /// <param name="functionName">Function name</param>
+    /// <returns>True if unique and native</returns>
+    public bool IsNative(string skillName, string functionName)
+    {
+        var sf = this.SemanticFunctions.ContainsKey(skillName)
+                 && this.SemanticFunctions[skillName]
+                     .Any(x => string.Equals(x.Name, functionName, StringComparison.OrdinalIgnoreCase));
+
+        var nf = this.NativeFunctions.ContainsKey(skillName)
+                 && this.NativeFunctions[skillName]
+                     .Any(x => string.Equals(x.Name, functionName, StringComparison.OrdinalIgnoreCase));
+
+        if (sf && nf)
+        {
+            throw new AmbiguousImplementationException("There are 2 functions with the same name, one native and one semantic");
+        }
+
+        return nf;
+    }
+}
