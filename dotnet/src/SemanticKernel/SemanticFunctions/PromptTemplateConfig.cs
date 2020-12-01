@@ -46,4 +46,66 @@ public class PromptTemplateConfig
         /// Controls the model’s tendency to repeat predictions. The frequency penalty reduces the probability
         /// of words that have already been generated. The penalty depends on how many times a word has already
         /// occurred in the prediction.
-  
+        /// </summary>
+        [JsonPropertyName("frequency_penalty")]
+        [JsonPropertyOrder(4)]
+        public double FrequencyPenalty { get; set; } = 0.0f;
+
+        /// <summary>
+        /// Maximum number of tokens that can be generated.
+        /// </summary>
+        [JsonPropertyName("max_tokens")]
+        [JsonPropertyOrder(5)]
+        public int MaxTokens { get; set; } = 256;
+
+        /// <summary>
+        /// Stop sequences are optional sequences that tells the backend when to stop generating tokens.
+        /// </summary>
+        [JsonPropertyName("stop_sequences")]
+        [JsonPropertyOrder(6)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<string> StopSequences { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Input parameter for semantic functions.
+    /// </summary>
+    public class InputParameter
+    {
+        /// <summary>
+        /// Name of the parameter to pass to the function.
+        /// e.g. when using "{{$input}}" the name is "input", when using "{{$style}}" the name is "style", etc.
+        /// </summary>
+        [JsonPropertyName("name")]
+        [JsonPropertyOrder(1)]
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Parameter description for UI apps and planner. Localization is not supported here.
+        /// </summary>
+        [JsonPropertyName("description")]
+        [JsonPropertyOrder(2)]
+        public string Description { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Default value when nothing is provided.
+        /// </summary>
+        [JsonPropertyName("defaultValue")]
+        [JsonPropertyOrder(3)]
+        public string DefaultValue { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Input configuration (list of all input parameters for a semantic function).
+    /// </summary>
+    public class InputConfig
+    {
+        [JsonPropertyName("parameters")]
+        [JsonPropertyOrder(1)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<InputParameter> Parameters { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Schema - Not currently used.
+    /// </
