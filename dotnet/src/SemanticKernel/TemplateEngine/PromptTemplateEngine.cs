@@ -137,4 +137,67 @@ public class PromptTemplateEngine : IPromptTemplateEngine
             }
         }
 
-  
+        return updatedBlocks;
+    }
+
+    #region private ================================================================================
+
+    private readonly ILogger _log;
+
+    // Blocks delimitation
+    private const char Starter = '{';
+    private const char Ender = '}';
+
+    private IList<Block> TokenizeInternal(string? template)
+    {
+        // An empty block consists of 4 chars: "{{}}"
+        const int EMPTY_CODE_BLOCK_LENGTH = 4;
+        // A block shorter than 5 chars is either empty or invalid, e.g. "{{ }}" and "{{$}}"
+        const int MIN_CODE_BLOCK_LENGTH = EMPTY_CODE_BLOCK_LENGTH + 1;
+
+        // Render NULL to ""
+        if (template == null)
+        {
+            return new List<Block> { new TextBlock("", this._log) };
+        }
+
+        // If the template is "empty" return the content as a text block
+        if (template.Length < MIN_CODE_BLOCK_LENGTH)
+        {
+            return new List<Block> { new TextBlock(template, this._log) };
+        }
+
+        var blocks = new List<Block>();
+
+        var cursor = 0;
+        var endOfLastBlock = 0;
+
+        var startPos = 0;
+        var startFound = false;
+
+        while (cursor < template.Length - 1)
+        {
+            // When "{{" is found
+            if (template[cursor] == Starter && template[cursor + 1] == Starter)
+            {
+                startPos = cursor;
+                startFound = true;
+            }
+            // When "}}" is found
+            else if (startFound && template[cursor] == Ender && template[cursor + 1] == Ender)
+            {
+                // If there is plain text between the current var/code block and the previous one, capture that as a TextBlock
+                if (startPos > endOfLastBlock)
+                {
+                    blocks.Add(new TextBlock(template, endOfLastBlock, startPos, this._log));
+                }
+
+                // Skip ahead to the second "}" of "}}"
+                cursor++;
+
+                // Extract raw block
+                var contentWithDelimiters = SubStr(template, startPos, cursor + 1);
+
+                // Remove "{{" and "}}" delimiters and trim empty chars
+                var contentWithoutDelimiters = contentWithDelimiters
+                    .Substring(2, contentWithDeli
