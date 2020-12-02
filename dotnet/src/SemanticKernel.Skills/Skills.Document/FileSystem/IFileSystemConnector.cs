@@ -29,4 +29,14 @@ public interface IFileSystemConnector
     /// Create a new file and get a writeable stream to it.
     /// </summary>
     /// <param name="filePath">Path to file.</param>
-  
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public Task<Stream> CreateFileAsync(string filePath, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Determine whether a file exists at the specified path.
+    /// </summary>
+    /// <param name="filePath">Path to file.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>True if file exists, false otherwise.</returns>
+    public Task<bool> FileExistsAsync(string filePath, CancellationToken cancellationToken = default);
+}
