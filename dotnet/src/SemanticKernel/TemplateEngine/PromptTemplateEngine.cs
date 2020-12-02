@@ -200,4 +200,59 @@ public class PromptTemplateEngine : IPromptTemplateEngine
 
                 // Remove "{{" and "}}" delimiters and trim empty chars
                 var contentWithoutDelimiters = contentWithDelimiters
-                    .Substring(2, contentWithDeli
+                    .Substring(2, contentWithDelimiters.Length - EMPTY_CODE_BLOCK_LENGTH).Trim();
+
+                if (contentWithoutDelimiters.Length == 0)
+                {
+                    // If what is left is empty, consider the raw block a Text Block
+                    blocks.Add(new TextBlock(contentWithDelimiters, this._log));
+                }
+                else
+                {
+                    // If the block starts with "$" it's a variable
+                    if (VarBlock.HasVarPrefix(contentWithoutDelimiters))
+                    {
+                        // Note: validation is delayed to the time VarBlock is rendered
+                        blocks.Add(new VarBlock(contentWithoutDelimiters, this._log));
+                    }
+                    else
+                    {
+                        // Note: validation is delayed to the time CodeBlock is rendered
+                        blocks.Add(new CodeBlock(contentWithoutDelimiters, this._log));
+                    }
+                }
+
+                endOfLastBlock = cursor + 1;
+                startFound = false;
+            }
+
+            cursor++;
+        }
+
+        // If there is something left after the last block, capture it as a TextBlock
+        if (endOfLastBlock < template.Length)
+        {
+            blocks.Add(new TextBlock(template, endOfLastBlock, template.Length, this._log));
+        }
+
+        return blocks;
+    }
+
+    private static string SubStr(string text, int startIndex, int stopIndex)
+    {
+        return text.Substring(startIndex, stopIndex - startIndex);
+    }
+
+    private static void ValidateBlocksSyntax(IList<Block> blocks)
+    {
+        foreach (var block in blocks)
+        {
+            if (!block.IsValid(out var error))
+            {
+                throw new TemplateException(TemplateException.ErrorCodes.SyntaxError, error);
+            }
+        }
+    }
+
+    #endregion
+}
