@@ -78,4 +78,26 @@ public sealed class OpenAIEmbeddingTests : IDisposable
 
     #region internals
 
-    private readonly RedirectOutput _testOutputHelper
+    private readonly RedirectOutput _testOutputHelper;
+
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    ~OpenAIEmbeddingTests()
+    {
+        this.Dispose(false);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            this._testOutputHelper.Dispose();
+        }
+    }
+
+    #endregion
+}
