@@ -48,4 +48,26 @@ For example:
 }
 ```
 
-3. (Optional) You may also set the test settings in your environment variables. The environment variables will override the settings in the `testsettings.development.json` file. When setting environment variables, use a double underscore (i.e. "
+3. (Optional) You may also set the test settings in your environment variables. The environment variables will override the settings in the `testsettings.development.json` file. When setting environment variables, use a double underscore (i.e. "\_\_") to delineate between parent and child properties. For example:
+
+    - bash:
+
+      ```bash
+      export OpenAI__ApiKey="sk-...."
+      export AzureOpenAI__ApiKey="...."
+      export AzureOpenAI__DeploymentName="azure-text-davinci-003"
+      export AzureOpenAIEmbedding__DeploymentName="azure-text-embedding-ada-002"
+      export AzureOpenAI__Endpoint="https://contoso.openai.azure.com/"
+      export Bing__ApiKey="...."
+      ```
+
+    - PowerShell:
+
+      ```ps
+      $env:OpenAI__ApiKey = "sk-...."
+      $env:AzureOpenAI__ApiKey = "...."
+      $env:AzureOpenAI__DeploymentName = "azure-text-davinci-003"
+      $env:AzureOpenAIEmbedding__DeploymentName = "azure-text-embedding-ada-002"
+      $env:AzureOpenAI__Endpoint = "https://contoso.openai.azure.com/"
+      $env:Bing__ApiKey = "...."
+      ```
