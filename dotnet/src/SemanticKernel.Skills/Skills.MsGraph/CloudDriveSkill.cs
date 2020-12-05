@@ -31,4 +31,60 @@ public class CloudDriveSkill
 
     public CloudDriveSkill(ICloudDriveConnector connector, ILogger<CloudDriveSkill>? logger = null)
     {
-        Ensure.NotNull(conne
+        Ensure.NotNull(connector, nameof(connector));
+
+        this._connector = connector;
+        this._logger = logger ?? new NullLogger<CloudDriveSkill>();
+    }
+
+    /// <summary>
+    /// Get the contents of a file stored in a cloud drive.
+    /// </summary>
+    [SKFunction("Get the contents of a file in a cloud drive.")]
+    [SKFunctionInput(Description = "Path to file")]
+    public async Task<string> GetFileContentAsync(string filePath, SKContext context)
+    {
+        this._logger.LogDebug("Getting file content for '{0}'", filePath);
+        Stream fileContentStream = await this._connector.GetFileContentStreamAsync(filePath, context.CancellationToken);
+
+        using StreamReader sr = new StreamReader(fileContentStream);
+        string content = await sr.ReadToEndAsync();
+        this._logger.LogDebug("File content: {0}", content);
+        return content;
+    }
+
+    /// <summary>
+    /// Upload a small file to OneDrive (less than 4MB).
+    /// </summary>
+    [SKFunction("Upload a small file to OneDrive (less than 4MB).")]
+    public async Task UploadFileAsync(string filePath, SKContext context)
+    {
+        if (!context.Variables.Get(Parameters.DestinationPath, out string destinationPath))
+        {
+            context.Fail($"Missing variable {Parameters.DestinationPath}.");
+            return;
+        }
+
+        this._logger.LogDebug("Uploading file '{0}'", filePath);
+
+        // TODO Add support for large file uploads (i.e. upload sessions)
+
+        try
+        {
+            await this._connector.UploadSmallFileAsync(filePath, destinationPath, context.CancellationToken);
+        }
+        catch (IOException ex)
+        {
+            context.Fail(ex.Message, ex);
+        }
+    }
+
+    /// <summary>
+    /// Create a sharable link to a file stored in a cloud drive.
+    /// </summary>
+    [SKFunction("Create a sharable link to a file stored in a cloud drive.")]
+    [SKFunctionInput(Description = "Path to file")]
+    public async Task<string> CreateLinkAsync(string filePath, SKContext context)
+    {
+        this._logger.LogDebug("Creating link for '{0}'", filePath);
+        const string type = "view"; // TODO expose this a
