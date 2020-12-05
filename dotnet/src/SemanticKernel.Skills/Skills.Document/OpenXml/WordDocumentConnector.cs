@@ -36,4 +36,32 @@ public class WordDocumentConnector : IDocumentConnector
     /// <exception cref="OpenXmlPackageException"></exception>
     public void Initialize(Stream stream)
     {
-        using (WordprocessingDocument wo
+        using (WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+        {
+            wordprocessingDocument.Initialize();
+        }
+
+        // This is a workaround for a bug with the OpenXML SDK [TODO: add bug number]
+        using (WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open(stream, false)) { }
+    }
+
+    /// <summary>
+    /// Append the specified text to the document. This requires read-write permissions.
+    /// </summary>
+    /// <param name="stream">Document stream</param>
+    /// <param name="text">String of text to write to the document.</param>
+    /// <exception cref="System.ArgumentNullException"></exception>
+    /// <exception cref="System.InvalidOperationException"></exception>
+    /// <exception cref="IOException"></exception>
+    /// <exception cref="OpenXmlPackageException"></exception>
+    public void AppendText(Stream stream, string text)
+    {
+        using (WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open(stream, true))
+        {
+            wordprocessingDocument.AppendText(text);
+        }
+
+        // This is a workaround for a bug with the OpenXML SDK [TODO: add bug number]
+        using (WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open(stream, false)) { }
+    }
+}
