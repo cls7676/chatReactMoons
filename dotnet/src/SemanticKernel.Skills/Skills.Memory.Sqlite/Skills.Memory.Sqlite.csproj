@@ -6,22 +6,28 @@
   <Import Project="$(RepoRoot)/dotnet/nuget/nuget-package.props" />
 
   <PropertyGroup>
-    <AssemblyName>Microsoft.SemanticKernel.Skills.Document</AssemblyName>
-    <RootNamespace>Microsoft.SemanticKernel.Skills.Document</RootNamespace>
+    <AssemblyName>Microsoft.SemanticKernel.Skills.Memory.Sqlite</AssemblyName>
+    <RootNamespace>Microsoft.SemanticKernel.Skills.Memory.Sqlite</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
     <!-- NuGet Package Settings -->
-    <PackageId>Microsoft.SemanticKernel.Skills.Document</PackageId>
-    <Title>Semantic Kernel - Document Skill</Title>
+    <PackageId>Microsoft.SemanticKernel.Skills.Memory.Sqlite</PackageId>
+    <Title>Semantic Kernel - SQLite Connector</Title>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" />
+    <PackageReference Include="Microsoft.Data.Sqlite" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\SemanticKernel\SemanticKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>SemanticKernelConnectorsSqliteTests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
