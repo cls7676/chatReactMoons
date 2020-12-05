@@ -81,4 +81,42 @@ public class CalendarSkill
         if (string.IsNullOrWhiteSpace(subject))
         {
             context.Fail($"Missing variables input to use as event subject.");
-            ret
+            return;
+        }
+
+        if (!memory.Get(Parameters.Start, out string start))
+        {
+            context.Fail($"Missing variable {Parameters.Start}.");
+            return;
+        }
+
+        if (!memory.Get(Parameters.End, out string end))
+        {
+            context.Fail($"Missing variable {Parameters.End}.");
+            return;
+        }
+
+        CalendarEvent calendarEvent = new CalendarEvent(
+            memory.Input,
+            DateTimeOffset.Parse(start, CultureInfo.InvariantCulture.DateTimeFormat),
+            DateTimeOffset.Parse(end, CultureInfo.InvariantCulture.DateTimeFormat));
+
+        if (memory.Get(Parameters.Location, out string location))
+        {
+            calendarEvent.Location = location;
+        }
+
+        if (memory.Get(Parameters.Content, out string content))
+        {
+            calendarEvent.Content = content;
+        }
+
+        if (memory.Get(Parameters.Attendees, out string attendees))
+        {
+            calendarEvent.Attendees = attendees.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        this._logger.LogInformation("Adding calendar event '{0}'", calendarEvent.Subject);
+        await this._connector.AddEventAsync(calendarEvent);
+    }
+}
