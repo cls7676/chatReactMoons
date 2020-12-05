@@ -49,4 +49,27 @@ internal static class WordprocessingDocumentEx
         return sb.ToString();
     }
 
-    internal static void AppendText(this WordprocessingDocument wordproces
+    internal static void AppendText(this WordprocessingDocument wordprocessingDocument, string text)
+    {
+        if (text is null)
+        {
+            throw new ArgumentNullException(nameof(text));
+        }
+
+        MainDocumentPart? mainPart = wordprocessingDocument.MainDocumentPart;
+        if (mainPart is null)
+        {
+            throw new InvalidOperationException("The main document part is missing.");
+        }
+
+        Body? body = mainPart.Document.Body;
+        if (body is null)
+        {
+            throw new InvalidOperationException("The document body is missing.");
+        }
+
+        Paragraph para = body.AppendChild(new Paragraph());
+        Run run = para.AppendChild(new Run());
+        run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.Text(text));
+    }
+}
