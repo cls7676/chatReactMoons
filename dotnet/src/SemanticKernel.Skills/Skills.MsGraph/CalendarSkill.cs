@@ -23,4 +23,62 @@ public class CalendarSkill
     public static class Parameters
     {
         /// <summary>
-        /// Event start as DateTimeOffs
+        /// Event start as DateTimeOffset.
+        /// </summary>
+        public const string Start = "start";
+
+        /// <summary>
+        /// Event end as DateTimeOffset.
+        /// </summary>
+        public const string End = "end";
+
+        /// <summary>
+        /// Event's location.
+        /// </summary>
+        public const string Location = "location";
+
+        /// <summary>
+        /// Event's content.
+        /// </summary>
+        public const string Content = "content";
+
+        /// <summary>
+        /// Event's attendees, separated by ',' or ';'.
+        /// </summary>
+        public const string Attendees = "attendees";
+    }
+
+    private readonly ICalendarConnector _connector;
+    private readonly ILogger<CalendarSkill> _logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CalendarSkill"/> class.
+    /// </summary>
+    /// <param name="connector">Calendar connector.</param>
+    /// <param name="logger">Logger.</param>
+    public CalendarSkill(ICalendarConnector connector, ILogger<CalendarSkill>? logger = null)
+    {
+        Ensure.NotNull(connector, nameof(connector));
+
+        this._connector = connector;
+        this._logger = logger ?? new NullLogger<CalendarSkill>();
+    }
+
+    /// <summary>
+    /// Add an event to my calendar using <see cref="ContextVariables.Input"/> as the subject.
+    /// </summary>
+    [SKFunction("Add an event to my calendar.")]
+    [SKFunctionInput(Description = "Event subject")]
+    [SKFunctionContextParameter(Name = Parameters.Start, Description = "Event start date/time as DateTimeOffset")]
+    [SKFunctionContextParameter(Name = Parameters.End, Description = "Event end date/time as DateTimeOffset")]
+    [SKFunctionContextParameter(Name = Parameters.Location, Description = "Event location (optional)")]
+    [SKFunctionContextParameter(Name = Parameters.Content, Description = "Event content/body (optional)")]
+    [SKFunctionContextParameter(Name = Parameters.Attendees, Description = "Event attendees, separated by ',' or ';'.")]
+    public async Task AddEventAsync(string subject, SKContext context)
+    {
+        ContextVariables memory = context.Variables;
+
+        if (string.IsNullOrWhiteSpace(subject))
+        {
+            context.Fail($"Missing variables input to use as event subject.");
+            ret
