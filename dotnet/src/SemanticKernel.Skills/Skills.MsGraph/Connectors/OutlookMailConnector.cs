@@ -45,4 +45,9 @@ public class OutlookMailConnector : IEmailConnector
                 {
                     Address = recipientAddress
                 }
-         
+            })
+        };
+
+        await this._graphServiceClient.Me.SendMail(message).Request().PostAsync(cancellationToken);
+    }
+}
