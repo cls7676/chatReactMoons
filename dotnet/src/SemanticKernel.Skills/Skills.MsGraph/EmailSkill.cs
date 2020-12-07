@@ -59,4 +59,24 @@ public class EmailSkill
     /// </summary>
     [SKFunction("Send an email to one or more recipients.")]
     [SKFunctionInput(Description = "Email content/body")]
-    [SKFunctionContextParameter(Name = Parameters.Recipients, D
+    [SKFunctionContextParameter(Name = Parameters.Recipients, Description = "Recipients of the email, separated by ',' or ';'.")]
+    [SKFunctionContextParameter(Name = Parameters.Subject, Description = "Subject of the email")]
+    public async Task SendEmailAsync(string content, SKContext context)
+    {
+        if (!context.Variables.Get(Parameters.Recipients, out string recipients))
+        {
+            context.Fail($"Missing variable {Parameters.Recipients}.");
+            return;
+        }
+
+        if (!context.Variables.Get(Parameters.Subject, out string subject))
+        {
+            context.Fail($"Missing variable {Parameters.Subject}.");
+            return;
+        }
+
+        this._logger.LogInformation("Sending email to '{0}' with subject '{1}'", recipients, subject);
+        string[] recipientList = recipients.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+        await this._connector.SendEmailAsync(subject, content, recipientList);
+    }
+}
