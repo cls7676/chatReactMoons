@@ -27,4 +27,7 @@ public class MsGraphConnectorException : Exception
     }
 
     private MsGraphConnectorException()
-  
+    {
+        // Do not use, error message is required
+    }
+}
