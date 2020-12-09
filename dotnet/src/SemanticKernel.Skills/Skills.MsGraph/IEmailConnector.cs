@@ -18,4 +18,11 @@ public interface IEmailConnector
     Task<string> GetMyEmailAddressAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Send an email to the s
+    /// Send an email to the specified recipients.
+    /// </summary>
+    /// <param name="subject">Email subject.</param>
+    /// <param name="content">Email content.</param>
+    /// <param name="recipients">Email recipients.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    Task SendEmailAsync(string subject, string content, string[] recipients, CancellationToken cancellationToken = default);
+}
