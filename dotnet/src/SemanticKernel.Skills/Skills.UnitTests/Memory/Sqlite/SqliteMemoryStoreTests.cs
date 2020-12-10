@@ -169,3 +169,19 @@ public class SqliteDataStoreTests : IDisposable
         if (!this._disposedValue)
         {
             if (disposing)
+            {
+                this._db?.Dispose();
+                File.Delete(DatabaseFile);
+            }
+
+            this._disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+}
