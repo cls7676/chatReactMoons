@@ -90,4 +90,52 @@ public class DocumentSkillTests
         var anyText = Guid.NewGuid().ToString();
         var anyFilePath = Guid.NewGuid().ToString();
 
-        var fileSystemConnectorMock = new Moc
+        var fileSystemConnectorMock = new Mock<IFileSystemConnector>();
+        fileSystemConnectorMock
+            .Setup(mock => mock.FileExistsAsync(It.Is<string>(filePath => filePath.Equals(anyFilePath, StringComparison.Ordinal)),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(false);
+        fileSystemConnectorMock
+            .Setup(mock => mock.CreateFileAsync(It.Is<string>(filePath => filePath.Equals(anyFilePath, StringComparison.Ordinal)),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Stream.Null);
+
+        var documentConnectorMock = new Mock<IDocumentConnector>();
+        documentConnectorMock
+            .Setup(mock => mock.Initialize(It.IsAny<Stream>()));
+        documentConnectorMock
+            .Setup(mock => mock.AppendText(It.IsAny<Stream>(), It.Is<string>(text => text.Equals(anyText, StringComparison.Ordinal))));
+
+        var target = new DocumentSkill(documentConnectorMock.Object, fileSystemConnectorMock.Object);
+
+        this._context.Variables.Set(Parameters.FilePath, anyFilePath);
+
+        // Act
+        await target.AppendTextAsync(anyText, this._context);
+
+        // Assert
+        Assert.False(this._context.ErrorOccurred);
+        fileSystemConnectorMock.VerifyAll();
+        documentConnectorMock.VerifyAll();
+    }
+
+    [Fact]
+    public async Task AppendTextAsyncNoFilePathFailsAsync()
+    {
+        // Arrange
+        var anyText = Guid.NewGuid().ToString();
+
+        var fileSystemConnectorMock = new Mock<IFileSystemConnector>();
+        var documentConnectorMock = new Mock<IDocumentConnector>();
+
+        var target = new DocumentSkill(documentConnectorMock.Object, fileSystemConnectorMock.Object);
+
+        // Act
+        await target.AppendTextAsync(anyText, this._context);
+
+        // Assert
+        Assert.True(this._context.ErrorOccurred);
+        fileSystemConnectorMock.Verify(mock => mock.GetWriteableFileStreamAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Never());
+        documentConnectorMock.Verify(mock => mock.AppendText(It.IsAny<Stream>(), It.IsAny<string>()), Times.Never());
+    }
+}
