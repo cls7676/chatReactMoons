@@ -53,4 +53,58 @@ public class CalendarSkillTests : IDisposable
         this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
         this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
         this._context.Variables.Set(Parameters.Location, anyLocation);
-        this._context.Variables.Set(Parameters.Content, anyCon
+        this._context.Variables.Set(Parameters.Content, anyContent);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.False(this._context.ErrorOccurred);
+        connectorMock.VerifyAll();
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutLocationSucceedsAsync()
+    {
+        // Arrange
+        string anyContent = Guid.NewGuid().ToString();
+        string anySubject = Guid.NewGuid().ToString();
+        DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
+        DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
+        string[] anyAttendees = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+        CalendarEvent expected = new(anySubject, anyStartTime, anyEndTime)
+        {
+            Content = anyContent,
+            Attendees = anyAttendees
+        };
+
+        Mock<ICalendarConnector> connectorMock = new();
+        connectorMock.Setup(c => c.AddEventAsync(It.IsAny<CalendarEvent>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expected);
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Content, anyContent);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.False(this._context.ErrorOccurred);
+        connectorMock.VerifyAll();
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutContentSucceedsAsync()
+    {
+        // Arrange
+        string anySubject = Guid.NewGuid().ToString();
+        string anyLocation = Guid.NewGuid().ToString();
+        DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
+        DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
+        string[] anyAttendees 
