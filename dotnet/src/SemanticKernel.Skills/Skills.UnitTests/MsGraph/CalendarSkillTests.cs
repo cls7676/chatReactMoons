@@ -211,4 +211,55 @@ public class CalendarSkillTests : IDisposable
 
         this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
         this._context.Variables.Set(Parameters.Location, anyLocation);
-        this._context.Variab
+        this._context.Variables.Set(Parameters.Content, anyContent);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.True(this._context.ErrorOccurred);
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutSubjectFailsAsync()
+    {
+        // Arrange
+        string anyContent = Guid.NewGuid().ToString();
+        string anyLocation = Guid.NewGuid().ToString();
+        DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
+        DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
+        string[] anyAttendees = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+        Mock<ICalendarConnector> connectorMock = new();
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Location, anyLocation);
+        this._context.Variables.Set(Parameters.Content, anyContent);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(string.Empty, this._context);
+
+        // Assert
+        Assert.True(this._context.ErrorOccurred);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            this._logger.Dispose();
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+}
