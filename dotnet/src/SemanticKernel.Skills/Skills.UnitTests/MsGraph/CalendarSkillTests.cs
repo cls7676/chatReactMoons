@@ -107,4 +107,54 @@ public class CalendarSkillTests : IDisposable
         string anyLocation = Guid.NewGuid().ToString();
         DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
         DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
-        string[] anyAttendees 
+        string[] anyAttendees = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+        CalendarEvent expected = new(anySubject, anyStartTime, anyEndTime)
+        {
+            Location = anyLocation,
+            Attendees = anyAttendees
+        };
+
+        Mock<ICalendarConnector> connectorMock = new();
+        connectorMock.Setup(c => c.AddEventAsync(It.IsAny<CalendarEvent>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expected);
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Location, anyLocation);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.False(this._context.ErrorOccurred);
+        connectorMock.VerifyAll();
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutAttendeesSucceedsAsync()
+    {
+        // Arrange
+        string anyContent = Guid.NewGuid().ToString();
+        string anySubject = Guid.NewGuid().ToString();
+        string anyLocation = Guid.NewGuid().ToString();
+        DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
+        DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
+
+        CalendarEvent expected = new(anySubject, anyStartTime, anyEndTime)
+        {
+            Content = anyContent,
+            Location = anyLocation
+        };
+
+        Mock<ICalendarConnector> connectorMock = new();
+        connectorMock.Setup(c => c.AddEventAsync(It.IsAny<CalendarEvent>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expected);
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCul
