@@ -157,4 +157,58 @@ public class CalendarSkillTests : IDisposable
         CalendarSkill target = new(connectorMock.Object);
 
         this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
-        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCul
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Location, anyLocation);
+        this._context.Variables.Set(Parameters.Content, anyContent);
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.False(this._context.ErrorOccurred);
+        connectorMock.VerifyAll();
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutStartFailsAsync()
+    {
+        // Arrange
+        string anyContent = Guid.NewGuid().ToString();
+        string anySubject = Guid.NewGuid().ToString();
+        string anyLocation = Guid.NewGuid().ToString();
+        DateTimeOffset anyEndTime = DateTimeOffset.Now + TimeSpan.FromDays(1.1);
+        string[] anyAttendees = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+        Mock<ICalendarConnector> connectorMock = new();
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.End, anyEndTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Location, anyLocation);
+        this._context.Variables.Set(Parameters.Content, anyContent);
+        this._context.Variables.Set(Parameters.Attendees, string.Join(";", anyAttendees));
+
+        // Act
+        await target.AddEventAsync(anySubject, this._context);
+
+        // Assert
+        Assert.True(this._context.ErrorOccurred);
+    }
+
+    [Fact]
+    public async Task AddEventAsyncWithoutEndFailsAsync()
+    {
+        // Arrange
+        string anyContent = Guid.NewGuid().ToString();
+        string anySubject = Guid.NewGuid().ToString();
+        string anyLocation = Guid.NewGuid().ToString();
+        DateTimeOffset anyStartTime = DateTimeOffset.Now + TimeSpan.FromDays(1);
+        string[] anyAttendees = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+        Mock<ICalendarConnector> connectorMock = new();
+
+        CalendarSkill target = new(connectorMock.Object);
+
+        this._context.Variables.Set(Parameters.Start, anyStartTime.ToString(CultureInfo.InvariantCulture.DateTimeFormat));
+        this._context.Variables.Set(Parameters.Location, anyLocation);
+        this._context.Variab
