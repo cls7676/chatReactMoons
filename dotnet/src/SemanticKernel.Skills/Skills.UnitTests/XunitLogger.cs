@@ -19,4 +19,22 @@ internal sealed class XunitLogger<T> : ILogger<T>, IDisposable
     }
 
     /// <inheritdoc/>
-    public void Lo
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+    {
+        this._output.WriteLine(state?.ToString());
+    }
+
+    /// <inheritdoc/>
+    public bool IsEnabled(LogLevel logLevel) => true;
+
+    /// <inheritdoc/>
+    public IDisposable BeginScope<TState>(TState state) where TState : notnull
+        => this;
+
+    /// <inheritdoc/>
+    public void Dispose()
+    {
+        // This class is marked as disposable to support the BeginScope method.
+        // However, there is no need to dispose anything.
+    }
+}
