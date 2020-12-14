@@ -100,4 +100,67 @@ public class SearchUrlSkill
     /// <summary>
     /// Get search URL for Facebook
     /// </summary>
-    [SKFunct
+    [SKFunction("Return URL for Facebook search query.")]
+    [SKFunctionInput(Description = "Text to search for")]
+    public string FacebookSearchUrl(string query)
+    {
+        string encoded = UrlEncoder.Default.Encode(query);
+        return $"https://www.facebook.com/search/top/?q={encoded}";
+    }
+
+    /**
+     * GitHub Search URLs
+     */
+    /// <summary>
+    /// Get search URL for GitHub
+    /// </summary>
+    [SKFunction("Return URL for GitHub search query.")]
+    [SKFunctionInput(Description = "Text to search for")]
+    public string GitHubSearchUrl(string query)
+    {
+        string encoded = UrlEncoder.Default.Encode(query);
+        return $"https://github.com/search?q={encoded}";
+    }
+
+    /**
+     * LinkedIn Search URLs
+     */
+    /// <summary>
+    /// Get search URL for LinkedIn
+    /// </summary>
+    [SKFunction("Return URL for LinkedIn search query.")]
+    [SKFunctionInput(Description = "Text to search for")]
+    public string LinkedInSearchUrl(string query)
+    {
+        string encoded = UrlEncoder.Default.Encode(query);
+        return $"https://www.linkedin.com/search/results/index/?keywords={encoded}";
+    }
+
+    /**
+     * Twitter Search URLs
+     */
+    /// <summary>
+    /// Get search URL for Twitter
+    /// </summary>
+    [SKFunction("Return URL for Twitter search query.")]
+    [SKFunctionInput(Description = "Text to search for")]
+    public string TwitterSearchUrl(string query)
+    {
+        string encoded = UrlEncoder.Default.Encode(query);
+        return $"https://twitter.com/search?q={encoded}";
+    }
+
+    /**
+     * Wikipedia Search URLs
+     */
+    /// <summary>
+    /// Get search URL for Wikipedia
+    /// </summary>
+    [SKFunction("Return URL for Wikipedia search query.")]
+    [SKFunctionInput(Description = "Text to search for")]
+    public string WikipediaSearchUrl(string query)
+    {
+        string encoded = UrlEncoder.Default.Encode(query);
+        return $"https://wikipedia.org/w/index.php?search={encoded}";
+    }
+}
