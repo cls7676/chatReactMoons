@@ -128,4 +128,68 @@ Solve the equation x^2 = 2.
         // Arrange
         var kernel = KernelBuilder.Create();
         _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
-        var plannerSkill =
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kernel));
+
+        // Act
+        var context = await kernel.RunAsync(GoalText, plannerSkill["CreatePlan"]);
+
+        // Assert
+        var plan = context.Variables.ToPlan();
+        Assert.NotNull(plan);
+        Assert.NotNull(plan.Id);
+        Assert.Equal(GoalText, plan.Goal);
+        Assert.StartsWith("<goal>\nSolve the equation x^2 = 2.\n</goal>", plan.PlanString, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ItCanExecutePlanJsonAsync()
+    {
+        // Arrange
+        var kernel = KernelBuilder.Create();
+        _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kernel));
+        Plan createdPlan = new()
+        {
+            Goal = GoalText,
+            PlanString = FunctionFlowRunnerText
+        };
+
+        // Act
+        var context = await kernel.RunAsync(createdPlan.ToJson(), plannerSkill["ExecutePlan"]);
+
+        // Assert
+        var plan = context.Variables.ToPlan();
+        Assert.NotNull(plan);
+        Assert.NotNull(plan.Id);
+        Assert.Equal(GoalText, plan.Goal);
+    }
+
+    [Fact]
+    public async Task NoGoalExecutePlanReturnsInvalidResultAsync()
+    {
+        // Arrange
+        var kernel = KernelBuilder.Create();
+        _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kernel));
+
+        // Act
+        var context = await kernel.RunAsync(GoalText, plannerSkill["ExecutePlan"]);
+
+        // Assert
+        var plan = context.Variables.ToPlan();
+        Assert.NotNull(plan);
+        Assert.NotNull(plan.Id);
+        Assert.Equal(string.Empty, plan.Goal);
+        Assert.Equal(GoalText, plan.PlanString);
+        Assert.False(plan.IsSuccessful);
+        Assert.True(plan.IsComplete);
+        Assert.Contains("No goal found.", plan.Result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task InvalidPlanExecutePlanReturnsInvalidResultAsync()
+    {
+        // Arrange
+        var kernel = KernelBuilder.Create();
+        _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kern
