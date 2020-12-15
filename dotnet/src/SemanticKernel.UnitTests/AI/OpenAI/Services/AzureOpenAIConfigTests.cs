@@ -47,4 +47,27 @@ public class AzureOpenAIConfigTests
     [InlineData("testLabel", "testDeploymentName", "testEndpoint.com", "testApiKey", "testApiVersion")]
     [InlineData("testLabel", "testDeploymentName", "testEndpoint", "testApiKey", "testApiVersion")]
     public void ConstructorWithMissingPrefixParametersThrowsValidationException(
-        st
+        string label, string deploymentName, string endpoint, string apiKey, string apiVersion)
+    {
+        // Act + Assert
+        var exception = Assert.Throws<ValidationException>(() => new AzureOpenAIConfig(label, deploymentName, endpoint, apiKey, apiVersion));
+        Assert.Equal(ValidationException.ErrorCodes.MissingPrefix, exception?.ErrorCode);
+    }
+
+    [Fact]
+    public void EndpointWithValidValueDoesNotThrow()
+    {
+        // Arrange
+        string label = "testLabel";
+        string deploymentName = "testDeploymentName";
+        string endpoint = "https://testEndpoint.com";
+        string apiKey = "testApiKey";
+        string apiVersion = "testApiVersion";
+
+        // Act
+        var config = new AzureOpenAIConfig(label, deploymentName, endpoint, apiKey, apiVersion);
+
+        // Assert
+        Assert.Equal(endpoint, config.Endpoint);
+    }
+}
