@@ -403,4 +403,60 @@ This is some text
 <tag>Some other tag</tag>
 <function.MockSkill.Echo />
 </plan>")]
-    public async Task ExecutePlanCanSkipTagsAsync(string goalText, string planTex
+    public async Task ExecutePlanCanSkipTagsAsync(string goalText, string planText)
+    {
+        // Arrange
+        var kernel = KernelBuilder.Create();
+        _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kernel));
+        _ = kernel.ImportSkill(new MockSkill(this._testOutputHelper), "MockSkill");
+        Plan createdPlan = new()
+        {
+            Goal = goalText,
+            PlanString = planText
+        };
+
+        // Act - run the plan 2 times to run all steps
+        var context = await kernel.RunAsync(createdPlan.ToJson(), plannerSkill["ExecutePlan"]);
+        context = await kernel.RunAsync(context.Variables, plannerSkill["ExecutePlan"]);
+
+        // Assert
+        var plan = context.Variables.ToPlan();
+        Assert.NotNull(plan);
+        Assert.NotNull(plan.Id);
+        Assert.Equal(goalText, plan.Goal);
+        Assert.True(plan.IsSuccessful);
+        Assert.True(plan.IsComplete);
+        Assert.Equal("Echo Result: Echo Result: Hello World", plan.Result, true);
+    }
+
+    [Theory]
+    [InlineData("Test the functionFlowRunner", @"<goal>Test the functionFlowRunner</goal>
+<plan>
+<function.MockSkill.Echo input=""Hello World""/>
+<function.MockSkill.Echo input=""$output""/>
+</plan>")]
+    public async Task ExecutePlanCanSkipOutputAsync(string goalText, string planText)
+    {
+        // Arrange
+        var kernel = KernelBuilder.Create();
+        _ = kernel.Config.AddOpenAICompletionBackend("test", "test", "test");
+        var plannerSkill = kernel.ImportSkill(new PlannerSkill(kernel));
+        _ = kernel.ImportSkill(new MockSkill(this._testOutputHelper), "MockSkill");
+        Plan createdPlan = new()
+        {
+            Goal = goalText,
+            PlanString = planText
+        };
+
+        // Act - run the plan 2 times to run all steps
+        var context = await kernel.RunAsync(createdPlan.ToJson(), plannerSkill["ExecutePlan"]);
+        context = await kernel.RunAsync(context.Variables, plannerSkill["ExecutePlan"]);
+
+        // Assert
+        var plan = context.Variables.ToPlan();
+        Assert.NotNull(plan);
+        Assert.NotNull(plan.Id);
+        Assert.Equal(goalText, plan.Goal);
+        Assert.True(plan.IsSuccessful);
+        Assert.True(plan.I
