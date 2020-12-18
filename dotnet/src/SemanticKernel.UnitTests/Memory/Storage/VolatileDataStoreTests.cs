@@ -176,3 +176,18 @@ public class VolatileDataStoreTests
         // Arrange
         int rand = Random.Shared.Next();
         string collection = "collection" + rand;
+        string key = "key";
+        string value1 = "value1";
+        string value2 = "value2";
+
+        // Act
+        await this._db.PutValueAsync(collection, key, value1);
+        await this._db.PutValueAsync(collection, key, value2);
+        var actual = await this._db.GetAsync(collection, key);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.NotEqual(value1, actual!.Value.Value);
+        Assert.Equal(value2, actual!.Value.Value);
+    }
+}
