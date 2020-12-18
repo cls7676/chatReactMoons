@@ -459,4 +459,37 @@ This is some text
         Assert.NotNull(plan.Id);
         Assert.Equal(goalText, plan.Goal);
         Assert.True(plan.IsSuccessful);
-        Assert.True(plan.I
+        Assert.True(plan.IsComplete);
+        Assert.Equal("Echo Result: Echo Result: Hello World", plan.Result, true);
+    }
+
+    public class MockSkill
+    {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public MockSkill(ITestOutputHelper testOutputHelper)
+        {
+            this._testOutputHelper = testOutputHelper;
+        }
+
+        [SKFunction("Split the input into two parts")]
+        [SKFunctionName("SplitInput")]
+        [SKFunctionInput(Description = "The input text to split")]
+        public Task<SKContext> SplitInputAsync(string input, SKContext context)
+        {
+            var parts = input.Split(':');
+            context.Variables.Set("First", parts[0]);
+            context.Variables.Set("Second", parts[1]);
+            return Task.FromResult(context);
+        }
+
+        [SKFunction("Echo the input text")]
+        [SKFunctionName("Echo")]
+        public Task<SKContext> EchoAsync(string text, SKContext context)
+        {
+            this._testOutputHelper.WriteLine(text);
+            _ = context.Variables.Update("Echo Result: " + text);
+            return Task.FromResult(context);
+        }
+    }
+}
