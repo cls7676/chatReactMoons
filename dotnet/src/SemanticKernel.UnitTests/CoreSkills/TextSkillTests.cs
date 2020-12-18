@@ -48,4 +48,45 @@ public class TextSkillTests
         var result = skill.TrimStart("  hello world  ");
 
         // Assert
-        Assert.Equal("hello world  "
+        Assert.Equal("hello world  ", result);
+    }
+
+    [Fact]
+    public void ItCanTrimEnd()
+    {
+        // Arrange
+        var skill = new TextSkill();
+
+        // Act
+        var result = skill.TrimEnd("  hello world  ");
+
+        // Assert
+        Assert.Equal("  hello world", result);
+    }
+
+    [Fact]
+    public void ItCanUppercase()
+    {
+        // Arrange
+        var skill = new TextSkill();
+
+        // Act
+        var result = skill.Uppercase("hello world");
+
+        // Assert
+        Assert.Equal("HELLO WORLD", result);
+    }
+
+    [Fact]
+    public void ItCanLowercase()
+    {
+        // Arrange
+        var skill = new TextSkill();
+
+        // Act
+        var result = skill.Lowercase("HELLO WORLD");
+
+        // Assert
+        Assert.Equal("hello world", result);
+    }
+}
