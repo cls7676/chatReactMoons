@@ -196,4 +196,44 @@ public class DataEntryTests
     public void ItCanSerializeObjectToJson()
     {
         // Arrange
-       
+        var entry = DataEntry.Create<float>("test_key", 10.875F);
+
+        // Act
+        var target = entry.ToString();
+
+        // Assert
+        Assert.IsType<string>(target);
+        Assert.Contains("\"key\":\"test_key\"", target, StringComparison.Ordinal);
+        Assert.Contains("\"value\":10.875", target, StringComparison.Ordinal);
+        Assert.Contains("\"timestamp\":null", target, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ItCanDeserializeStringToObject()
+    {
+        // Arrange
+        var entry = DataEntry.Create<float>("test_key", 128.5F);
+
+        // Act
+        var json = entry.ToString();
+        var result = DataEntry.TryParse<float>(json, out DataEntry<float>? target);
+
+        // Assert
+        Assert.True(result);
+        Assert.Equal(entry, target);
+    }
+
+    [Fact]
+    public void ItWillReturnFalseIfDeserializationStringIsNotObjectString()
+    {
+        // Arrange
+        var badString = "abcdefghijklmnopqrstuv";
+
+        // Act
+        var result = DataEntry.TryParse<float>(badString, out DataEntry<float>? target);
+
+        // Assert
+        Assert.False(result);
+        Assert.Null(target);
+    }
+}
