@@ -112,3 +112,88 @@ public class DataEntryTests
     public void ItCanCreateMemoryEntryWithNoTimestamp()
     {
         // Arrange
+        var target = DataEntry.Create<string>("test_key", "test_value");
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Equal("test_value", target.Value);
+        Assert.True(target.HasValue);
+        Assert.False(target.Timestamp.HasValue);
+        Assert.Null(target.Timestamp);
+    }
+
+    [Fact]
+    public void ItCanCreateMemoryEntryWithTimestamp()
+    {
+        // Arrange
+        var target = DataEntry.Create<int>("test_key", 10, new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero));
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Equal(10, target.Value);
+        Assert.True(target.HasValue);
+        Assert.True(target.Timestamp.HasValue);
+        Assert.NotNull(target.Timestamp);
+    }
+
+    [Fact]
+    public void ItCanSetValue()
+    {
+        // Arrange
+        var target = DataEntry.Create<string>("test_key", "test_value");
+
+        // Act
+        target.Value = "new_value";
+
+        // Assert
+        Assert.Equal("new_value", target.Value);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItCanSetTimestamp()
+    {
+        // Arrange
+        var target = DataEntry.Create<int>("test_key", 10);
+
+        // Act
+        target.Timestamp = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
+        // Assert
+        Assert.Equal(new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero), target.Timestamp);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItCanCheckForEquality()
+    {
+        // Arrange
+        var target = DataEntry.Create<int>("test_key", 10);
+
+        // Assert
+        Assert.Equal(target, target);
+        Assert.Equal(DataEntry.Create<int>("test_key", 10), target);
+        Assert.NotEqual(DataEntry.Create<int>("test_key", 9), target);
+        Assert.True(DataEntry.Create<int>("test_key", 10) == target);
+        Assert.True(DataEntry.Create<int>("test_key", 9) != target);
+    }
+
+    [Fact]
+    public void ItCanHashTheCollectionInformation()
+    {
+        // Arrange
+        var entry = DataEntry.Create<float>("test_key", 10.875F);
+
+        // Act
+        var target = entry.GetHashCode();
+
+        // Assert
+        Assert.IsType<int>(target);
+        Assert.True(target != 0);
+    }
+
+    [Fact]
+    public void ItCanSerializeObjectToJson()
+    {
+        // Arrange
+       
