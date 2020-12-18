@@ -40,4 +40,66 @@ public class VolatileDataStoreTests
         // Act
         await this._db.PutValueAsync(collection, key, value);
 
-        var actual = 
+        var actual = await this._db.GetValueAsync(collection, key);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.Equal(value, actual);
+    }
+
+    [Fact]
+    public async Task ItWillPutAndRetrieveWithTimestampAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key" + rand;
+        string value = "value" + rand;
+        DateTimeOffset timestamp = DateTimeOffset.UtcNow;
+
+        // Act
+        await this._db.PutValueAsync(collection, key, value, timestamp);
+        var actual = await this._db.GetAsync(collection, key);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.Equal(value, actual!.Value.Value);
+        Assert.True(timestamp.Date.Equals(actual!.Value.Timestamp?.Date));
+        Assert.True((int)timestamp.TimeOfDay.TotalSeconds == (int?)actual!.Value.Timestamp?.TimeOfDay.TotalSeconds);
+    }
+
+    [Fact]
+    public async Task ItWillPutAndRetrieveDataEntryWithTimestampAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key" + rand;
+        string value = "value" + rand;
+        DateTimeOffset timestamp = DateTimeOffset.UtcNow;
+        var data = DataEntry.Create(key, value, timestamp);
+
+        // Act
+        var placed = await this._db.PutAsync(collection, data);
+        DataEntry<string>? actual = await this._db.GetAsync(collection, key);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.True(placed.Equals(data));
+        Assert.Equal(value, actual!.Value.Value);
+        Assert.True(timestamp.Date.Equals(actual!.Value.Timestamp?.Date));
+        Assert.True((int)timestamp.TimeOfDay.TotalSeconds == (int?)actual!.Value.Timestamp?.TimeOfDay.TotalSeconds);
+    }
+
+    [Fact]
+    public async Task ItWillPutAndDeleteDataEntryAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key" + rand;
+        string value = "value" + rand;
+        var data = DataEntry.Create(key, value, DateTimeOffset.UtcNow);
+
+        // Act
+        await this._db.PutA
