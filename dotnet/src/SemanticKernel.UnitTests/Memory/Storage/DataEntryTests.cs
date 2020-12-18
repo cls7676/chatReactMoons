@@ -25,4 +25,90 @@ public class DataEntryTests
     }
 
     [Fact]
-    public void ItWillSetNullValueTypeInpu
+    public void ItWillSetNullValueTypeInputToNonNullValueInt()
+    {
+        // Arrange
+        var target = DataEntry.Create<int>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Equal(0, target.Value);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullValueTypeInputToNonNullValueFloat()
+    {
+        // Arrange
+        var target = DataEntry.Create<float>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Equal(0.0F, target.Value);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullValueTypeInputToNonNullValueDouble()
+    {
+        // Arrange
+        var target = DataEntry.Create<double>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Equal(0.0, target.Value);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullValueTypeInputToNonNullValueBool()
+    {
+        // Arrange
+        var target = DataEntry.Create<bool>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.False(target.Value);
+        Assert.True(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullReferenceTypeInputToNullString()
+    {
+        // Arrange
+        var target = DataEntry.Create<string>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Null(target.Value);
+        Assert.False(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullReferenceTypeInputToNullObject()
+    {
+        // Arrange
+        var target = DataEntry.Create<object>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Null(target.Value);
+        Assert.False(target.HasValue);
+    }
+
+    [Fact]
+    public void ItWillSetNullReferenceTypeInputToNullDynamic()
+    {
+        // Arrange
+        var target = DataEntry.Create<dynamic>("test_key", null!);
+
+        // Assert
+        Assert.Equal("test_key", target.Key);
+        Assert.Null(target.Value);
+        Assert.False(target.HasValue);
+    }
+
+    [Fact]
+    public void ItCanCreateMemoryEntryWithNoTimestamp()
+    {
+        // Arrange
