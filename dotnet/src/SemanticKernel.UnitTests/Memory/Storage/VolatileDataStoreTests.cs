@@ -102,4 +102,77 @@ public class VolatileDataStoreTests
         var data = DataEntry.Create(key, value, DateTimeOffset.UtcNow);
 
         // Act
-        await this._db.PutA
+        await this._db.PutAsync(collection, data);
+        await this._db.RemoveAsync(collection, key);
+        var attempt = await this._db.GetAsync(collection, key);
+
+        // Assert
+        Assert.Null(attempt);
+    }
+
+#pragma warning disable CA1851 // Possible multiple enumerations of 'IEnumerable' collection
+    [Fact]
+    public async Task ItWillListAllDatabaseCollectionsAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key" + rand;
+        string value = "value" + rand;
+
+        // Act
+        await this._db.PutValueAsync(collection, key, value);
+        var collections = this._db.GetCollectionsAsync().ToEnumerable();
+
+        // Assert
+        Assert.NotNull(collections);
+        Assert.True(collections.Any(), "Collections is empty");
+        Assert.True(collections.Contains(collection), "Collections do not contain the newly-created collection");
+    }
+
+    [Fact]
+    public async Task ItWillGetAllCollectionEntriesAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key" + rand;
+        string value = "value" + rand;
+
+        // Act
+        for (int i = 0; i < 15; i++)
+        {
+            await this._db.PutValueAsync(collection, key + i, value);
+        }
+
+        var getAllResults = this._db.GetAllAsync(collection).ToEnumerable();
+
+        // Assert
+        Assert.NotNull(getAllResults);
+        Assert.True(getAllResults.Any(), "Collections collection empty");
+        Assert.True(getAllResults.Count() == 15, "Collections collection should have 15 entries");
+    }
+
+    [Fact]
+    public async Task ItWillRetrieveNothingIfKeyDoesNotExistAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
+        string key = "key";
+        string value = "value";
+
+        // Act
+        await this._db.PutValueAsync(collection, key, value);
+        var attempt = await this._db.GetAsync(collection, key + "1");
+
+        // Assert
+        Assert.Null(attempt);
+    }
+
+    [Fact]
+    public async Task ItWillOverwriteExistingValueAsync()
+    {
+        // Arrange
+        int rand = Random.Shared.Next();
+        string collection = "collection" + rand;
