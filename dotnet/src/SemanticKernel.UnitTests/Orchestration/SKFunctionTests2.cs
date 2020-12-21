@@ -124,4 +124,78 @@ public sealed class SKFunctionTests2
         context["someVar"] = "qz";
 
         // Act
-        var f
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(4);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal(s_expected, context["canary"]);
+    }
+
+    [Fact]
+    public async Task ItSupportsType5Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        static string Test(SKContext cx)
+        {
+            s_canary = cx["someVar"];
+            return "abc";
+        }
+
+        var context = this.MockContext("");
+        context["someVar"] = s_expected;
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(5);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal("abc", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType5NullableAsync()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        string? Test(SKContext cx)
+        {
+            s_canary = cx["someVar"];
+            return "abc";
+        }
+
+        var context = this.MockContext("");
+        context["someVar"] = s_expected;
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(5);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal("abc", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType6Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        Task<string> Test(SKContext cx)
+        {
+            s_canary = s_expected;
+            cx.Variables["canary"] = s
