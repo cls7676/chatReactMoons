@@ -188,4 +188,57 @@ public sealed class SKFunctionTests3
         }
 
         [SKFunction("eleven")]
-        publi
+        public void Type11(string x, SKContext context)
+        {
+        }
+
+        [SKFunction("eleven2")]
+        public void Type11Nullable(string? x = null, SKContext? context = null)
+        {
+        }
+
+        [SKFunction("twelve")]
+        public string Type12(string x, SKContext context)
+        {
+            return "";
+        }
+
+        [SKFunction("thirteen")]
+        public async Task<string> Type13Async(string x, SKContext context)
+        {
+            await Task.Delay(0);
+            return "";
+        }
+
+        [SKFunction("fourteen")]
+        public async Task<SKContext> Type14Async(string x, SKContext context)
+        {
+            await Task.Delay(0);
+            return context;
+        }
+
+        [SKFunction("fifteen")]
+        public async Task Type15Async(string x)
+        {
+            await Task.Delay(0);
+        }
+
+        [SKFunction("sixteen")]
+        public async Task Type16Async(SKContext context)
+        {
+            await Task.Delay(0);
+        }
+
+        [SKFunction("seventeen")]
+        public async Task Type17Async(string x, SKContext context)
+        {
+            await Task.Delay(0);
+        }
+
+        [SKFunction("eighteen")]
+        public async Task Type18Async()
+        {
+            await Task.Delay(0);
+        }
+    }
+}
