@@ -44,4 +44,20 @@ public class CodeBlockTests
     [Fact]
     public async Task ItThrowsIfAFunctionCallThrowsAsync()
     {
-        // A
+        // Arrange
+        var context = new SKContext(new ContextVariables(), NullMemory.Instance, this._skills.Object, this._log.Object);
+        var function = new Mock<ISKFunction>();
+        function
+            .Setup(x => x.InvokeAsync(It.IsAny<SKContext?>(), It.IsAny<CompleteRequestSettings?>(), It.IsAny<ILogger?>(), It.IsAny<CancellationToken?>()))
+            .Throws(new RuntimeWrappedException("error"));
+        this._skills.Setup(x => x.HasNativeFunction("functionName")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("functionName")).Returns(function.Object);
+        var target = new CodeBlock("functionName", this._log.Object);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<TemplateException>(async () => await target.RenderCodeAsync(context));
+
+        // Assert
+        Assert.Equal(TemplateException.ErrorCodes.RuntimeError, exception.ErrorCode);
+    }
+}
