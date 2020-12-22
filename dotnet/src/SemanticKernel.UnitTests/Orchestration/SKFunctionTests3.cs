@@ -86,4 +86,106 @@ public sealed class SKFunctionTests3
     {
         [SKFunction("one")]
         public void Type01()
-       
+        {
+        }
+
+        [SKFunction("two")]
+        public string Type02()
+        {
+            return "";
+        }
+
+        [SKFunction("two2")]
+        public string? Type02Nullable()
+        {
+            return null;
+        }
+
+        [SKFunction("three")]
+        public async Task<string> Type03Async()
+        {
+            await Task.Delay(0);
+            return "";
+        }
+
+        [SKFunction("three2")]
+        public async Task<string?> Type03NullableAsync()
+        {
+            await Task.Delay(0);
+            return null;
+        }
+
+        [SKFunction("four")]
+        public void Type04(SKContext context)
+        {
+        }
+
+        [SKFunction("four2")]
+        public void Type04Nullable(SKContext? context)
+        {
+        }
+
+        [SKFunction("five")]
+        public string Type05(SKContext context)
+        {
+            return "";
+        }
+
+        [SKFunction("five2")]
+        public string? Type05Nullable(SKContext? context)
+        {
+            return null;
+        }
+
+        [SKFunction("six")]
+        public async Task<string> Type06Async(SKContext context)
+        {
+            await Task.Delay(0);
+            return "";
+        }
+
+        [SKFunction("seven")]
+        public async Task<SKContext> Type07Async(SKContext context)
+        {
+            await Task.Delay(0);
+            return context;
+        }
+
+        [SKFunction("eight")]
+        public void Type08(string x)
+        {
+        }
+
+        [SKFunction("eight2")]
+        public void Type08Nullable(string? x)
+        {
+        }
+
+        [SKFunction("nine")]
+        public string Type09(string x)
+        {
+            return "";
+        }
+
+        [SKFunction("nine2")]
+        public string? Type09Nullable(string? x = null)
+        {
+            return "";
+        }
+
+        [SKFunction("ten")]
+        public async Task<string> Type10Async(string x)
+        {
+            await Task.Delay(0);
+            return "";
+        }
+
+        [SKFunction("ten2")]
+        public async Task<string?> Type10NullableAsync(string? x)
+        {
+            await Task.Delay(0);
+            return "";
+        }
+
+        [SKFunction("eleven")]
+        publi
