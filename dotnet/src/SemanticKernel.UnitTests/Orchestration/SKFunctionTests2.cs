@@ -275,4 +275,83 @@ public sealed class SKFunctionTests2
     {
         // Arrange
         [SKFunction("Test")]
-        [SKFunctionName("Test"
+        [SKFunctionName("Test")]
+        string Test(string input)
+        {
+            s_canary = s_expected;
+            return "foo-bar";
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(9);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal("foo-bar", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType10Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        Task<string> Test(string input)
+        {
+            s_canary = s_expected;
+            return Task.FromResult("hello there");
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(10);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal("hello there", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType11Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        void Test(string input, SKContext cx)
+        {
+            s_canary = s_expected;
+            cx.Variables.Update("x y z");
+            cx["canary"] = s_expected;
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(11);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal(s_expected, context["canary"]);
+        Assert.Equal("x y z", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType12Async()
+    {
+        // Arrange
+        [SKFunctio
