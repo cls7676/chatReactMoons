@@ -424,4 +424,75 @@ public sealed class SKFunctionTests2
 
             // This value should overwrite "x y z". Contexts are merged.
             var newCx = new SKContext(
-                new 
+                new ContextVariables(input),
+                NullMemory.Instance,
+                new Mock<IReadOnlySkillCollection>().Object,
+                NullLogger.Instance);
+
+            newCx.Variables.Update("new data");
+            newCx["canary2"] = "222";
+
+            return Task.FromResult(newCx);
+        }
+
+        var oldContext = this.MockContext("");
+        oldContext["legacy"] = "something";
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext newContext = await function.InvokeAsync(oldContext);
+
+        // Assert
+        Assert.False(oldContext.ErrorOccurred);
+        Assert.False(newContext.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(14);
+
+        Assert.Equal(s_expected, s_canary);
+
+        Assert.True(oldContext.Variables.ContainsKey("canary"));
+        Assert.False(oldContext.Variables.ContainsKey("canary2"));
+
+        Assert.False(newContext.Variables.ContainsKey("canary"));
+        Assert.True(newContext.Variables.ContainsKey("canary2"));
+
+        Assert.Equal(s_expected, oldContext["canary"]);
+        Assert.Equal("222", newContext["canary2"]);
+
+        Assert.True(oldContext.Variables.ContainsKey("legacy"));
+        Assert.False(newContext.Variables.ContainsKey("legacy"));
+
+        Assert.Equal("x y z", oldContext.Result);
+        Assert.Equal("new data", newContext.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType15Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        static Task Test(string input)
+        {
+            s_canary = s_expected;
+            return Task.CompletedTask;
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(15);
+        Assert.Equal(s_expected, s_canary);
+    }
+
+    [Fact]
+    public async Task ItSupportsType16Async()
+    {
+        // Arrange
+        [S
