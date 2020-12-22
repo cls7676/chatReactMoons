@@ -354,4 +354,74 @@ public sealed class SKFunctionTests2
     public async Task ItSupportsType12Async()
     {
         // Arrange
-        [SKFunctio
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        static string Test(string input, SKContext cx)
+        {
+            s_canary = s_expected;
+            cx["canary"] = s_expected;
+            cx.Variables.Update("x y z");
+            // This value should overwrite "x y z"
+            return "new data";
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(12);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal(s_expected, context["canary"]);
+        Assert.Equal("new data", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType13Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        static Task<string> Test(string input, SKContext cx)
+        {
+            s_canary = s_expected;
+            cx["canary"] = s_expected;
+            cx.Variables.Update("x y z");
+            // This value should overwrite "x y z"
+            return Task.FromResult("new data");
+        }
+
+        var context = this.MockContext("");
+
+        // Act
+        var function = SKFunction.FromNativeMethod(Method(Test), log: this._log.Object);
+        Assert.NotNull(function);
+        SKContext result = await function.InvokeAsync(context);
+
+        // Assert
+        Assert.False(result.ErrorOccurred);
+        this.VerifyFunctionTypeMatch(13);
+        Assert.Equal(s_expected, s_canary);
+        Assert.Equal(s_expected, context["canary"]);
+        Assert.Equal("new data", context.Result);
+    }
+
+    [Fact]
+    public async Task ItSupportsType14Async()
+    {
+        // Arrange
+        [SKFunction("Test")]
+        [SKFunctionName("Test")]
+        static Task<SKContext> Test(string input, SKContext cx)
+        {
+            s_canary = s_expected;
+            cx["canary"] = s_expected;
+            cx.Variables.Update("x y z");
+
+            // This value should overwrite "x y z". Contexts are merged.
+            var newCx = new SKContext(
+                new 
