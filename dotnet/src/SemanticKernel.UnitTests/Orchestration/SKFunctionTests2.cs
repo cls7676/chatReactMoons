@@ -574,4 +574,42 @@ public sealed class SKFunctionTests2
         Assert.Equal(s_expected, s_canary);
     }
 
-    private s
+    private static MethodInfo Method(Delegate method)
+    {
+        return method.Method;
+    }
+
+    private SKContext MockContext(string input)
+    {
+        return new SKContext(
+            new ContextVariables(input),
+            NullMemory.Instance,
+            this._skills.Object,
+            this._log.Object);
+    }
+
+    private void VerifyFunctionTypeMatch(int typeNumber)
+    {
+#pragma warning disable CS8620
+        // Verify that the expected function has been called
+        this._log.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Trace),
+                It.Is<EventId>(eventId => eventId.Id == typeNumber),
+                It.Is<It.IsAnyType>((@object, @type) => true),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+            Times.Once);
+
+        // Verify that unexpected functions have not been called (e.g. missing a return statement)
+        // TODO: check for "Executing function type" instead of using "eventId.Id != 0"
+        // Note: eventId.Id != 0 is used to avoid catching other Log.Trace events and failing the tests
+        this._log.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Trace),
+                It.Is<EventId>(eventId => eventId.Id != 0 && eventId.Id != typeNumber),
+                It.Is<It.IsAnyType>((@object, @type) => true),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+            Times.Never);
+#pragma warning restore CS8620
+    }
+}
