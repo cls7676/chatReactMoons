@@ -114,4 +114,66 @@ public sealed class PromptTemplateEngineTests
         Assert.Equal(" variables and ", blocks[4].Content);
         Assert.Equal(BlockTypes.Text, blocks[4].Type);
 
-        Assert.Equal("function $calls", blocks[5].Co
+        Assert.Equal("function $calls", blocks[5].Content);
+        Assert.Equal(BlockTypes.Code, blocks[5].Type);
+
+        Assert.Equal(" that ", blocks[6].Content);
+        Assert.Equal(BlockTypes.Text, blocks[6].Type);
+
+        Assert.Equal("also $use $variables", blocks[7].Content);
+        Assert.Equal(BlockTypes.Code, blocks[7].Type);
+    }
+
+    [Theory]
+    [InlineData(null, 1)]
+    [InlineData("", 1)]
+    [InlineData("}}{{a}} {{b}}x", 5)]
+    [InlineData("}}{{ -a}} {{b}}x", 5)]
+    [InlineData("}}{{ -a\n}} {{b}}x", 5)]
+    [InlineData("}}{{ -a\n} } {{b}}x", 3)]
+    public void ItTokenizesTheRightTokenCount(string? template, int blockCount)
+    {
+        // Act
+        var blocks = this._target.ExtractBlocks(template, false);
+
+        // Assert
+        Assert.Equal(blockCount, blocks.Count);
+    }
+
+    [Fact]
+    public void ItRendersVariables()
+    {
+        // Arrange
+        var template = "{$x11} This {$a} is {$_a} a {{$x11}} test {{$x11}} " +
+                       "template {{foo}}{{bar $a}}{{baz $_a}}{{yay $x11}}";
+
+        // Act
+        var blocks = this._target.ExtractBlocks(template);
+        var updatedBlocks = this._target.RenderVariables(blocks, this._variables);
+
+        // Assert
+        Assert.Equal(9, blocks.Count);
+        Assert.Equal(9, updatedBlocks.Count);
+
+        Assert.Equal("$x11", blocks[1].Content);
+        Assert.Equal("", updatedBlocks[1].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[1].Type);
+        Assert.Equal(BlockTypes.Text, updatedBlocks[1].Type);
+
+        Assert.Equal("$x11", blocks[3].Content);
+        Assert.Equal("", updatedBlocks[3].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[3].Type);
+        Assert.Equal(BlockTypes.Text, updatedBlocks[3].Type);
+
+        Assert.Equal("foo", blocks[5].Content);
+        Assert.Equal("foo", updatedBlocks[5].Content);
+        Assert.Equal(BlockTypes.Code, blocks[5].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[5].Type);
+
+        Assert.Equal("bar $a", blocks[6].Content);
+        Assert.Equal("bar $a", updatedBlocks[6].Content);
+        Assert.Equal(BlockTypes.Code, blocks[6].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[6].Type);
+
+        Assert.Equal("baz $_a", blocks[7].Content);
+        Assert.Equ
