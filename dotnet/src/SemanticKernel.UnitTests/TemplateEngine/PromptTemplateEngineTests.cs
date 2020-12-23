@@ -359,4 +359,28 @@ public sealed class PromptTemplateEngineTests
 
         this._variables.Set("myVar", "BAR");
         var template = "foo-{{function $myVar}}-baz";
-  
+        this._skills.Setup(x => x.HasNativeFunction("function")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("function")).Returns(func);
+        var context = this.MockContext();
+
+        // Act
+        var result = await this._target.RenderAsync(template, context);
+
+        // Assert
+        Assert.Equal("foo-BAR-baz", result);
+    }
+
+    private static MethodInfo Method(Delegate method)
+    {
+        return method.Method;
+    }
+
+    private SKContext MockContext()
+    {
+        return new SKContext(
+            this._variables,
+            NullMemory.Instance,
+            this._skills.Object,
+            this._logger);
+    }
+}
