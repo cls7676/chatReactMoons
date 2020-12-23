@@ -232,4 +232,69 @@ public sealed class PromptTemplateEngineTests
     [Fact]
     public async Task ItRendersCodeUsingInputInstanceAsync()
     {
-        /
+        // Arrange
+        [SKFunction("test")]
+        [SKFunctionName("test")]
+        string MyFunctionAsync(SKContext cx)
+        {
+            this._logger.LogTrace("MyFunction call received, input: {0}", cx.Variables.Input);
+            return $"F({cx.Variables.Input})";
+        }
+
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync), this);
+        Assert.NotNull(func);
+
+        this._variables.Update("INPUT-BAR");
+        var template = "foo-{{function}}-baz";
+        this._skills.Setup(x => x.HasNativeFunction("function")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("function")).Returns(func);
+        var context = this.MockContext();
+
+        // Act
+        var result = await this._target.RenderAsync(template, context);
+
+        // Assert
+        Assert.Equal("foo-F(INPUT-BAR)-baz", result);
+    }
+
+    [Fact]
+    public async Task ItRendersCodeUsingInputStaticAsync()
+    {
+        // Arrange
+        [SKFunction("test")]
+        [SKFunctionName("test")]
+        static string MyFunctionAsync(SKContext cx)
+        {
+            ConsoleLogger.Log.LogTrace("MyFunction call received, input: {0}", cx.Variables.Input);
+            return $"F({cx.Variables.Input})";
+        }
+
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync));
+        Assert.NotNull(func);
+
+        this._variables.Update("INPUT-BAR");
+        var template = "foo-{{function}}-baz";
+        this._skills.Setup(x => x.HasNativeFunction("function")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("function")).Returns(func);
+        var context = this.MockContext();
+
+        // Act
+        var result = await this._target.RenderAsync(template, context);
+
+        // Assert
+        Assert.Equal("foo-F(INPUT-BAR)-baz", result);
+    }
+
+    [Fact]
+    public async Task ItRendersCodeUsingVariablesInstanceAsync()
+    {
+        // Arrange
+        [SKFunction("test")]
+        [SKFunctionName("test")]
+        string MyFunctionAsync(SKContext cx)
+        {
+            this._logger.LogTrace("MyFunction call received, input: {0}", cx.Variables.Input);
+            return $"F({cx.Variables.Input})";
+        }
+
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync)
