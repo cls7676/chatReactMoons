@@ -42,4 +42,76 @@ public sealed class PromptTemplateEngineTests
         // Assert
         Assert.Equal(5, blocks.Count);
 
-        Asser
+        Assert.Equal("}}{", blocks[0].Content);
+        Assert.Equal(BlockTypes.Text, blocks[0].Type);
+
+        Assert.Equal("{$a", blocks[1].Content);
+        Assert.Equal(BlockTypes.Code, blocks[1].Type);
+
+        Assert.Equal("}} ", blocks[2].Content);
+        Assert.Equal(BlockTypes.Text, blocks[2].Type);
+
+        Assert.Equal("b", blocks[3].Content);
+        Assert.Equal(BlockTypes.Code, blocks[3].Type);
+
+        Assert.Equal("x}}", blocks[4].Content);
+        Assert.Equal(BlockTypes.Text, blocks[4].Type);
+    }
+
+    [Fact]
+    public void ItTokenizesEdgeCases2()
+    {
+        // Arrange
+        var template = "}}{{{{$a}}}} {{b}}$x}}";
+
+        // Act
+        var blocks = this._target.ExtractBlocks(template);
+
+        // Assert
+        Assert.Equal(5, blocks.Count);
+
+        Assert.Equal("}}{{", blocks[0].Content);
+        Assert.Equal(BlockTypes.Text, blocks[0].Type);
+
+        Assert.Equal("$a", blocks[1].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[1].Type);
+
+        Assert.Equal("}} ", blocks[2].Content);
+        Assert.Equal(BlockTypes.Text, blocks[2].Type);
+
+        Assert.Equal("b", blocks[3].Content);
+        Assert.Equal(BlockTypes.Code, blocks[3].Type);
+
+        Assert.Equal("$x}}", blocks[4].Content);
+        Assert.Equal(BlockTypes.Text, blocks[4].Type);
+    }
+
+    [Fact]
+    public void ItTokenizesAClassicPrompt()
+    {
+        // Arrange
+        var template = "this is a {{ $prompt }} with {{$some}} variables " +
+                       "and {{function $calls}} that {{ also $use $variables }}";
+
+        // Act
+        var blocks = this._target.ExtractBlocks(template, true);
+
+        // Assert
+        Assert.Equal(8, blocks.Count);
+
+        Assert.Equal("this is a ", blocks[0].Content);
+        Assert.Equal(BlockTypes.Text, blocks[0].Type);
+
+        Assert.Equal("$prompt", blocks[1].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[1].Type);
+
+        Assert.Equal(" with ", blocks[2].Content);
+        Assert.Equal(BlockTypes.Text, blocks[2].Type);
+
+        Assert.Equal("$some", blocks[3].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[3].Type);
+
+        Assert.Equal(" variables and ", blocks[4].Content);
+        Assert.Equal(BlockTypes.Text, blocks[4].Type);
+
+        Assert.Equal("function $calls", blocks[5].Co
