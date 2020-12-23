@@ -297,4 +297,66 @@ public sealed class PromptTemplateEngineTests
             return $"F({cx.Variables.Input})";
         }
 
-        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync)
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync), this);
+        Assert.NotNull(func);
+
+        this._variables.Set("myVar", "BAR");
+        var template = "foo-{{function $myVar}}-baz";
+        this._skills.Setup(x => x.HasNativeFunction("function")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("function")).Returns(func);
+        var context = this.MockContext();
+
+        // Act
+        var result = await this._target.RenderAsync(template, context);
+
+        // Assert
+        Assert.Equal("foo-F(BAR)-baz", result);
+    }
+
+    [Fact]
+    public async Task ItRendersCodeUsingVariablesStaticAsync()
+    {
+        // Arrange
+        [SKFunction("test")]
+        [SKFunctionName("test")]
+        static string MyFunctionAsync(SKContext cx)
+        {
+            ConsoleLogger.Log.LogTrace("MyFunction call received, input: {0}", cx.Variables.Input);
+            return $"F({cx.Variables.Input})";
+        }
+
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync));
+        Assert.NotNull(func);
+
+        this._variables.Set("myVar", "BAR");
+        var template = "foo-{{function $myVar}}-baz";
+        this._skills.Setup(x => x.HasNativeFunction("function")).Returns(true);
+        this._skills.Setup(x => x.GetNativeFunction("function")).Returns(func);
+        var context = this.MockContext();
+
+        // Act
+        var result = await this._target.RenderAsync(template, context);
+
+        // Assert
+        Assert.Equal("foo-F(BAR)-baz", result);
+    }
+
+    [Fact]
+    public async Task ItRendersAsyncCodeUsingVariablesAsync()
+    {
+        // Arrange
+        [SKFunction("test")]
+        [SKFunctionName("test")]
+        Task<string> MyFunctionAsync(SKContext cx)
+        {
+            // Input value should be "BAR" because the variable $myVar is passed in
+            this._logger.LogTrace("MyFunction call received, input: {0}", cx.Variables.Input);
+            return Task.FromResult(cx.Variables.Input);
+        }
+
+        var func = SKFunction.FromNativeMethod(Method(MyFunctionAsync), this);
+        Assert.NotNull(func);
+
+        this._variables.Set("myVar", "BAR");
+        var template = "foo-{{function $myVar}}-baz";
+  
