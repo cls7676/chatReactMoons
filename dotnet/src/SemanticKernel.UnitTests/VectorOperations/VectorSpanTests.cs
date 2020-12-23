@@ -32,4 +32,87 @@ public class VectorSpanTests
         Assert.False(EmbeddingSpan<nuint>.IsSupported);
         Assert.False(EmbeddingSpan<long>.IsSupported);
         Assert.False(EmbeddingSpan<ulong>.IsSupported);
-   
+        Assert.False(EmbeddingSpan<short>.IsSupported);
+        Assert.False(EmbeddingSpan<ushort>.IsSupported);
+    }
+
+    [Fact]
+    public void ItCanComputeCosineSimilarityFloats()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+        var vSpan2 = new EmbeddingSpan<float>(this._floatV2);
+        var target = vSpan1.CosineSimilarity(vSpan2);
+
+        // Assert
+        Assert.Equal(0.41971841676, target, 5);
+    }
+
+    [Fact]
+    public void ItCanComputeCosineSimilarityDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+        var vSpan2 = new EmbeddingSpan<double>(this._doubleV2);
+        var target = vSpan1.CosineSimilarity(vSpan2);
+
+        // Assert
+        Assert.Equal(0.41971841676, target, 5);
+    }
+
+    [Fact]
+    public void ItThrowsOnCosineSimilarityWithDifferentLengthVectorsFloat()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+        var vSpan2 = new EmbeddingSpan<float>(new float[] { -1.0F, 4.0F });
+
+        // Assert
+        try
+        {
+            vSpan1.CosineSimilarity(vSpan2);
+        }
+        catch (ArgumentException target)
+        {
+            Assert.IsType<ArgumentException>(target);
+        }
+    }
+
+    [Fact]
+    public void ItThrowsOnCosineSimilarityWithDifferentLengthVectorsDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+        var vSpan2 = new EmbeddingSpan<double>(new double[] { -1.0, 4.0 });
+
+        // Assert
+        try
+        {
+            vSpan1.CosineSimilarity(vSpan2);
+        }
+        catch (ArgumentException target)
+        {
+            Assert.IsType<ArgumentException>(target);
+        }
+    }
+
+    [Fact]
+    public void ItCanComputeEuclideanLengthFloat()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+
+        // Act
+        var target = vSpan1.EuclideanLength();
+
+        // Assert
+        Assert.Equal(11.0, target, 5);
+    }
+
+    [Fact]
+    public void ItCanComputeEuclideanLengthDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+
+        
