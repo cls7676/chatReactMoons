@@ -176,4 +176,60 @@ public sealed class PromptTemplateEngineTests
         Assert.Equal(BlockTypes.Code, updatedBlocks[6].Type);
 
         Assert.Equal("baz $_a", blocks[7].Content);
-        Assert.Equ
+        Assert.Equal("baz $_a", updatedBlocks[7].Content);
+        Assert.Equal(BlockTypes.Code, blocks[7].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[7].Type);
+
+        Assert.Equal("yay $x11", blocks[8].Content);
+        Assert.Equal("yay $x11", updatedBlocks[8].Content);
+        Assert.Equal(BlockTypes.Code, blocks[8].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[8].Type);
+
+        // Arrange
+        this._variables.Set("x11", "x11 value");
+        this._variables.Set("a", "a value");
+        this._variables.Set("_a", "_a value");
+
+        // Act
+        blocks = this._target.ExtractBlocks(template);
+        updatedBlocks = this._target.RenderVariables(blocks, this._variables);
+
+        // Assert
+        Assert.Equal(9, blocks.Count);
+        Assert.Equal(9, updatedBlocks.Count);
+
+        Assert.Equal("$x11", blocks[1].Content);
+        Assert.Equal("x11 value", updatedBlocks[1].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[1].Type);
+        Assert.Equal(BlockTypes.Text, updatedBlocks[1].Type);
+
+        Assert.Equal("$x11", blocks[3].Content);
+        Assert.Equal("x11 value", updatedBlocks[3].Content);
+        Assert.Equal(BlockTypes.Variable, blocks[3].Type);
+        Assert.Equal(BlockTypes.Text, updatedBlocks[3].Type);
+
+        Assert.Equal("foo", blocks[5].Content);
+        Assert.Equal("foo", updatedBlocks[5].Content);
+        Assert.Equal(BlockTypes.Code, blocks[5].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[5].Type);
+
+        Assert.Equal("bar $a", blocks[6].Content);
+        Assert.Equal("bar $a", updatedBlocks[6].Content);
+        Assert.Equal(BlockTypes.Code, blocks[6].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[6].Type);
+
+        Assert.Equal("baz $_a", blocks[7].Content);
+        Assert.Equal("baz $_a", updatedBlocks[7].Content);
+        Assert.Equal(BlockTypes.Code, blocks[7].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[7].Type);
+
+        Assert.Equal("yay $x11", blocks[8].Content);
+        Assert.Equal("yay $x11", updatedBlocks[8].Content);
+        Assert.Equal(BlockTypes.Code, blocks[8].Type);
+        Assert.Equal(BlockTypes.Code, updatedBlocks[8].Type);
+    }
+
+    [Fact]
+    public async Task ItRendersCodeUsingInputInstanceAsync()
+    {
+        /
