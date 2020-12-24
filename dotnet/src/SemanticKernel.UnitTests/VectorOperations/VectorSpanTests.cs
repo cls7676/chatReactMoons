@@ -115,4 +115,95 @@ public class VectorSpanTests
         // Arrange
         var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
 
-        
+        // Act
+        var target = vSpan1.EuclideanLength();
+
+        // Assert
+        Assert.Equal(11.0, target, 5);
+    }
+
+    [Fact]
+    public void ItCanComputeDotProductFloat()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+        var vSpan2 = new EmbeddingSpan<float>(this._floatV2);
+
+        // Act
+        var target = vSpan1.Dot(vSpan2);
+
+        // Assert
+        Assert.Equal(45.0, target, 5);
+    }
+
+    [Fact]
+    public void ItCanComputeDotProductDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+        var vSpan2 = new EmbeddingSpan<double>(this._doubleV2);
+
+        // Act
+        var target = vSpan1.Dot(vSpan2);
+
+        // Assert
+        Assert.Equal(45.0, target, 5);
+    }
+
+    [Fact]
+    public void ItThrowsOnDotProductWithDifferentLengthVectorsFP()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+        var vSpan2 = new EmbeddingSpan<float>(new float[] { -1.0F, 4.0F });
+
+        // Assert
+        try
+        {
+            vSpan1.Dot(vSpan2);
+        }
+        catch (ArgumentException target)
+        {
+            Assert.IsType<ArgumentException>(target);
+        }
+    }
+
+    [Fact]
+    public void ItThrowsOnDotProductWithDifferentLengthVectorsDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+        var vSpan2 = new EmbeddingSpan<double>(new double[] { -1.0, 4.0 });
+
+        // Assert
+        try
+        {
+            vSpan1.Dot(vSpan2);
+        }
+        catch (ArgumentException target)
+        {
+            Assert.IsType<ArgumentException>(target);
+        }
+    }
+
+    [Fact]
+    public void ItCanBeNormalizedFloat()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<float>(this._floatV1);
+
+        // Act
+        var target = vSpan1.Normalize();
+        var expected = new EmbeddingSpan<float>(new float[] { 0.09090909F, 0.18181819F, -0.3636364F, 0.90909094F });
+
+        // Assert
+        Assert.True(target.IsNormalized);
+        Assert.Equal(vSpan1.Span.Length, target.ReadOnlySpan.Length);
+        for (int i = 0; i < vSpan1.Span.Length; i++)
+        {
+            Assert.Equal(expected.Span[i], target.ReadOnlySpan[i], .00001F);
+        }
+    }
+
+    [Fact]
+    public void ItCanBe
