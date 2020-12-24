@@ -165,4 +165,48 @@ const App: FC = () => {
                             onTabSelect={(_, data) => changeTabValue(data.value as string)}
                         >
                             <Tab value="yourinfo">Your Info</Tab>
-                            <Tab val
+                            <Tab value="setup" disabled={appState < AppState.Setup}>
+                                Setup
+                            </Tab>
+                            <Tab value="interact" disabled={appState < AppState.InteractWithGraph}>
+                                Interact
+                            </Tab>
+                        </TabList>
+                    )}
+                    <div id="main">
+                        {appState === AppState.YourInfo ? <YourInfo /> : null}
+
+                        {appState === AppState.Setup ? (
+                            <ServiceConfig
+                                uri={process.env.REACT_APP_FUNCTION_URI as string}
+                                onConfigComplete={(config) => {
+                                    setConfig(config);
+                                    setAppState(AppState.InteractWithGraph);
+                                }}
+                            />
+                        ) : null}
+
+                        {appState === AppState.InteractWithGraph ? (
+                            <AuthenticatedTemplate>
+                                <InteractWithGraph
+                                    uri={process.env.REACT_APP_FUNCTION_URI as string}
+                                    config={config!}
+                                    onBack={() => {
+                                        changeAppState(appState - 1);
+                                    }}
+                                />
+                            </AuthenticatedTemplate>
+                        ) : null}
+                    </div>
+                </div>
+                {appState === AppState.ProbeForFunction ? null : (
+                    <div id="tipbar">
+                        <QuickTips tips={tips} />
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default App;
