@@ -54,4 +54,63 @@ const App: FC = () => {
     };
     const changeTabValue = function (newTabValue: string) {
         setSelectedTabValue(newTabValue);
-        setAppState(t
+        setAppState(tabValueToAppStateMap.get(newTabValue) ?? AppState.Setup);
+    };
+
+    useEffect(() => {
+        const fetchAsync = async () => {
+            if (config === undefined || config === null) {
+                return;
+            }
+
+            var result = await instance.acquireTokenSilent({
+                account: account !== null ? account : undefined,
+                scopes: (process.env.REACT_APP_GRAPH_SCOPES as string).split(','),
+                forceRefresh: false,
+            });
+
+            config.graphToken = result.accessToken;
+            setConfig(config);
+        };
+
+        fetchAsync();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [config]);
+
+    const tips: ITipGroup[] = [
+        {
+            header: 'Useful Resources',
+            items: [
+                {
+                    title: 'Read Documentation',
+                    uri: 'https://aka.ms/SKDoc-Auth-API',
+                },
+            ],
+        },
+        {
+            header: 'Functions used in this sample',
+            items: [
+                {
+                    title: 'Summarize',
+                    uri: 'https://github.com/microsoft/semantic-kernel/tree/main/samples/skills/SummarizeSkill/Summarize',
+                },
+                {
+                    title: 'AppendTextAsync',
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.Document/DocumentSkill.cs#L86',
+                },
+                {
+                    title: 'UploadFileAsync',
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.MsGraph/CloudDriveSkill.cs#L61',
+                },
+                {
+                    title: 'CreateLinkAsync',
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.MsGraph/CloudDriveSkill.cs#L88',
+                },
+                {
+                    title: 'GetMyEmailAddressAsync',
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.MsGraph/EmailSkill.cs#L55',
+                },
+                {
+                    title: 'SendEmailAsync',
+              
