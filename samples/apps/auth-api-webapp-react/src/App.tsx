@@ -113,4 +113,56 @@ const App: FC = () => {
                 },
                 {
                     title: 'SendEmailAsync',
-              
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.MsGraph/EmailSkill.cs#L65',
+                },
+                {
+                    title: 'AddTaskAsync',
+                    uri: 'https://github.com/microsoft/semantic-kernel/blob/main/dotnet/src/SemanticKernel.Skills/Skills.MsGraph/TaskListSkill.cs#L71',
+                },
+            ],
+        },
+        {
+            header: 'Local SK URL',
+            items: [
+                {
+                    title: process.env.REACT_APP_FUNCTION_URI as string,
+                    uri: process.env.REACT_APP_FUNCTION_URI as string,
+                },
+            ],
+        },
+    ];
+
+    return (
+        <div id="container" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <div id="header">
+                <Subtitle1 as="h1">Authentication with APIs sample app</Subtitle1>
+            </div>
+
+            {appState === AppState.ProbeForFunction ? (
+                <FunctionProbe
+                    uri={process.env.REACT_APP_FUNCTION_URI as string}
+                    onFunctionFound={() => setAppState(isAuthenticated ? AppState.Setup : AppState.YourInfo)}
+                />
+            ) : null}
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flex: 1,
+                    gap: 10,
+                    alignContent: 'start',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <div id="content">
+                    {appState === AppState.ProbeForFunction ? null : (
+                        <TabList
+                            style={{ paddingTop: 60, paddingLeft: 20 }}
+                            selectedValue={selectedTabValue}
+                            defaultSelectedValue="yourinfo"
+                            vertical
+                            size="large"
+                            onTabSelect={(_, data) => changeTabValue(data.value as string)}
+                        >
+                            <Tab value="yourinfo">Your Info</Tab>
+                            <Tab val
