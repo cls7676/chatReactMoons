@@ -206,4 +206,21 @@ public class VectorSpanTests
     }
 
     [Fact]
-    public void ItCanBe
+    public void ItCanBeNormalizedDouble()
+    {
+        // Arrange
+        var vSpan1 = new EmbeddingSpan<double>(this._doubleV1);
+
+        // Act
+        var target = vSpan1.Normalize();
+        var expected = new EmbeddingSpan<double>(new double[] { 0.09090909, 0.18181819, -0.3636364, 0.90909094 });
+
+        // Assert
+        Assert.True(target.IsNormalized);
+        Assert.Equal(vSpan1.Span.Length, target.ReadOnlySpan.Length);
+        for (int i = 0; i < vSpan1.Span.Length; i++)
+        {
+            Assert.Equal(expected.Span[i], target.ReadOnlySpan[i], .00001);
+        }
+    }
+}
