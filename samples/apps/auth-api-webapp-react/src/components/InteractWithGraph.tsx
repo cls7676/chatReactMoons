@@ -66,4 +66,65 @@ const InteractWithGraph: FC<IData> = ({ uri, config, onBack }) => {
             await sk.invokeAsync(
                 config,
                 {
-                    value: `Here's the link: ${shareLink.value}\n\nReminder: Please delete the document on your OneDrive after you finish w
+                    value: `Here's the link: ${shareLink.value}\n\nReminder: Please delete the document on your OneDrive after you finish with this sample app.`,
+                    inputs: [
+                        {
+                            key: 'recipients',
+                            value: myEmail.value,
+                        },
+                        {
+                            key: 'subject',
+                            value: 'Semantic Kernel Authentication Sample Project Document Link',
+                        },
+                    ],
+                },
+                'emailskill',
+                'sendemailasync',
+            );
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const runTask3 = async () => {
+        try {
+            var reminderDate = new Date();
+            reminderDate.setDate(reminderDate.getDate() + 3);
+
+            await sk.invokeAsync(
+                config,
+                {
+                    value: 'Remind me to follow up re the authentication sample email',
+                    inputs: [
+                        {
+                            key: 'reminder',
+                            value: reminderDate.toISOString(),
+                        },
+                    ],
+                },
+                'tasklistskill',
+                'addtaskasync',
+            );
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    return (
+        <div style={{ padding: 40, gap: 10, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+            <Title3>Interact with data and services</Title3>
+            <Body1>
+                You can interact with data and Microsoft services for your account. Ask questions about your data or ask
+                for help to complete a task.
+            </Body1>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingTop: 30 }}>
+                <div style={{ display: 'flex', flexDirection: 'row', gap: 7.25, alignItems: 'left' }}>
+                    <Image src={wordLogo} width={24} />
+                    <Body1>Sample Doc: {filename}</Body1>
+                </div>
+
+                <Textarea
+                    appearance="filled-lighter-shadow"
+                    textarea={{ style: { height: 306 } }}
+                    style={{ maxWidth: 761 
