@@ -127,4 +127,31 @@ const InteractWithGraph: FC<IData> = ({ uri, config, onBack }) => {
                 <Textarea
                     appearance="filled-lighter-shadow"
                     textarea={{ style: { height: 306 } }}
-                    style={{ maxWidth: 761 
+                    style={{ maxWidth: 761 }}
+                    resize="vertical"
+                    value={text}
+                    onChange={(e, d) => setText(d.value)}
+                />
+                <InteractionButton
+                    taskDescription="Summarize the above into a new Word Document and save it on OneDrive"
+                    runTask={runTask1}
+                />
+
+                <InteractionButton
+                    taskDescription="Get a shareable link and email the link to myself"
+                    runTask={runTask2}
+                />
+                <InteractionButton
+                    taskDescription="Add a reminder to follow-up with the email sent above"
+                    runTask={runTask3}
+                />
+            </div>
+            <br />
+            <Button style={{ width: 54 }} appearance="secondary" onClick={() => onBack()}>
+                Back
+            </Button>
+        </div>
+    );
+};
+
+export default InteractWithGraph;
