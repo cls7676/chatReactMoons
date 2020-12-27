@@ -76,4 +76,17 @@ const TaskButton: FC<IData> = ({ taskDescription, onTaskComplete, keyConfig, uri
                         runTask();
                     }}
                 >
-                    {!c
+                    {!canRunTask ? (
+                        <CheckmarkCircle24Regular primaryFill="green" filled={true} />
+                    ) : (
+                        <PlayCircle24Regular />
+                    )}
+                </Button>
+                <Body1>{taskDescription}</Body1>
+            </div>
+            {isBusy ? <Spinner /> : null}
+        </>
+    );
+};
+
+export default TaskButton;
