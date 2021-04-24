@@ -1337,4 +1337,54 @@
 
 "@fluentui/react-card@9.0.0-beta.47":
   version "9.0.0-beta.47"
-  resolved "https://registr
+  resolved "https://registry.yarnpkg.com/@fluentui/react-card/-/react-card-9.0.0-beta.47.tgz#09fdd28db646d415e599c3edbcd6a95094cfd17d"
+  integrity sha512-SmBpdG8LstKg6ICckY2hIM227MgfE1mUhJg9qTcRqLaplut+Wolz7zlDIUJyW7sKeYb3csbfB9M9+67Lih9OIw==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-checkbox@^9.0.28":
+  version "9.0.28"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-checkbox/-/react-checkbox-9.0.28.tgz#c895e5ffdb5bb302d43464023c55174f0e255803"
+  integrity sha512-kuehPpu9mFfjgEnqpx8+I4pW0uk90QA7SMW1NESvkLy0TTvpaYosdzKVMKr57p0BfQOyLVtzu2Tkh0hqOfOPPQ==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-label" "^9.0.22"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-combobox@^9.1.5":
+  version "9.1.5"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-combobox/-/react-combobox-9.1.5.tgz#81e4ee01159b28c9240c3ddf12db8c4690a0c9cd"
+  integrity sha512-+Sz2agM/LSsI8jINWIqFd4OuoEiWoxaE1lag6hpO5qhlL9GKHh0WoV0wLFZGmr1tDIKlZDDWMYeIT4ANyh7buw==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-portal" "^9.1.9"
+    "@fluentui/react-positioning" "^9.5.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-components@^9.15.6":
+  version "9.15.6"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-components/-/react-components-9.15.6.tgz#e75ce84b0106eb33e607d57b8933767e6ccafa1f"
+  integrity sha512-jhuATEdq1l+88sAGd3Pne71Fd7meYTkMaHeHzhRa8XgkNwfmrPB5xg5eXeLh7JYRX5qlDdVnsztS/3MOgohCMQ==
+  dependencies:
+    "@fluentui/react-accordion" "^9.0.26"
+    "@fluentui/react-alert" "9.0.0-beta.35"
+    "@fluentui/react-avatar" "^9.3.7"
+    "@fluentui/react-badge" "^9.0.26"
+    "@fluentui/react-button" "^9.2.5"
+    "@fluentui/reac
