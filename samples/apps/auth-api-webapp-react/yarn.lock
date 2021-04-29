@@ -1438,3 +1438,58 @@
   version "9.1.16"
   resolved "https://registry.yarnpkg.com/@fluentui/react-dialog/-/react-dialog-9.1.16.tgz#7607f422afa4005b72db128e54107b7c6e8b18d7"
   integrity sha512-3BzKXP1I/+XECznCbv7Y1d3LDss7bgrQXExkKi5XVb36yxZnLKAuxVkseOyz25YxAoPK4EqSrNTj900+ysXZkw==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-aria" "^9.3.10"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-portal" "^9.1.9"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-divider@^9.1.16":
+  version "9.1.16"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-divider/-/react-divider-9.1.16.tgz#a3b3ec1f31023b667c937648391998c1f48de993"
+  integrity sha512-I1TVbVbBsuhxk2F73aqonkVQC5oCOYihSzaIRyvY3YsY87b6lcsnDmUPl7q+GJn1RAdyIyyZpNXhYEKP9+XUpQ==
+  dependencies:
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-field@9.0.0-alpha.21":
+  version "9.0.0-alpha.21"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-field/-/react-field-9.0.0-alpha.21.tgz#242178c981a6f8a18036398bb1d3e5c76f8bd37d"
+  integrity sha512-FgReuGY9L6QglMHy4bVlCXc5mQ1xXX3vqAfchsqEhgC89A/rWA3R8NSSP8gcG15fShubCaw9aKrXQzHAfJjxMg==
+  dependencies:
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-label" "^9.0.22"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-icons@^2.0.175":
+  version "2.0.194"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-icons/-/react-icons-2.0.194.tgz#5a6e9574f4ef484ed0851a5ee12b16ba7fef5425"
+  integrity sha512-0mjnqQmXeg/VapcOW068evvgLFjMNi01c2QBzOvdou1dd7yYVXl4qQZtA03Z7O2huA02/Gt5EK4WQiJodgB/gA==
+  dependencies:
+    "@griffel/react" "^1.0.0"
+    tslib "^2.1.0"
+
+"@fluentui/react-image@^9.0.23":
+  version "9.0.23"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-image/-/react-image-9.0.23.tgz#bd81443eaa78bd3f658f9024c875ada38bf0001a"
+  integrity sha512-Dy3o6iFA69e+4h3YaxvA5bRkFjIM/L8h76wDAdmtdqXD1/0D9XsXao+CaGLbCk+EFyS48nVL/aUBNE69pghUZw==
+  dependencies:
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/
