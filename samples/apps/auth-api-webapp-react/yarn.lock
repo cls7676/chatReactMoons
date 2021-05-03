@@ -1542,4 +1542,60 @@
 "@fluentui/react-menu@^9.6.12":
   version "9.6.12"
   resolved "https://registry.yarnpkg.com/@fluentui/react-menu/-/react-menu-9.6.12.tgz#27800d4cbb9e37ebe9494d8cbb8d55e51294efcc"
-  integrity sha512-MIcTr5WreWHTA9haIafZshxNosGU9cPYsYwePgyrilmuT+FbkuH2FJnh73xIt2S
+  integrity sha512-MIcTr5WreWHTA9haIafZshxNosGU9cPYsYwePgyrilmuT+FbkuH2FJnh73xIt2SV2/sbgu9rzCT3TDOuO2B3Mg==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-aria" "^9.3.10"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-portal" "^9.1.9"
+    "@fluentui/react-positioning" "^9.5.0"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-overflow@^9.0.6":
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-overflow/-/react-overflow-9.0.6.tgz#caf1d8ebc4c4512f1d92f82f8e97faad39f4a832"
+  integrity sha512-6yZ8K5e9HkxB+d+6aNUEeB4aYrk61bK4REYHdG/0ZkHUknV6dBmCkWODZtctVzoReTokPT5wnrfBhcEbKLT3lg==
+  dependencies:
+    "@fluentui/priority-overflow" "^9.0.1"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-persona@^9.1.13":
+  version "9.1.13"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-persona/-/react-persona-9.1.13.tgz#f610aff770023693de3d1dc37c52b323bc66b7dd"
+  integrity sha512-Qnq1rkUMT0fKEg4H/NEWhpMyv5GoDyAlqlBsrbh4sMkGfVoFBP50Tg40kkxBG344B75ALkC30B6oOfZbm7pBrw==
+  dependencies:
+    "@fluentui/react-avatar" "^9.3.7"
+    "@fluentui/react-badge" "^9.0.26"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-popover@^9.4.11":
+  version "9.4.11"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-popover/-/react-popover-9.4.11.tgz#5df347022a76e05f2942930fe4fd318fc5315d65"
+  integrity sha512-Ot9ZdSrv0uok1fvQ+/8tO/tuq2TMp5aWyfueHz/dZ3FjggGfzWJeW1lj/G8l7NC5Si/4ojWvqx5W14/IC3W4ZQ==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-aria" "^9.3.10"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-portal" "^9.1.9"
+    "@fluentui/react-positioning" "^9.5.0"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui
