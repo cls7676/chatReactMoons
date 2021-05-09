@@ -1598,4 +1598,55 @@
     "@griffel/react" "^1.5.2"
     tslib "^2.1.0"
 
-"@fluentui
+"@fluentui/react-portal@^9.1.9":
+  version "9.1.9"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-portal/-/react-portal-9.1.9.tgz#ff11332bceff5e2a649aad1614574002f8593a7e"
+  integrity sha512-o7Ldgk66/xe7I89/vDXm1BLRyzJRhdAAGQxdTzODjIXE+iEkZnSxL3Cxx5T2qCS1eYuAYXnqDlrW56B4XzuAqg==
+  dependencies:
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+    use-disposable "^1.0.1"
+
+"@fluentui/react-positioning@^9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-positioning/-/react-positioning-9.5.0.tgz#e52365eda89729a7017c1b0a52695b146c75343b"
+  integrity sha512-CbVD8DiEebl3mWt1IqhOKr0UKklKfmzt0q4+4Fe51UV93AMmArhZfqyxrX6oqBXIG0rACO9d0PKc7/abf2CTOA==
+  dependencies:
+    "@floating-ui/dom" "^1.2.0"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-progress@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-progress/-/react-progress-9.0.0.tgz#6a50e770dd687c1b49987d2b3f154df2f4d06551"
+  integrity sha512-aNibiug5BgDMVvu1QqyehGwuJK8o+e1AQL3lILWe3E+gL0k/NfReht6qmpwI23P8rq8QFYUPyx7z1HEopCtq6g==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-provider@^9.3.5":
+  version "9.3.5"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-provider/-/react-provider-9.3.5.tgz#ba36b8949abe51a348ef086f91d8515eb0c43022"
+  integrity sha512-cpYSyW/1FLO9tmotuQZDKJ5+3swMR4Q5tGTAnIK6FPfggCfFY6HKyQFEdhV6ROw7DNoy994PuPvxnPE+JXGwng==
+  dependencies:
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/core" "^1.9.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-radio@^9.0.26":
+  version "9.0.26"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-radio/-/react-radio-9.0.26.tgz#02d0ec1a54
