@@ -1804,4 +1804,57 @@
 "@fluentui/react-theme@^9.1.5":
   version "9.1.5"
   resolved "https://registry.yarnpkg.com/@fluentui/react-theme/-/react-theme-9.1.5.tgz#3df9673513c0636bbe35aeff58c68dd312955fa5"
-  integrity sha51
+  integrity sha512-VOvPOM2IY2M9MpvA0voGIsDMdVxjTfakqu9ReNtaOrH/1pbUy5A+Z7ycHSo7eh7jVDj8W7KG79v0Q8kFPjymQQ==
+  dependencies:
+    "@fluentui/tokens" "1.0.0-alpha.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-toolbar@^9.0.7":
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-toolbar/-/react-toolbar-9.0.7.tgz#5c52c71a83a3e9ff0d78f6611e32406b6fec8378"
+  integrity sha512-DaBPLGPMn8OQXFjWtBLZ9OMAYFv8fr71AeoNDM9MtPVyTwJxzSGwdt1BOZJUZ+x4ivTDPRloZQ149XjHvw2avQ==
+  dependencies:
+    "@fluentui/react-button" "^9.2.5"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-divider" "^9.1.16"
+    "@fluentui/react-radio" "^9.0.26"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-tooltip@^9.1.18":
+  version "9.1.18"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-tooltip/-/react-tooltip-9.1.18.tgz#d7436150e40c98ac8abc64015c7e35b8d015786b"
+  integrity sha512-IsM58BdjjKqhGQbzMHT7P/q++H330054nSBVvc8RRB4nYhIRSRTKWng3Xp6j8gDy9LipWpInNds9JRG8867y5g==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-portal" "^9.1.9"
+    "@fluentui/react-positioning" "^9.5.0"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-utilities@^9.6.0":
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-utilities/-/react-utilities-9.6.0.tgz#d72be6d9f84b46c4f8a402f91ff6517b9651de83"
+  integrity sha512-nj/kV5wJoC4Rw7yXl4Zdjb4Sl+d9kpfi1eeak5TiyEXSAt8LOegTYO7k44/QxWOqbU4VXU3derYVnTLbBAu6nA==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    tslib "^2.1.0"
+
+"@fluentui/react-virtualizer@9.0.0-alpha.8":
+  version "9.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-virtualizer/-/react-virtualizer-9.0.0-alpha.8.tgz#f8eb4896e08154a91566989df3501dac8afc2eaf"
+  integrity sha512-IRtlr4aByn3DReUSn7IL0QDkZKlwWrcobZtz+QyEfkTgIslGXAo0Mb7lnmrrV54sSIpE1NJ5ikMt79a7Gasgrg==
+  dependencies:
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/tokens@1.0.0-alpha.2":
+  version "1.0.0-alpha.2"
+  resolved "https://registry.yar
