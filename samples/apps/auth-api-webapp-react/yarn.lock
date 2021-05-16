@@ -1857,4 +1857,50 @@
 
 "@fluentui/tokens@1.0.0-alpha.2":
   version "1.0.0-alpha.2"
-  resolved "https://registry.yar
+  resolved "https://registry.yarnpkg.com/@fluentui/tokens/-/tokens-1.0.0-alpha.2.tgz#890d8617ff40caa327f2c6810d7354f87c392555"
+  integrity sha512-Rd3xFE+ynAjpTgXwOWQnbw1jLqRrRvCgFTPtlqFlXK31lkNOz28f4HAHkNSXsFF95r/pM6EvJ+GtEoBhzfkdSw==
+  dependencies:
+    tslib "^2.1.0"
+
+"@griffel/core@^1.9.0", "@griffel/core@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@griffel/core/-/core-1.9.2.tgz#20ddc01586f49c986a82d5b73a4fbad79594abcb"
+  integrity sha512-bGYgCIjyAh/TtTPowiGcS8E7u8Kt0pjL55ZwMOcqmvkKIv1CHyAgK+DUgGiCuM4YGuN0QLV0X/mLddStcVyPsg==
+  dependencies:
+    "@emotion/hash" "^0.8.0"
+    csstype "^3.0.10"
+    rtl-css-js "^1.16.1"
+    stylis "^4.0.13"
+    tslib "^2.1.0"
+
+"@griffel/react@^1.0.0", "@griffel/react@^1.5.2":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@griffel/react/-/react-1.5.4.tgz#080c09040257b6707816b746a6fe1e0083de2a24"
+  integrity sha512-FmoM7JPTrQZlR2I0y5lkh6RnWD+3N4fj+0G/gsIKrylrzTGSiNYSihGwWYMLVNxPzvAsnC4D+NQEgzKHvTP75A==
+  dependencies:
+    "@griffel/core" "^1.9.2"
+    tslib "^2.1.0"
+
+"@humanwhocodes/config-array@^0.11.8":
+  version "0.11.8"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
+  integrity sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==
+  dependencies:
+    "@humanwhocodes/object-schema" "^1.2.1"
+    debug "^4.1.1"
+    minimatch "^3.0.5"
+
+"@humanwhocodes/module-importer@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz#af5b2691a22b44be847b0ca81641c5fb6ad0172c"
+  integrity sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==
+
+"@humanwhocodes/object-schema@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
+  integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
+
+"@istanbuljs/load-nyc-config@^1.0.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
+  integrity sha512-VjeHSlIzpv/NyD3
