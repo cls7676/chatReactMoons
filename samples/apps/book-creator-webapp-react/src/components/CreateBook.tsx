@@ -88,4 +88,73 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
                 setBookCreationState(BookCreationState.GetSummaryOfOutline);
                 break;
             case BookCreationState.GetSummaryOfOutline:
-                setBookCreationState(BookCreationState.ReadyToCreateBookFro
+                setBookCreationState(BookCreationState.ReadyToCreateBookFromOutline);
+                break;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [bookState]);
+
+    const runNovelOutlineFunction = async () => {
+        var askInputs: IAskInput[] = [
+            {
+                key: 'chapterCount',
+                value: '2',
+            },
+            {
+                key: 'endMarker',
+                value: '<hr />',
+            },
+        ];
+
+        var ask: IAsk = { value: `A children's book called ${title} about ${description}`, inputs: askInputs };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 'noveloutline');
+            var historyItem = {
+                functionName: 'noveloutline',
+                input: JSON.stringify(ask),
+                timestamp: new Date().toTimeString(),
+                uri: '/api/skills/writerskill/invoke/noveloutline',
+            };
+            setProcessHistory((processHistory) => [...processHistory, historyItem]);
+
+            setBookState((bookState) => ({
+                ...bookState,
+                outline: (result.value as string).substring(0, (result.value as string).length),
+            }));
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+    const runCreateBookFunction = async () => {
+        var inputs: IAskInput[] = [
+            {
+                key: 'numPages',
+                value: '8',
+            },
+            {
+                key: 'numWordsPerPage',
+                value: '50',
+            },
+        ];
+
+        var ask: IAsk = { value: bookState.outline, inputs: inputs };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'childrensbookskill', 'createbook');
+
+            var historyItem = {
+                functionName: 'createbook',
+                input: JSON.stringify(ask),
+                timestamp: new Date().toTimeString(),
+                uri: '/api/skills/childrensbookskill/invoke/createbook',
+            };
+            setProcessHistory((processHistory) => [...processHistory, historyItem]);
+
+            var jsonValue = (result.value as string).substring((result.value as string).indexOf('['));
+
+            var results = JSON.parse(jsonValue);
+
+            var pages: IPage[] = [];
+
+ 
