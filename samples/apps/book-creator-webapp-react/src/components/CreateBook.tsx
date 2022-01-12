@@ -157,4 +157,67 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
 
             var pages: IPage[] = [];
 
- 
+            for (var r of results) {
+                pages.push({
+                    content: r.content,
+                    num: r.page,
+                });
+            }
+
+            setBookState((bookState) => ({ ...bookState, pages: pages }));
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const runSummariseFunction = async () => {
+        var ask: IAsk = { value: bookState.outline };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'summarizeskill', 'summarize');
+
+            var historyItem = {
+                functionName: 'summarize',
+                input: JSON.stringify(ask),
+                timestamp: new Date().toTimeString(),
+                uri: '/api/skills/summarizeskill/invoke/summarize',
+            };
+            setProcessHistory((processHistory) => [...processHistory, historyItem]);
+            setBookState((bookState) => ({ ...bookState, summary: result.value }));
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const runStep1 = async () => {
+        setBookCreationState(BookCreationState.GetNovelOutline);
+    };
+
+    const runStep2 = async () => {
+        setBookCreationState(BookCreationState.CreateBookFromOutline);
+    };
+
+    const translate = async (text: string, inputs: IAskInput[]) => {
+        var ask: IAsk = { value: text, inputs: inputs };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 'translate');
+
+            var historyItem = {
+                functionName: 'translate',
+                input: JSON.stringify(ask),
+                timestamp: new Date().toTimeString(),
+                uri: '/api/skills/writerskill/invoke/translate',
+            };
+            setProcessHistory((processHistory) => [...processHistory, historyItem]);
+            return result.value;
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const rewrite = async (text: string, inputs: IAskInput[]) => {
+        var ask: IAsk = { value: text, inputs: inputs };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 
