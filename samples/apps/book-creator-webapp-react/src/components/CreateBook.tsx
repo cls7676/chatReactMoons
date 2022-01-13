@@ -220,4 +220,69 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
         var ask: IAsk = { value: text, inputs: inputs };
 
         try {
-            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 
+            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 'rewrite');
+
+            var historyItem = {
+                functionName: 'rewrite',
+                input: JSON.stringify(ask),
+                timestamp: new Date().toTimeString(),
+                uri: '/api/skills/writerskill/invoke/rewrite',
+            };
+            setProcessHistory((processHistory) => [...processHistory, historyItem]);
+            return result.value;
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const translateTo = async (language: string) => {
+        var inputs: IAskInput[] = [
+            {
+                key: 'language',
+                value: language,
+            },
+        ];
+
+        setBusyMessage(`Translating to ${language}`);
+
+        if (bookState.pages !== undefined) {
+            var translatedPages: IPage[] = [];
+
+            for (var p of bookState.pages) {
+                var translatedPage = await translate(p.content, inputs);
+                translatedPages.push({ content: translatedPage!, num: p.num });
+            }
+
+            setBookState((bookState) => ({ ...bookState, pages: translatedPages }));
+        }
+
+        var translatedOutline = await translate(bookState.outline, inputs);
+        var translatedSummary = await translate(bookState.summary, inputs);
+
+        setBookState((bookState) => ({ ...bookState, outline: translatedOutline!, summary: translatedSummary! }));
+        setBusyMessage('');
+        setIsTranslated(!isTranslated);
+    };
+
+    const rewriteAs = async (style: string) => {
+        var inputs: IAskInput[] = [
+            {
+                key: 'style',
+                value: style,
+            },
+        ];
+
+        setBusyMessage(`Rewriting in the style of ${style}`);
+
+        if (bookState.pages !== undefined) {
+            var rewrittenPages: IPage[] = [];
+
+            for (var p of bookState.pages) {
+                var rewrittenPage = await rewrite(p.content, inputs);
+                rewrittenPages.push({ content: rewrittenPage!, num: p.num });
+            }
+
+            setBookState((bookState) => ({ ...bookState, pages: rewrittenPages }));
+        }
+
+        var rewrittenOutline = await rewrite(bookState
