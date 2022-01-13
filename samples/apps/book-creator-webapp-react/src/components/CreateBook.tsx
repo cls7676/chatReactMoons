@@ -285,4 +285,47 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
             setBookState((bookState) => ({ ...bookState, pages: rewrittenPages }));
         }
 
-        var rewrittenOutline = await rewrite(bookState
+        var rewrittenOutline = await rewrite(bookState.outline, inputs);
+        var rewrittenSummary = await rewrite(bookState.summary, inputs);
+
+        setBookState((bookState) => ({ ...bookState, outline: rewrittenOutline!, summary: rewrittenSummary! }));
+        setBusyMessage('');
+    };
+
+    const [isTranslated, setIsTranslated] = useState<boolean>(false);
+    const baseLanguage = 'English';
+    const translateToLanguage = 'Spanish';
+    const rewriteAsStyle = 'a surfer';
+
+    return (
+        <div style={{ padding: 40, gap: 10, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+            <Title3>Create your book "{title}"</Title3>
+            <Body1>Run each ask on the page to see the steps that will execute</Body1>
+
+            <div style={{ gap: 20, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left' }}>
+                        <Button
+                            disabled={bookCreationState !== BookCreationState.Ready}
+                            appearance="transparent"
+                            size="small"
+                            onClick={runStep1}
+                        >
+                            {bookCreationState > 1 ? (
+                                <CheckmarkCircle24Regular primaryFill="green" filled={true} />
+                            ) : (
+                                <PlayCircle24Regular />
+                            )}
+                        </Button>
+                        <Body1>
+                            Step 1: Create outline ideas along with summaries for my 2 chapter book. (Book length: 8
+                            pages max)
+                        </Body1>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left' }}>
+                        <Button
+                            disabled={bookCreationState !== BookCreationState.ReadyToCreateBookFromOutline}
+                            appearance="transparent"
+                            size="small"
+                            onClick={runStep2}
+                        >
