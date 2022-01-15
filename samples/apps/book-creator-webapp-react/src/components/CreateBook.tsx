@@ -370,4 +370,52 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
                                             Translate to {isTranslated ? baseLanguage : translateToLanguage}
                                         </MenuItem>
                                         <MenuItem onClick={() => rewriteAs(rewriteAsStyle)}>
-                                            Rewrite in the 
+                                            Rewrite in the style of {rewriteAsStyle}
+                                        </MenuItem>
+                                    </MenuList>
+                                </MenuPopover>
+                            </Menu>
+                            <Button
+                                icon={showProcess ? <Book24Regular /> : <Code24Regular />}
+                                onClick={() => setShowProcess(!showProcess)}
+                            >
+                                {showProcess ? 'Show book' : 'Show process'}
+                            </Button>
+                        </div>
+                    </div>
+
+                    {showProcess ? (
+                        <>
+                            <div
+                                style={{
+                                    gap: 5,
+                                    width: 700,
+                                    height: 500,
+                                    padding: 40,
+                                    overflowY: 'scroll',
+                                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12)',
+                                    borderRadius: 4,
+                                }}
+                            >
+                                {processHistory.map((h, idx) => (
+                                    <div key={idx}>
+                                        <strong>[{h.timestamp}]</strong>
+                                        <br />
+                                        Invoked function: <em>{h.functionName}</em> at URI: <em>{h.uri}</em> with ask:
+                                        <br />
+                                        <br />
+                                        {h.input}
+                                        <br />
+                                        <br />
+                                        <hr />
+                                        <br />
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <div
+                            style={{
+                                gap: 5,
+                                width: 700,
+        
