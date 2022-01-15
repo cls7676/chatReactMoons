@@ -329,3 +329,45 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
                             size="small"
                             onClick={runStep2}
                         >
+                            {bookCreationState > 3 ? (
+                                <CheckmarkCircle24Regular primaryFill="green" filled={true} />
+                            ) : (
+                                <PlayCircle24Regular />
+                            )}
+                        </Button>
+                        <Body1>Step 2: Create book based on the generated outlines.</Body1>
+                    </div>
+                </div>
+                <div style={{ minWidth: 300, maxWidth: 800, gap: 10, display: 'flex', flexDirection: 'column' }}>
+                    <div
+                        style={{
+                            gap: 10,
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignSelf: 'stretch',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <Subtitle1>Results:</Subtitle1>
+                        <div>
+                            <Menu>
+                                <MenuTrigger disableButtonEnhancement>
+                                    <Button
+                                        disabled={bookCreationState === BookCreationState.Ready}
+                                        icon={<Thinking24Regular />}
+                                    >
+                                        Rethink
+                                    </Button>
+                                </MenuTrigger>
+
+                                <MenuPopover>
+                                    <MenuList>
+                                        <MenuItem
+                                            onClick={() =>
+                                                translateTo(isTranslated ? baseLanguage : translateToLanguage)
+                                            }
+                                        >
+                                            Translate to {isTranslated ? baseLanguage : translateToLanguage}
+                                        </MenuItem>
+                                        <MenuItem onClick={() => rewriteAs(rewriteAsStyle)}>
+                                            Rewrite in the 
