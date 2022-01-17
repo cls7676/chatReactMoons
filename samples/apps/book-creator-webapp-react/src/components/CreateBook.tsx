@@ -418,4 +418,40 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
                             style={{
                                 gap: 5,
                                 width: 700,
-        
+                                height: 500,
+                                padding: 40,
+                                overflowY: 'scroll',
+                                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12)',
+                                borderRadius: 4,
+                            }}
+                        >
+                            {busyMessage.length > 0 ? (
+                                <Spinner style={{ padding: 40 }} labelPosition="after" label={busyMessage} />
+                            ) : null}
+                            {bookState === undefined ? null : (
+                                <>
+                                    {bookState.pages !== undefined && bookState.pages.length > 0
+                                        ? bookState.pages.map((p, idx) => (
+                                              <div
+                                                  key={idx}
+                                                  style={{ display: 'flex', gap: 5, flexDirection: 'column' }}
+                                              >
+                                                  <Body1>Page {p.num}</Body1>
+                                                  <Body1>{p.content}</Body1>
+                                                  <hr />
+                                              </div>
+                                          ))
+                                        : null}
+                                    {bookState.outline !== undefined ? (
+                                        <span
+                                            dangerouslySetInnerHTML={{
+                                                __html: bookState.outline.replaceAll('\n', '<br />'),
+                                            }}
+                                        ></span>
+                                    ) : null}
+                                    {bookState.summary !== undefined ? (
+                                        <>
+                                            <br />
+                                            <Body1>
+                                                <strong>Summary:</strong> {bookState.summary}
+ 
