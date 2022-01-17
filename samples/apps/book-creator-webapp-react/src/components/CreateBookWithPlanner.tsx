@@ -1,3 +1,4 @@
+
 // Copyright (c) Microsoft. All rights reserved.
 
 import {
@@ -10,20 +11,15 @@ import {
     MenuTrigger,
     Spinner,
     Subtitle1,
+    Subtitle2,
     Title3
 } from '@fluentui/react-components';
-import {
-    Book24Regular,
-    CheckmarkCircle24Regular,
-    Code24Regular,
-    PlayCircle24Regular,
-    Thinking24Regular
-} from '@fluentui/react-icons';
-import { FC, useEffect, useState } from 'react';
+import { Book24Regular, Code24Regular, Thinking24Regular } from '@fluentui/react-icons';
+import { FC, useState } from 'react';
 import { useSemanticKernel } from '../hooks/useSemanticKernel';
 import { IAsk, IAskInput } from '../model/Ask';
 import { IKeyConfig } from '../model/KeyConfig';
-import { IBookResult, IPage } from '../model/Page';
+import TaskButton from './TaskButton';
 
 interface IData {
     uri: string;
@@ -31,6 +27,17 @@ interface IData {
     description: string;
     keyConfig: IKeyConfig;
     onBack: () => void;
+}
+
+interface IPage {
+    num: number;
+    content: string;
+}
+
+interface IResult {
+    outline: string;
+    summary: string;
+    pages: IPage[];
 }
 
 interface IProcessHistory {
@@ -49,153 +56,15 @@ enum BookCreationState {
     Complete = 5,
 }
 
-const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) => {
+const CreateBookWithPlanner: FC<IData> = ({ uri, title, description, keyConfig, onBack }) => {
     const sk = useSemanticKernel(uri);
+    const bookJsonFormat = "{'pages': [{'num':0, content:''}]}"; //the format we will ask planner to return results in
+
     const [bookCreationState, setBookCreationState] = useState<BookCreationState>(BookCreationState.Ready);
     const [busyMessage, setBusyMessage] = useState<string>('');
-    const [bookState, setBookState] = useState<IBookResult>({} as IBookResult);
+    const [bookState, setBookState] = useState<IResult>({} as IResult);
     const [showProcess, setShowProcess] = useState<boolean>(false);
     const [processHistory, setProcessHistory] = useState<IProcessHistory[]>([]);
-
-    useEffect(() => {
-        const runAsync = async () => {
-            switch (bookCreationState) {
-                case BookCreationState.GetNovelOutline:
-                    setBusyMessage('Creating novel outline');
-                    await runNovelOutlineFunction();
-                    setBusyMessage('');
-                    break;
-                case BookCreationState.GetSummaryOfOutline:
-                    setBusyMessage('Getting summary');
-                    await runSummariseFunction();
-                    setBusyMessage('');
-                    break;
-                case BookCreationState.CreateBookFromOutline:
-                    setBusyMessage('Creating an 8 page book');
-                    await runCreateBookFunction();
-                    setBusyMessage('');
-                    break;
-            }
-        };
-
-        runAsync();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bookCreationState]);
-
-    useEffect(() => {
-        switch (bookCreationState) {
-            case BookCreationState.GetNovelOutline:
-                setBookCreationState(BookCreationState.GetSummaryOfOutline);
-                break;
-            case BookCreationState.GetSummaryOfOutline:
-                setBookCreationState(BookCreationState.ReadyToCreateBookFromOutline);
-                break;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bookState]);
-
-    const runNovelOutlineFunction = async () => {
-        var askInputs: IAskInput[] = [
-            {
-                key: 'chapterCount',
-                value: '2',
-            },
-            {
-                key: 'endMarker',
-                value: '<hr />',
-            },
-        ];
-
-        var ask: IAsk = { value: `A children's book called ${title} about ${description}`, inputs: askInputs };
-
-        try {
-            var result = await sk.invokeAsync(keyConfig, ask, 'writerskill', 'noveloutline');
-            var historyItem = {
-                functionName: 'noveloutline',
-                input: JSON.stringify(ask),
-                timestamp: new Date().toTimeString(),
-                uri: '/api/skills/writerskill/invoke/noveloutline',
-            };
-            setProcessHistory((processHistory) => [...processHistory, historyItem]);
-
-            setBookState((bookState) => ({
-                ...bookState,
-                outline: (result.value as string).substring(0, (result.value as string).length),
-            }));
-        } catch (e) {
-            alert('Something went wrong.\n\nDetails:\n' + e);
-        }
-    };
-    const runCreateBookFunction = async () => {
-        var inputs: IAskInput[] = [
-            {
-                key: 'numPages',
-                value: '8',
-            },
-            {
-                key: 'numWordsPerPage',
-                value: '50',
-            },
-        ];
-
-        var ask: IAsk = { value: bookState.outline, inputs: inputs };
-
-        try {
-            var result = await sk.invokeAsync(keyConfig, ask, 'childrensbookskill', 'createbook');
-
-            var historyItem = {
-                functionName: 'createbook',
-                input: JSON.stringify(ask),
-                timestamp: new Date().toTimeString(),
-                uri: '/api/skills/childrensbookskill/invoke/createbook',
-            };
-            setProcessHistory((processHistory) => [...processHistory, historyItem]);
-
-            var jsonValue = (result.value as string).substring((result.value as string).indexOf('['));
-
-            var results = JSON.parse(jsonValue);
-
-            var pages: IPage[] = [];
-
-            for (var r of results) {
-                pages.push({
-                    content: r.content,
-                    num: r.page,
-                });
-            }
-
-            setBookState((bookState) => ({ ...bookState, pages: pages }));
-        } catch (e) {
-            alert('Something went wrong.\n\nDetails:\n' + e);
-        }
-    };
-
-    const runSummariseFunction = async () => {
-        var ask: IAsk = { value: bookState.outline };
-
-        try {
-            var result = await sk.invokeAsync(keyConfig, ask, 'summarizeskill', 'summarize');
-
-            var historyItem = {
-                functionName: 'summarize',
-                input: JSON.stringify(ask),
-                timestamp: new Date().toTimeString(),
-                uri: '/api/skills/summarizeskill/invoke/summarize',
-            };
-            setProcessHistory((processHistory) => [...processHistory, historyItem]);
-            setBookState((bookState) => ({ ...bookState, summary: result.value }));
-        } catch (e) {
-            alert('Something went wrong.\n\nDetails:\n' + e);
-        }
-    };
-
-    const runStep1 = async () => {
-        setBookCreationState(BookCreationState.GetNovelOutline);
-    };
-
-    const runStep2 = async () => {
-        setBookCreationState(BookCreationState.CreateBookFromOutline);
-    };
 
     const translate = async (text: string, inputs: IAskInput[]) => {
         var ask: IAsk = { value: text, inputs: inputs };
@@ -236,30 +105,19 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
     };
 
     const translateTo = async (language: string) => {
-        var inputs: IAskInput[] = [
-            {
-                key: 'language',
-                value: language,
-            },
-        ];
-
         setBusyMessage(`Translating to ${language}`);
 
         if (bookState.pages !== undefined) {
             var translatedPages: IPage[] = [];
 
             for (var p of bookState.pages) {
-                var translatedPage = await translate(p.content, inputs);
+                var translatedPage = await translate(p.content, [{ key: 'language', value: language }]);
                 translatedPages.push({ content: translatedPage!, num: p.num });
             }
 
             setBookState((bookState) => ({ ...bookState, pages: translatedPages }));
         }
 
-        var translatedOutline = await translate(bookState.outline, inputs);
-        var translatedSummary = await translate(bookState.summary, inputs);
-
-        setBookState((bookState) => ({ ...bookState, outline: translatedOutline!, summary: translatedSummary! }));
         setBusyMessage('');
         setIsTranslated(!isTranslated);
     };
@@ -292,6 +150,41 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
         setBusyMessage('');
     };
 
+    const onPlanCreated = (ask: IAsk, plan: string) => {
+        var historyItem = {
+            functionName: 'createplan',
+            input: JSON.stringify(ask),
+            timestamp: new Date().toTimeString(),
+            uri: '/api/skills/plannerskill/invoke/createplanasync',
+        };
+        setProcessHistory((processHistory) => [...processHistory, historyItem]);
+    };
+
+    const onTaskCompleted = (ask: IAsk, result: string) => {
+        var historyItem = {
+            functionName: 'executeplan',
+            input: JSON.stringify(ask),
+            timestamp: new Date().toTimeString(),
+            uri: '/api/planner/execute',
+        };
+        setProcessHistory((processHistory) => [...processHistory, historyItem]);
+
+        var jsonValue = result.substring(result.indexOf('['));
+        var results = JSON.parse(jsonValue);
+
+        var pages: IPage[] = [];
+
+        for (var r of results) {
+            pages.push({
+                content: r.content,
+                num: r.page,
+            });
+        }
+
+        setBookState((bookState) => ({ ...bookState, pages: pages }));
+        setBookCreationState(BookCreationState.Complete);
+    };
+
     const [isTranslated, setIsTranslated] = useState<boolean>(false);
     const baseLanguage = 'English';
     const translateToLanguage = 'Spanish';
@@ -300,43 +193,20 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
     return (
         <div style={{ padding: 40, gap: 10, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
             <Title3>Create your book "{title}"</Title3>
-            <Body1>Run each ask on the page to see the steps that will execute</Body1>
+            <Subtitle2>Run each ask on the page to see the steps that will execute</Subtitle2>
 
             <div style={{ gap: 20, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left' }}>
-                        <Button
-                            disabled={bookCreationState !== BookCreationState.Ready}
-                            appearance="transparent"
-                            size="small"
-                            onClick={runStep1}
-                        >
-                            {bookCreationState > 1 ? (
-                                <CheckmarkCircle24Regular primaryFill="green" filled={true} />
-                            ) : (
-                                <PlayCircle24Regular />
-                            )}
-                        </Button>
-                        <Body1>
-                            Step 1: Create outline ideas along with summaries for my 2 chapter book. (Book length: 8
-                            pages max)
-                        </Body1>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left' }}>
-                        <Button
-                            disabled={bookCreationState !== BookCreationState.ReadyToCreateBookFromOutline}
-                            appearance="transparent"
-                            size="small"
-                            onClick={runStep2}
-                        >
-                            {bookCreationState > 3 ? (
-                                <CheckmarkCircle24Regular primaryFill="green" filled={true} />
-                            ) : (
-                                <PlayCircle24Regular />
-                            )}
-                        </Button>
-                        <Body1>Step 2: Create book based on the generated outlines.</Body1>
-                    </div>
+                    <TaskButton
+                        keyConfig={keyConfig}
+                        skills={['writerskill', 'childrensbookskill', 'summarizeskill']}
+                        uri={uri}
+                        onPlanCreated={onPlanCreated}
+                        onTaskCompleted={onTaskCompleted}
+                        taskTitle="Create an 8 page children's book based on the topic summary from the previous page"
+                        taskDescription={`Create an 8 page children's book called ${title} about: ${description}`}
+                        taskResponseFormat={bookJsonFormat}
+                    />
                 </div>
                 <div style={{ minWidth: 300, maxWidth: 800, gap: 10, display: 'flex', flexDirection: 'column' }}>
                     <div
@@ -442,21 +312,6 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
                                               </div>
                                           ))
                                         : null}
-                                    {bookState.outline !== undefined ? (
-                                        <span
-                                            dangerouslySetInnerHTML={{
-                                                __html: bookState.outline.replaceAll('\n', '<br />'),
-                                            }}
-                                        ></span>
-                                    ) : null}
-                                    {bookState.summary !== undefined ? (
-                                        <>
-                                            <br />
-                                            <Body1>
-                                                <strong>Summary:</strong> {bookState.summary}
-                                            </Body1>
-                                        </>
-                                    ) : null}
                                 </>
                             )}
                         </div>
@@ -470,4 +325,4 @@ const CreateBook: FC<IData> = ({ uri, title, description, keyConfig, onBack }) =
     );
 };
 
-export default CreateBook;
+export default CreateBookWithPlanner;
