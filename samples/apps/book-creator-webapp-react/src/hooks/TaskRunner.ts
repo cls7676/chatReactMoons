@@ -24,4 +24,26 @@ export class TaskRunner {
         var createPlanRequest = taskDescription;
 
         if (taskResponseFormat !== undefined) {
-            createPlanRequest = `${createPlanRequest} MUST RETURN A SINGLE RESULT IN THIS FORMAT: ${taskRe
+            createPlanRequest = `${createPlanRequest} MUST RETURN A SINGLE RESULT IN THIS FORMAT: ${taskResponseFormat}`;
+        }
+
+        var createPlanAsk = {
+            value: createPlanRequest,
+            skills: skills,
+        };
+
+        var createPlanResult = await this.sk.invokeAsync(this.keyConfig, createPlanAsk, 'plannerskill', 'createplan');
+
+        onPlanCreated?.(createPlanAsk, createPlanResult.value);
+
+        var inputs: IAskInput[] = [...createPlanResult.state];
+        var executePlanAsk = {
+            inputs: inputs,
+            value: createPlanResult.value,
+        };
+
+        var executePlanResult = await this.sk.executePlanAsync(this.keyConfig, executePlanAsk, this.maxSteps); //the maximum number of steps that the planner will attempt while the problem remains unsolved
+
+        onTaskCompleted?.(executePlanAsk, executePlanResult.value);
+    };
+}
