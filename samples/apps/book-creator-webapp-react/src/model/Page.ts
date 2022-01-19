@@ -3,3 +3,10 @@
 export interface IPage {
     num: number;
     content: string;
+}
+
+export interface IBookResult {
+    outline: string;
+    summary: string;
+    pages: IPage[];
+}
