@@ -1263,4 +1263,59 @@
     "@fluentui/react-icons" "^2.0.175"
     "@fluentui/react-tabster" "^9.5.3"
     "@fluentui/react-theme" "^9.1.5"
-    "@fluentui/react-utili
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-aria@^9.3.10":
+  version "9.3.10"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-aria/-/react-aria-9.3.10.tgz#eed177f22d9cfe10fc303eb0c0e86d04dfa37513"
+  integrity sha512-q2E2j09AkMmpf5IUJbaCwEU6omw9fMa8NNID8DmjvGjjWV1vxxmFODjzm7rbPaNGEoIkVICL0l4dY2Oj7Z1qNQ==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-utilities" "^9.6.0"
+    tslib "^2.1.0"
+
+"@fluentui/react-avatar@^9.3.7":
+  version "9.3.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-avatar/-/react-avatar-9.3.7.tgz#cc976ccb790d0a02a2eb814e9a0c5727e8bd8784"
+  integrity sha512-tBU0T6XkfVCl5HPYFX4+6qUMzJZLf58RsCPkntzWoXxQp/Q1htDGuO6C0+pxIPJSW9on1hbPHHcCttTUhRD+rw==
+  dependencies:
+    "@fluentui/react-badge" "^9.0.26"
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-popover" "^9.4.11"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-tooltip" "^9.1.18"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-badge@^9.0.26":
+  version "9.0.26"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-badge/-/react-badge-9.0.26.tgz#a98e6450abe4cff5d8ea651899c82e82e209690b"
+  integrity sha512-jSbFbXty3Ah17seONMBb0rB4hY3zRVpvHykyrSAgphGw0Oerxd7FLDsbH/n0icGub8QHo/DfGRNRLbSQXLpB5Q==
+  dependencies:
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-button@^9.2.5":
+  version "9.2.5"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-button/-/react-button-9.2.5.tgz#2044acd4d084bf4fb4a2ea0eb1c89e1dab0cf302"
+  integrity sha512-zotkxKk6bZNoOw/c+zpmmqqVsHNYNA5eChxmC6gAxsHQYBBYm+hKn+cF7zIMnlv2A0uNipfUjtlXSwR2ouNa7g==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-aria" "^9.3.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-card@9.
