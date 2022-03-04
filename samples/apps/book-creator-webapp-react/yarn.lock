@@ -1471,4 +1471,57 @@
   integrity sha512-Dy3o6iFA69e+4h3YaxvA5bRkFjIM/L8h76wDAdmtdqXD1/0D9XsXao+CaGLbCk+EFyS48nVL/aUBNE69pghUZw==
   dependencies:
     "@fluentui/react-theme" "^9.1.5"
-    "
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-infobutton@9.0.0-beta.17":
+  version "9.0.0-beta.17"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-infobutton/-/react-infobutton-9.0.0-beta.17.tgz#7bb5a4517868585e308131486f5af9729fa78ad3"
+  integrity sha512-zyAKA/AYyf43dPVTv6TY2p78xVIcCmoVkQ8EwMc4mi/jgtHW4gOc54VpnjupNH0IBjvTPSVcvbJ+Pbah2Iy8eA==
+  dependencies:
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-popover" "^9.4.11"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-input@^9.3.7":
+  version "9.3.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-input/-/react-input-9.3.7.tgz#277c2214bc2d97b92cbce216aa2ac0b3ee88a796"
+  integrity sha512-gW8FDBwDxSWd7abwWVkTjp8Vca6nJo9NaQZF06T00XXp68owzYp8kiqLx/qkHQ83DEbkZbYgGs/xZyb9h+jBFw==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-label@^9.0.22":
+  version "9.0.22"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-label/-/react-label-9.0.22.tgz#fa07405fbdbb5bf1c6931b34fd0aac2199d2591d"
+  integrity sha512-ox3bPyHn1wqFG+uUsf4Cl19uRAMH/xETUdvp0XS8kf3dd9g1X5cWtFKSBqLBrzj1RQcYC6lpyyrFymKsb6K/eg==
+  dependencies:
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-link@^9.0.25":
+  version "9.0.25"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-link/-/react-link-9.0.25.tgz#c21c1cf21c97183f0e9769f8a963a3422a3f8eff"
+  integrity sha512-8ovAI+uY2Tk4YbllOfZvWAVKm8SnaoiJgVyR69eKtJRTVj4a6Lucwz68EELMZEoMK8an2TGeOc2BFrCH/bouCQ==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-menu@^9.6.12":
+  version "9.6.12"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-men
