@@ -1676,4 +1676,55 @@
     "@fluentui/react-tabster" "^9.5.3"
     "@fluentui/react-theme" "^9.1.5"
     "@fluentui/react-utilities" "^9.6.0"
-    "@griffel/rea
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-spinbutton@^9.1.7":
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-spinbutton/-/react-spinbutton-9.1.7.tgz#0815fc3d27b57dbc01b91d6ef259ef48d5c14222"
+  integrity sha512-DyNAStBNtS4yXl0GBKPHIpROnAf69Y5fTbEkLzTy83dukVg/xnAUbB3D3ZyEqCPLaZMluIfT69uplhSSXcHaBg==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-spinner@^9.0.22":
+  version "9.0.22"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-spinner/-/react-spinner-9.0.22.tgz#8fd9845ff35b85de73c2b6f7a58f8506cae99993"
+  integrity sha512-Tz2/gBFPngK1/ixVNOpHUoAbAKw1cesUuHsJm956edijl2oanZvNiOFKzVHnU164NXJlg1W0k/W8cXKWVUZ0aA==
+  dependencies:
+    "@fluentui/react-label" "^9.0.22"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-switch@^9.0.26":
+  version "9.0.26"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-switch/-/react-switch-9.0.26.tgz#1a976b6ad414abdbb1346bbc416e069300b2ff5d"
+  integrity sha512-bgE0sp7RBeV0I6nBfMwE4z3igqhP2LqNLDGJF+apB4gU8czYVQa62FGVYDUfpHgnqdND1F/lWW8Tp6hPa7O2Kg==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-label" "^9.0.22"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-table@^9.0.4":
+  version "9.0.4"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-table/-/react-table-9.0.4.tgz#c0586c9fead7d0a91f904a7721c94f53b51e2001"
+  integrity sha512-YSmgGgWUHmgBvbIpLZoMuP9S17Q24cx8AFDT6i4TaIT/vW0RvOxdy/xZ+6Z0QIXg/NN7n9CbeZr/V6ZIXlk1sg==
+  dependencies:
+    "@fluentui/keyboard-keys" "^9.0.1"
+    "@fluentui/react-aria" "^9.3.10"
+    "@fluentui/react-avatar" "^9.3.7"
+    "@fluentui/react-checkbox" "^9.0.28"
+    "@fluentui/react-cont
