@@ -1627,3 +1627,53 @@
     "@fluentui/react-theme" "^9.1.5"
     "@fluentui/react-utilities" "^9.6.0"
     "@griffel/core" "^1.9.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-radio@^9.0.26":
+  version "9.0.26"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-radio/-/react-radio-9.0.26.tgz#02d0ec1a54391e74a726e9f1226dd7dbb7d581ed"
+  integrity sha512-yN42RCFnSlWDj6Qrdblxjwuss77mauPjJuExQm14IU6zJrdTe2v2Wv2NjCId7wfUTxc2PRK0HKduk5xiYSEgeQ==
+  dependencies:
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-label" "^9.0.22"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-select@^9.0.3":
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-select/-/react-select-9.0.3.tgz#42d26a5ef20aaa9bd111fd949b669d4035400b13"
+  integrity sha512-29pb/8MN2SyuLCvZMVZ8qWeMyiZ8v8jw1z3yCgWEW1XmKTNWyY3XNFW+PrS0bD+7bWpH3AeDUcqPA92juFj83g==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-shared-contexts@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-shared-contexts/-/react-shared-contexts-9.2.0.tgz#65592203f21c323251405dccf8484bc280d7257f"
+  integrity sha512-4ldaMEs/ZWXJen8Q/6ughfe1ubl42npRVutwD0diaq69l+kkb65GIIA2G0vTHMhLCq37Ne01qjvrD+42ut5qPg==
+  dependencies:
+    "@fluentui/react-theme" "^9.1.5"
+    tslib "^2.1.0"
+
+"@fluentui/react-slider@^9.0.25":
+  version "9.0.25"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-slider/-/react-slider-9.0.25.tgz#c8072b94ab54c9640677464546005779e3a545ce"
+  integrity sha512-gkt13cv3LZld3AlPARGPs/Rz7CHCZ/ijpS7zReWw5ygbMo+Ema4Gdgjw6+y+GeCDc4Ex/u3wKvK0SXYEfKx7Jw==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/rea
