@@ -1727,4 +1727,55 @@
     "@fluentui/react-aria" "^9.3.10"
     "@fluentui/react-avatar" "^9.3.7"
     "@fluentui/react-checkbox" "^9.0.28"
-    "@fluentui/react-cont
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-icons" "^2.0.175"
+    "@fluentui/react-radio" "^9.0.26"
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-tabs@^9.2.4":
+  version "9.2.4"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-tabs/-/react-tabs-9.2.4.tgz#65c0ad90cd19724a53360fcc2c41275163da080e"
+  integrity sha512-Gsk6lzScrRq+CL92ErMkj9j+24zjqpvDD3yOGrkM5GPi14GxH/xArXddx20HFccvqOkQWGteAvPqrCP6YsUShw==
+  dependencies:
+    "@fluentui/react-context-selector" "^9.1.10"
+    "@fluentui/react-tabster" "^9.5.3"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-tabster@^9.5.3":
+  version "9.5.3"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-tabster/-/react-tabster-9.5.3.tgz#50a4df58a9e944452e6b687decb3904e6bd237e3"
+  integrity sha512-P1BXdxR+8LPy0hXvV1F69IDViWIXckFUfLIVgS0fSoRwHqGvV/kfoT3+DYTAWsfrsF1gYAvJzpz86EAPN8ZmVQ==
+  dependencies:
+    "@fluentui/react-shared-contexts" "^9.2.0"
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    keyborg "^2.0.0"
+    tabster "^4.1.1"
+    tslib "^2.1.0"
+
+"@fluentui/react-text@^9.2.3":
+  version "9.2.3"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-text/-/react-text-9.2.3.tgz#7c539733ef19fe389a3ee640005f8aba820a53a7"
+  integrity sha512-MHbfOXDx1ThroCd5H2M67/p5/pRMrjdyHibTdpuh3a7bhNIu59nCVIYChWNvwy2LIntaQa1w7ROeiBP5+GHthw==
+  dependencies:
+    "@fluentui/react-theme" "^9.1.5"
+    "@fluentui/react-utilities" "^9.6.0"
+    "@griffel/react" "^1.5.2"
+    tslib "^2.1.0"
+
+"@fluentui/react-textarea@^9.2.4":
+  version "9.2.4"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-textarea/-/react-textarea-9.2.4.tgz#319a0f2deebe5485778c1274db01b2cb7e865164"
+  integrity sha512-yddZIo1vtvxOtGeHdEFQFGZfHe4ZU7dC2dgPHUpUC3NRhp1Iv4tA8hrd9QR5D6A4JNofl0gnObc5U6LEnCNE8g==
+  dependencies:
+    "@fluentui/react-field" "9.0.0-alpha.21"
+    "@fluentui/react-shared-contexts
