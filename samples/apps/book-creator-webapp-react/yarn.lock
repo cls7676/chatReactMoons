@@ -6134,4 +6134,68 @@ jest-get-type@^29.4.3:
 jest-haste-map@^27.5.1:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-27.5.1.tgz#9fd8bd7e7b4fa502d9c6164c5640512b4e811e7f"
-  integrity sha512-7GgkZ4Fw4NFbMSDSpZwXeBiIbx+t/46nJ2QitkOjvwPYyZmqttu2TDSimMHP1EkPOi4xUZAN1doE5Vd25
+  integrity sha512-7GgkZ4Fw4NFbMSDSpZwXeBiIbx+t/46nJ2QitkOjvwPYyZmqttu2TDSimMHP1EkPOi4xUZAN1doE5Vd25H4Jng==
+  dependencies:
+    "@jest/types" "^27.5.1"
+    "@types/graceful-fs" "^4.1.2"
+    "@types/node" "*"
+    anymatch "^3.0.3"
+    fb-watchman "^2.0.0"
+    graceful-fs "^4.2.9"
+    jest-regex-util "^27.5.1"
+    jest-serializer "^27.5.1"
+    jest-util "^27.5.1"
+    jest-worker "^27.5.1"
+    micromatch "^4.0.4"
+    walker "^1.0.7"
+  optionalDependencies:
+    fsevents "^2.3.2"
+
+jest-jasmine2@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/jest-jasmine2/-/jest-jasmine2-27.5.1.tgz#a037b0034ef49a9f3d71c4375a796f3b230d1ac4"
+  integrity sha512-jtq7VVyG8SqAorDpApwiJJImd0V2wv1xzdheGHRGyuT7gZm6gG47QEskOlzsN1PG/6WNaCo5pmwMHDf3AkG2pQ==
+  dependencies:
+    "@jest/environment" "^27.5.1"
+    "@jest/source-map" "^27.5.1"
+    "@jest/test-result" "^27.5.1"
+    "@jest/types" "^27.5.1"
+    "@types/node" "*"
+    chalk "^4.0.0"
+    co "^4.6.0"
+    expect "^27.5.1"
+    is-generator-fn "^2.0.0"
+    jest-each "^27.5.1"
+    jest-matcher-utils "^27.5.1"
+    jest-message-util "^27.5.1"
+    jest-runtime "^27.5.1"
+    jest-snapshot "^27.5.1"
+    jest-util "^27.5.1"
+    pretty-format "^27.5.1"
+    throat "^6.0.1"
+
+jest-leak-detector@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-27.5.1.tgz#6ec9d54c3579dd6e3e66d70e3498adf80fde3fb8"
+  integrity sha512-POXfWAMvfU6WMUXftV4HolnJfnPOGEu10fscNCA76KBpRRhcMN2c8d3iT2pxQS3HLbA+5X4sOUPzYO2NUyIlHQ==
+  dependencies:
+    jest-get-type "^27.5.1"
+    pretty-format "^27.5.1"
+
+jest-matcher-utils@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-27.5.1.tgz#9c0cdbda8245bc22d2331729d1091308b40cf8ab"
+  integrity sha512-z2uTx/T6LBaCoNWNFWwChLBKYxTMcGBRjAt+2SbP929/Fflb9aa5LGma654Rz8z9HLxsrUaYzxE9T/EFIL/PAw==
+  dependencies:
+    chalk "^4.0.0"
+    jest-diff "^27.5.1"
+    jest-get-type "^27.5.1"
+    pretty-format "^27.5.1"
+
+jest-matcher-utils@^29.4.3:
+  version "29.4.3"
+  resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-29.4.3.tgz#ea68ebc0568aebea4c4213b99f169ff786df96a0"
+  integrity sha512-TTciiXEONycZ03h6R6pYiZlSkvYgT0l8aa49z/DLSGYjex4orMUcafuLXYyyEDWB1RKglq00jzwY00Ei7yFNVg==
+  dependencies:
+    chalk "^4.0.0"
+    jest-di
