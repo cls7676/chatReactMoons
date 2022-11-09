@@ -45,4 +45,69 @@ const AISummary: FC<IData> = ({ uri, chat, keyConfig, onBack }) => {
                     .split('}\n\n{')
                     .map((item, index, array) => {
                         if (array.length === 1) {
-                            return
+                            return item;
+                        } else if (index === 0) {
+                            return item + '}';
+                        } else if (index === array.length - 1) {
+                            return '{' + item;
+                        } else {
+                            return '{' + item + '}';
+                        }
+                    })
+                    .join(',') +
+                ']',
+        );
+
+        var actionItemsList = actionItemsJson.reduce((acc: any, cur: any) => {
+            return acc.concat(cur.actionItems);
+        }, []);
+
+        var actionItemsFormatted = actionItemsList.map((actionItem: any) => {
+            return (
+                <Card>
+                    <CardHeader header={<Subtitle2>{actionItem.actionItem}</Subtitle2>} />
+                    <Body1>
+                        <b>Owner:</b> {actionItem.owner}
+                    </Body1>
+                    <Body1>
+                        <b>Due Date:</b> {actionItem.dueDate}
+                    </Body1>
+                </Card>
+            );
+        });
+
+        return (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>{actionItemsFormatted}</div>
+        );
+    };
+
+    const getTopics = async (ask: any) => {
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'ConversationSummarySkill', 'GetConversationTopics');
+            setTopics(result.value);
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+    };
+
+    const formatTopics = (topics: string): JSX.Element => {
+        var topicsJson = JSON.parse(
+            '[' +
+                topics
+                    .split('}\n\n{')
+                    .map((item, index, array) => {
+                        if (array.length === 1) {
+                            return item;
+                        } else if (index === 0) {
+                            return item + '}';
+                        } else if (index === array.length - 1) {
+                            return '{' + item;
+                        } else {
+                            return '{' + item + '}';
+                        }
+                    })
+                    .join(',') +
+                ']',
+        );
+
+        var topicsList
