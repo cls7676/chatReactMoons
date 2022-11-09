@@ -27,4 +27,19 @@ body {
 #content {
   display: flex;
   align-items: stretch;
-  flex-direct
+  flex-direction: row;
+  padding-top: 12px;
+  gap: 80px;
+}
+
+#main {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#tipbar {
+  background-color: #FAF9F8;
+  width: 360px;
+}
