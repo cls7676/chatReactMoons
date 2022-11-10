@@ -174,4 +174,11 @@ const AISummary: FC<IData> = ({ uri, chat, keyConfig, onBack }) => {
             )}
             <br />
             <br />
-       
+            <Button style={{ width: 54 }} appearance="secondary" onClick={() => onBack()}>
+                Back
+            </Button>
+        </div>
+    );
+};
+
+export default AISummary;
