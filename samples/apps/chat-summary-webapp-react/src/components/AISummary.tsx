@@ -110,4 +110,68 @@ const AISummary: FC<IData> = ({ uri, chat, keyConfig, onBack }) => {
                 ']',
         );
 
-        var topicsList
+        var topicsList = topicsJson.reduce((acc: any, cur: any) => {
+            return acc.concat(cur.topics);
+        }, []);
+
+        var topicsFormatted = topicsList.map((topic: any) => {
+            return (
+                <Card appearance="outline" size="small">
+                    <Caption1>{topic}</Caption1>
+                </Card>
+            );
+        });
+        return (
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>{topicsFormatted}</div>
+        );
+    };
+
+    useEffect(() => {
+        const fetchAsync = async () => {
+            var ask = {
+                value: chat.map((c) => (c.mine ? `I said: ${c.content}` : `${c.author} said: ${c.content}`)).join('\n'),
+            };
+
+            await getSummary(ask);
+            await getActionItems(ask);
+            await getTopics(ask);
+        };
+        fetchAsync();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [uri]);
+
+    return (
+        <div style={{ padding: 80, gap: 20, display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+            <Title3>AI summaries based on your chat</Title3>
+            <Body1>
+                We used skills to summarise the conversations from the chat, along with found topics and action items.
+            </Body1>
+            <br />
+            <Subtitle1>
+                <strong>Summary</strong>
+            </Subtitle1>
+
+            {summary === undefined ? (
+                <></>
+            ) : (
+                <Body1>{summary.length > 0 ? summary : 'We could not create a summary.'}</Body1>
+            )}
+            {topics === undefined ? (
+                <></>
+            ) : (
+                <Body1>{topics.length > 0 ? formatTopics(topics) : "We didn't find any topics."}</Body1>
+            )}
+            {summary === undefined || topics === undefined ? <Spinner /> : <div style={{ height: 20 }} />}
+            <Subtitle1>
+                <strong>Action Items</strong>
+            </Subtitle1>
+            {actionItems === undefined ? (
+                <Spinner />
+            ) : (
+                <Body1>
+                    {actionItems.length > 0 ? formatActionItems(actionItems) : "We didn't find any action items."}
+                </Body1>
+            )}
+            <br />
+            <br />
+       
