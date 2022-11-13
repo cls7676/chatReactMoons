@@ -22,4 +22,64 @@ const ServiceConfig: FC<IData> = ({ uri, onConfigComplete }) => {
     const [azureOpenAiDeployment, setAzureOpenAiDeployment] = useState<string>(
         process.env.REACT_APP_AZURE_OPEN_AI_DEPLOYMENT as string,
     );
-    const [azureOpenAiEndpoint, setAzureOpe
+    const [azureOpenAiEndpoint, setAzureOpenAiEndpoint] = useState<string>(
+        process.env.REACT_APP_AZURE_OPEN_AI_ENDPOINT as string,
+    );
+
+    const saveKey = async () => {
+        setIsBusy(true);
+
+        //POST a simple ask to validate the key
+        const ask = { value: 'clippy', inputs: [{ key: 'style', value: 'Bill & Ted' }] };
+
+        try {
+            var result = await sk.invokeAsync(keyConfig, ask, 'funskill', 'joke');
+            console.log(result);
+            onConfigComplete(keyConfig);
+        } catch (e) {
+            alert('Something went wrong.\n\nDetails:\n' + e);
+        }
+
+        setIsBusy(false);
+    };
+
+    useEffect(() => {
+        keyConfig.completionConfig = {
+            key: isOpenAI ? openAiKey : azureOpenAiKey,
+            deploymentOrModelId: isOpenAI ? openAiModel : azureOpenAiDeployment,
+            label: isOpenAI ? openAiModel : azureOpenAiDeployment,
+            endpoint: isOpenAI ? '' : azureOpenAiEndpoint,
+            backend: isOpenAI ? 1 : 0
+        }
+
+        setKeyConfig((keyConfig) => ({ ...keyConfig }));
+    }, [isOpenAI, openAiKey, openAiModel, azureOpenAiKey, azureOpenAiDeployment, azureOpenAiEndpoint]);
+
+    return (
+        <>
+            <Title3>Enter in your OpenAI or Azure OpenAI Service Key</Title3>
+            <Body1>
+                Start by entering in your OpenAI key, either from{' '}
+                <a href="https://beta.openai.com/account/api-keys" target="_blank" rel="noreferrer">
+                    OpenAI
+                </a>{' '}
+                or{' '}
+                <a href="https://oai.azure.com/portal" target="_blank" rel="noreferrer">
+                    Azure OpenAI Service
+                </a>
+            </Body1>
+
+            <TabList defaultSelectedValue="oai" onTabSelect={(t, v) => setIsOpenAI(v.value === 'oai')}>
+                <Tab value="oai">OpenAI</Tab>
+                <Tab value="aoai">Azure OpenAI</Tab>
+            </TabList>
+
+            {isOpenAI ? (
+                <>
+                    <Label htmlFor="openaikey">OpenAI Key</Label>
+                    <Input
+                        id="openaikey"
+                        type="password"
+                        value={openAiKey}
+                        onChange={(e, d) => {
+                            setOpenAiKey(d.
