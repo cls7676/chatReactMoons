@@ -126,4 +126,20 @@ const ServiceConfig: FC<IData> = ({ uri, onConfigComplete }) => {
                         id="aoaiendpoint"
                         value={azureOpenAiEndpoint}
                         onChange={(e, d) => {
-  
+                            setAzureOpenAiEndpoint(d.value);
+                            setKeyConfig({ ...keyConfig, completionConfig: { ...keyConfig.completionConfig, endpoint: d.value } });
+                        }}
+                        placeholder="Enter the endpoint here, ie: https://my-resource.openai.azure.com"
+                    />
+                </>
+            )}
+
+            <Button style={{ width: 70, height: 32 }} disabled={isBusy} appearance="primary" onClick={saveKey}>
+                Save
+            </Button>
+            {isBusy ? <Spinner /> : null}
+        </>
+    );
+};
+
+export default ServiceConfig;
