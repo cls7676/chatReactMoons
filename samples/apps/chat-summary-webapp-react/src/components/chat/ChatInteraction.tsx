@@ -69,4 +69,13 @@ const ChatInteraction: FC<IData> = ({ uri, onGetAISummary, onBack }) => {
                                 onClick={() => onGetAISummary(chatHistory)}
                             >
                                 Get AI Summary
-                       
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ChatInteraction;
