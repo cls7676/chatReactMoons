@@ -85,4 +85,14 @@ internal static class SemanticKernelFactory
 
         if (req.Headers.TryGetValues(SKHttpHeaders.MSGraph, out var graphToken))
         {
-            kerne
+            kernel.RegisterNativeGraphSkills(graphToken.First());
+        }
+
+        if (kernel.Config.DefaultEmbeddingsBackend != null)
+        {
+            kernel.RegisterTextMemory();
+        }
+
+        return kernel;
+    }
+}
