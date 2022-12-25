@@ -37,4 +37,52 @@ internal static class SemanticKernelFactory
         }
 
         KernelBuilder builder = Kernel.Builder;
-        builder =
+        builder = _ConfigureKernelBuilder(apiConfig, builder, memoryStore);
+        return _CompleteKernelSetup(req, builder, logger, skillsToLoad);
+    }
+
+    private static KernelBuilder _ConfigureKernelBuilder(ApiKeyConfig config, KernelBuilder builder, IMemoryStore<float>? memoryStore)
+    {
+        builder = builder
+            .Configure(c =>
+            {
+                switch (config.CompletionConfig.AIService)
+                {
+                    case AIService.OpenAI:
+                        c.AddOpenAICompletionBackend(config.CompletionConfig.Label, config.CompletionConfig.DeploymentOrModelId, config.CompletionConfig.Key);
+                        break;
+                    case AIService.AzureOpenAI:
+                        c.AddAzureOpenAICompletionBackend(config.CompletionConfig.Label, config.CompletionConfig.DeploymentOrModelId, config.CompletionConfig.Endpoint, config.CompletionConfig.Key);
+                        break;
+                }
+
+                if (memoryStore != null && config.EmbeddingConfig.IsValid())
+                {
+                    switch (config.EmbeddingConfig.AIService)
+                    {
+                        case AIService.OpenAI:
+                            c.AddOpenAIEmbeddingsBackend(config.EmbeddingConfig.Label, config.EmbeddingConfig.DeploymentOrModelId, config.EmbeddingConfig.Key);
+                            break;
+                        case AIService.AzureOpenAI:
+                            c.AddAzureOpenAIEmbeddingsBackend(config.EmbeddingConfig.Label, config.EmbeddingConfig.DeploymentOrModelId, config.EmbeddingConfig.Endpoint, config.EmbeddingConfig.Key);
+                            break;
+                    }
+
+                    builder.WithMemoryStorage(memoryStore);
+                }
+            });
+
+        return builder;
+    }
+
+    private static IKernel _CompleteKernelSetup(HttpRequestData req, KernelBuilder builder, ILogger logger, IEnumerable<string>? skillsToLoad = null)
+    {
+        IKernel kernel = builder.Build();
+
+        kernel.RegisterSemanticSkills(RepoFiles.SampleSkillsPath(), logger, skillsToLoad);
+        kernel.RegisterNativeSkills(skillsToLoad);
+        kernel.RegisterPlanner();
+
+        if (req.Headers.TryGetValues(SKHttpHeaders.MSGraph, out var graphToken))
+        {
+            kerne
