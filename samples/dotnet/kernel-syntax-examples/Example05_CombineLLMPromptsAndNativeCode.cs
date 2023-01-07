@@ -40,4 +40,23 @@ public static class Example05_CombineLLMPromptsAndNativeCode
         var result1 = await kernel.RunAsync(
             ask,
             search["SearchAsync"]
- 
+        );
+
+        var result2 = await kernel.RunAsync(
+            ask,
+            search["SearchAsync"],
+            sumSkill["Summarize"]
+        );
+
+        var result3 = await kernel.RunAsync(
+            ask,
+            search["SearchAsync"],
+            sumSkill["Notegen"]
+        );
+
+        Console.WriteLine(ask + "\n");
+        Console.WriteLine("Bing Answer: " + result1 + "\n");
+        Console.WriteLine("Summary: " + result2 + "\n");
+        Console.WriteLine("Notes: " + result3 + "\n");
+    }
+}
