@@ -78,4 +78,32 @@ internal static class Example12_Planning
         executionResults.Variables.Update(
             "Once upon a time, in a faraway kingdom, there lived a kind and just king named Arjun. " +
             "He ruled over his kingdom with fairness and compassion, earning him the love and admiration of his people. " +
-            "However, the kingdom was plagued by a terrible dragon that lived in the nearby mountains and terrorized the nearby villag
+            "However, the kingdom was plagued by a terrible dragon that lived in the nearby mountains and terrorized the nearby villages, " +
+            "burning their crops and homes. The king had tried everything to defeat the dragon, but to no avail. " +
+            "One day, a young woman named Mira approached the king and offered to help defeat the dragon. She was a skilled archer " +
+            "and claimed that she had a plan to defeat the dragon once and for all. The king was skeptical, but desperate for a solution, " +
+            "so he agreed to let her try. Mira set out for the dragon's lair and, with the help of her trusty bow and arrow, " +
+            "she was able to strike the dragon with a single shot through its heart, killing it instantly. The people rejoiced " +
+            "and the kingdom was at peace once again. The king was so grateful to Mira that he asked her to marry him and she agreed. " +
+            "They ruled the kingdom together, ruling with fairness and compassion, just as Arjun had done before. They lived " +
+            "happily ever after, with the people of the kingdom remembering Mira as the brave young woman who saved them from the dragon.");
+        _ = await ExecutePlanAsync(kernel, planner, executionResults, 5);
+    }
+
+    private static async Task BookSamplesAsync()
+    {
+        Console.WriteLine("======== Planning - Create and Execute Book Creation Plan  ========");
+        var kernel = InitializeKernelAndPlanner(out var planner);
+
+        // Load additional skills to enable planner to do non-trivial asks.
+        string folder = RepoFiles.SampleSkillsPath();
+        kernel.ImportSemanticSkillFromDirectory(folder, "WriterSkill");
+
+        var originalPlan = await kernel.RunAsync(
+            "Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'",
+            planner["CreatePlan"]);
+        // <goal>
+        // Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'
+        // </goal>
+        // <plan>
+        //   <function.WriterSkill.NovelOutline input="A group of kids in a club called 'The Thinking Caps' solve mysteries and puzzles using their creativity and logic." chapterCount="3" endMarker="***" se
