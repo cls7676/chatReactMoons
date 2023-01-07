@@ -135,3 +135,66 @@ Skill: AnotherTextskill
         default: ''
 
    Lowercase: Change all string chars to lowercase
+      Params:
+      - input: Text to lowercase
+        default: ''
+
+*****************************************
+***** Semantic skills and functions *****
+*****************************************
+
+Skill: _GLOBAL_FUNCTIONS_
+   funcce97d27e3d0b4897acf6122e41430695: Generic function, unknown purpose
+      Params:
+      - input:
+        default: ''
+
+Skill: Writing
+   Novel: Write a bedtime story
+      Params:
+      - input:
+        default: ''
+      - language:
+        default: ''
+
+Skill: SummarizeSkill
+   Topics: Analyze given text or document and extract key topics worth remembering
+      Params:
+      - input:
+        default: ''
+
+   Summarize: Summarize given text or any text document
+      Params:
+      - input: Text to summarize
+        default: ''
+
+   MakeAbstractReadable: Given a scientific white paper abstract, rewrite it to make it more readable
+      Params:
+      - input:
+        default: ''
+
+   TopicsMore: Generate list of topics for long length content
+      Params:
+      - input: Block of text to analyze
+        default: ''
+      - previousResults: List of topics found from previous blocks of text
+        default: ''
+
+   Notegen: Automatically generate compact notes for any text or text document.
+      Params:
+      - input:
+        default: ''
+
+   ActionItems: unknown function
+
+   SummarizeMore: Summarize given text or any text document
+      Params:
+      - input: Block of text to analyze
+        default: ''
+      - previousResults: Overview generated from previous blocks of text
+        default: ''
+      - conversationType: Text type, e.g. chat, email thread, document
+        default: ''
+
+*/
+#pragma warning restore CS1587 // XML comment is not placed on a valid language element
