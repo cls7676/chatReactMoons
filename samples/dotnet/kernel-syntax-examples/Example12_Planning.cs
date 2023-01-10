@@ -152,4 +152,72 @@ internal static class Example12_Planning
             var results = await kernel.RunAsync(executionResults.Variables, planner["ExecutePlan"]);
             if (results.Variables.ToPlan().IsSuccessful)
             {
-               
+                Console.WriteLine($"Step {step} - Execution results:");
+                Console.WriteLine(results.Variables.ToPlan().PlanString);
+
+                if (results.Variables.ToPlan().IsComplete)
+                {
+                    Console.WriteLine($"Step {step} - COMPLETE!");
+                    Console.WriteLine(results.Variables.ToPlan().Result);
+
+                    // Console.WriteLine("VARIABLES: ");
+                    // Console.WriteLine(string.Join("\n\n", results.Variables.Select(v => $"{v.Key} = {v.Value}")));
+                    break;
+                }
+
+                // Console.WriteLine($"Step {step} - Results so far:");
+                // Console.WriteLine(results.ToPlan().Result);
+            }
+            else
+            {
+                Console.WriteLine($"Step {step} - Execution failed:");
+                Console.WriteLine(results.Variables.ToPlan().Result);
+                break;
+            }
+
+            executionResults = results;
+        }
+
+        sw.Stop();
+        Console.WriteLine($"Execution complete in {sw.ElapsedMilliseconds} ms!");
+        return executionResults;
+    }
+}
+
+// ReSharper disable CommentTypo
+/* Example Output:
+
+======== Planning - Create and Execute Poetry Plan ========
+Original plan:
+<goal>
+Write a poem about John Doe, then translate it into Italian.
+</goal>
+<plan>
+  <function.WriterSkill.ShortPoem input="John Doe is a kind and generous man who loves to help others and make them smile."/>
+  <function.WriterSkill.Translate language="Italian"/>
+</plan>
+Step 1 - Execution results:
+<goal>
+Write a poem about John Doe, then translate it into Italian.
+</goal><plan>
+  <function.WriterSkill.Translate language="Italian" />
+</plan>
+Step 2 - Execution results:
+<goal>
+Write a poem about John Doe, then translate it into Italian.
+</goal><plan>
+</plan>
+Step 2 - COMPLETE!
+John Doe è un uomo di grande cuore e grazia
+Ha sempre un sorriso sul volto
+Aiuta i poveri, i malati e i vecchi
+Ma a volte la sua bontà lo mette nei guai
+Come quando ha dato il suo cappotto a un tremante
+
+- There once was a girl named Alice
+Who loved to explore and be curious
+She followed a rabbit down a burrow
+And found a world of wonder and magic
+But also of danger and madness
+
+C'era una
