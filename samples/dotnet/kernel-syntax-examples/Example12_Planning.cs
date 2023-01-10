@@ -106,4 +106,50 @@ internal static class Example12_Planning
         // Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'
         // </goal>
         // <plan>
-        //   <function.WriterSkill.NovelOutline input="A group of kids in a club called 'The Thinking Caps' solve mysteries and puzzles using their creativity and logic." chapterCount="3" endMarker="***" se
+        //   <function.WriterSkill.NovelOutline input="A group of kids in a club called 'The Thinking Caps' solve mysteries and puzzles using their creativity and logic." chapterCount="3" endMarker="***" setContextVariable="OUTLINE" />
+        //   <function.planning.BucketOutputs input="$OUTLINE" bucketCount="3" bucketLabelPrefix="CHAPTER" />
+        //   <function.WriterSkill.NovelChapter input="$CHAPTER_1" theme="Mystery" chapterIndex="1" appendToResult="CHAPTER_1_TEXT" />
+        //   <function.WriterSkill.NovelChapter input="$CHAPTER_2" theme="Mystery" previousChapter="$CHAPTER_1" chapterIndex="2" appendToResult="CHAPTER_2_TEXT" />
+        //   <function.WriterSkill.NovelChapter input="$CHAPTER_3" theme="Mystery" previousChapter="$CHAPTER_2" chapterIndex="3" appendToResult="CHAPTER_3_TEXT" />
+        // </plan>
+
+        Console.WriteLine("Original plan:");
+        Console.WriteLine(originalPlan.Variables.ToPlan().PlanString);
+
+        Stopwatch sw = new();
+        sw.Start();
+        _ = await ExecutePlanAsync(kernel, planner, originalPlan);
+    }
+
+    private static IKernel InitializeKernelAndPlanner(out IDictionary<string, ISKFunction> planner)
+    {
+        var kernel = new KernelBuilder().WithLogger(ConsoleLogger.Log).Build();
+        kernel.Config.AddAzureOpenAICompletionBackend(
+            Env.Var("AZURE_OPENAI_DEPLOYMENT_LABEL"),
+            Env.Var("AZURE_OPENAI_DEPLOYMENT_NAME"),
+            Env.Var("AZURE_OPENAI_ENDPOINT"),
+            Env.Var("AZURE_OPENAI_KEY"));
+        kernel.Config.SetRetryMechanism(new RetryThreeTimesWithBackoff());
+
+        // Load native skill into the kernel skill collection, sharing its functions with prompt templates
+        planner = kernel.ImportSkill(new PlannerSkill(kernel), "planning");
+
+        return kernel;
+    }
+
+    private static async Task<SKContext> ExecutePlanAsync(
+        IKernel kernel,
+        IDictionary<string, ISKFunction> planner,
+        SKContext executionResults,
+        int maxSteps = 10)
+    {
+        Stopwatch sw = new();
+        sw.Start();
+
+        // loop until complete or at most N steps
+        for (int step = 1; !executionResults.Variables.ToPlan().IsComplete && step < maxSteps; step++)
+        {
+            var results = await kernel.RunAsync(executionResults.Variables, planner["ExecutePlan"]);
+            if (results.Variables.ToPlan().IsSuccessful)
+            {
+               
