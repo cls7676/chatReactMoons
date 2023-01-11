@@ -220,4 +220,62 @@ She followed a rabbit down a burrow
 And found a world of wonder and magic
 But also of danger and madness
 
-C'era una
+C'era una volta una ragazza di nome Alice
+Che amava esplorare e essere curiosa
+Seguì un coniglio in una buca
+E trovò un mondo di meraviglia e magia
+Ma anche di pericolo e follia
+
+- Roses are red, violets are blue
+Sugar is sweet, and so are you
+But roses have thorns, and violets can fade
+Sugar can spoil, and you can betray
+So don't trust the words, but the actions that prove
+
+Le rose sono rosse, le viole sono blu
+Lo zucchero è dolce, e così sei tu
+Ma le rose hanno spine, e le
+Execution complete in 15223 ms!
+======== Planning - Create and Execute Email Plan ========
+Original plan:
+<goal>
+Summarize an input, translate to french, and e-mail to John Doe
+</goal>
+<plan>
+    <function.SummarizeSkill.Summarize/>
+    <function.WriterSkill.Translate language="French" setContextVariable="TRANSLATED_SUMMARY"/>
+    <function.email.GetEmailAddress input="John Doe" setContextVariable="EMAIL_ADDRESS"/>
+    <function.email.SendEmail input="$TRANSLATED_SUMMARY" email_address="$EMAIL_ADDRESS"/>
+</plan>
+Step 1 - Execution results:
+<goal>
+Summarize an input, translate to french, and e-mail to John Doe
+</goal><plan>
+  <function.WriterSkill.Translate language="French" setContextVariable="TRANSLATED_SUMMARY" />
+  <function.email.GetEmailAddress input="John Doe" setContextVariable="EMAIL_ADDRESS" />
+  <function.email.SendEmail input="$TRANSLATED_SUMMARY" email_address="$EMAIL_ADDRESS" />
+</plan>
+Step 2 - Execution results:
+<goal>
+Summarize an input, translate to french, and e-mail to John Doe
+</goal><plan>
+  <function.email.GetEmailAddress input="John Doe" setContextVariable="EMAIL_ADDRESS" />
+  <function.email.SendEmail input="$TRANSLATED_SUMMARY" email_address="$EMAIL_ADDRESS" />
+</plan>
+Step 3 - Execution results:
+<goal>
+Summarize an input, translate to french, and e-mail to John Doe
+</goal><plan>
+  <function.email.SendEmail input="$TRANSLATED_SUMMARY" email_address="$EMAIL_ADDRESS" />
+</plan>
+Step 4 - Execution results:
+<goal>
+Summarize an input, translate to french, and e-mail to John Doe
+</goal><plan>
+</plan>
+Step 4 - COMPLETE!
+Sent email to: johndoe1234@example.com. Body: Some possible translations are:
+
+- Mira, une archère habile, tue un dragon et épouse le roi qui régnait avec bonté.
+- Un roi bienveillant et une archère courageuse vainquent un dragon et gouvernent le royaume ensemble.
+- Le dragon qui terrorisait un b
