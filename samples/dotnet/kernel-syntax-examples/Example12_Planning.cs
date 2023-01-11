@@ -344,4 +344,36 @@ The Thinking Caps were sitting in their usual spot in the library, surrounded by
 
 "A barometer," Sam replied confidently. He was wearing a green cap with a wrench logo, which suited his short black hair and inventive mind. He was also holding a small gadget that he had made out of spare parts, which he claimed could measure the temperature, humidity, and wind speed.
 
-"Correct. Mia, wh
+"Correct. Mia, what is the term for a word that sounds the same as another word but has a different meaning and spelling?"
+
+"A homophone," Mia said with a smile. She was wearing a red cap with a pen logo, which matched her curly red hair and journalistic spirit. She was also holding a notebook and a recorder, where she had written down some trivia questions and recorded some interviews with the school staff and students.
+
+"Correct. You guys are amazing. We're going to ace this contest for sure," Max said, giving them a thumbs up. "We've covered geography, science, and language. What's next?"
+
+"How about history?" Lily suggested. "That's always fun."
+
+"Good idea. Let's see, who can tell me who was the first president of the United States?" Max asked, looking at his clipboard.
+
+"George Washington," the four friends said in unison.
+
+"Too easy. How about who was the first president of France?" Max asked, raising the difficulty level.
+
+"Napoleon Bonaparte," Sam said, raising his hand.
+
+"Wrong. He was the first emperor of France, not the president. The first president was Louis-Napoleon Bonaparte, his nephew," Mia corrected him, showing off her knowledge.
+
+"Wow, Mia, you're a history buff. How do you know all this stuff?" Sam asked, impressed.
+
+"I read a lot of books and magazines. And I watch a lot of documentaries and podcasts. History is fascinating. It's like a giant mystery waiting to be solved," Mia explained, her eyes sparkling.
+
+"I agree. History is full of clues and secrets. And speaking of mysteries, do you guys know what's the biggest mystery in our school right now?" Max asked, changing the topic.
+
+"What?" the others asked, curious.
+
+"The case of the missing mascot," Max said, lowering his voice and looking around. "Have you heard about it?"
+
+"Of course we have. Everyone has. It's been the talk of the school for the past week," Lily said, nodding.
+
+"For those who don't know, our school mascot, Hootie the owl, has been stolen from the principal's office. Hootie is a stuffed animal that has been with the school for over 50 years. He's not only a symbol of our school spirit, but also a lucky charm for us, the Thinking Caps. We always bring him along to our competitions, and we always win," Max explained, sounding proud and sad at the same time.
+
+"Who would do such a thing? Who would steal Hootie?" Sam asked, shaking
