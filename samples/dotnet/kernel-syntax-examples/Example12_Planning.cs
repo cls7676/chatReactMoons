@@ -307,4 +307,41 @@ Create a book with 3 chapters about a group of kids in a club called 'The Thinki
 </goal><plan>
   <function.WriterSkill.NovelChapter input="$CHAPTER_1" theme="Mystery" chapterIndex="1" appendToResult="RESULT__CHAPTER_1" />
   <function.WriterSkill.NovelChapter input="$CHAPTER_2" theme="Mystery" previousChapter="$CHAPTER_1" chapterIndex="2" appendToResult="RESULT__CHAPTER_2" />
-  <function.WriterSkill.NovelChapter input="$CHAPTER_3" theme="Mystery" previousChapt
+  <function.WriterSkill.NovelChapter input="$CHAPTER_3" theme="Mystery" previousChapter="$CHAPTER_2" chapterIndex="3" appendToResult="RESULT__CHAPTER_3" />
+</plan>
+warn: object[0]
+      Variable `$previousChapter` not found
+Step 3 - Execution results:
+<goal>
+Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'
+</goal><plan>
+  <function.WriterSkill.NovelChapter input="$CHAPTER_2" theme="Mystery" previousChapter="$CHAPTER_1" chapterIndex="2" appendToResult="RESULT__CHAPTER_2" />
+  <function.WriterSkill.NovelChapter input="$CHAPTER_3" theme="Mystery" previousChapter="$CHAPTER_2" chapterIndex="3" appendToResult="RESULT__CHAPTER_3" />
+</plan>
+Step 4 - Execution results:
+<goal>
+Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'
+</goal><plan>
+  <function.WriterSkill.NovelChapter input="$CHAPTER_3" theme="Mystery" previousChapter="$CHAPTER_2" chapterIndex="3" appendToResult="RESULT__CHAPTER_3" />
+</plan>
+Step 5 - Execution results:
+<goal>
+Create a book with 3 chapters about a group of kids in a club called 'The Thinking Caps.'
+</goal><plan>
+</plan>
+Step 5 - COMPLETE!
+
+
+RESULT__CHAPTER_1
+
+The Thinking Caps were sitting in their usual spot in the library, surrounded by books, papers, and gadgets. They were busy studying and preparing for the upcoming trivia contest, which was only a few days away.
+
+"Okay, team, let's review what we've learned so far," Max said, holding a clipboard and a pen. He was wearing a blue cap with a light bulb logo, which matched his bright eyes and blond hair. "Lily, what is the capital of Peru?"
+
+"Lima," Lily answered without hesitation. She was wearing a purple cap with a paintbrush logo, which complemented her long brown hair and artistic flair. She was also holding a sketchbook and a pencil, where she had drawn a map of South America and some of its landmarks.
+
+"Correct. Sam, what is the name of the device that measures atmospheric pressure?"
+
+"A barometer," Sam replied confidently. He was wearing a green cap with a wrench logo, which suited his short black hair and inventive mind. He was also holding a small gadget that he had made out of spare parts, which he claimed could measure the temperature, humidity, and wind speed.
+
+"Correct. Mia, wh
