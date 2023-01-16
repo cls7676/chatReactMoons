@@ -376,4 +376,26 @@ The Thinking Caps were sitting in their usual spot in the library, surrounded by
 
 "For those who don't know, our school mascot, Hootie the owl, has been stolen from the principal's office. Hootie is a stuffed animal that has been with the school for over 50 years. He's not only a symbol of our school spirit, but also a lucky charm for us, the Thinking Caps. We always bring him along to our competitions, and we always win," Max explained, sounding proud and sad at the same time.
 
-"Who would do such a thing? Who would steal Hootie?" Sam asked, shaking
+"Who would do such a thing? Who would steal Hootie?" Sam asked, shaking his head.
+
+"That's the mystery. No one knows who did it, or why, or how. The principal's office was locked and alarmed, and there was no sign of forced entry or exit. The only clue was a note that was left on the principal's desk. It said: 'Hootie is gone. You'll never see him again. Good luck with the trivia contest. You'll need it.' And it was signed with a question mark," Max said, showing them a copy of the note that he had obtained from Mia.
+
+"That's creepy. And mean. And rude. And unfair. And..." Lily said, running out of adjectives.
+
+"And challenging," Max said, interrupting her. "Don't you see? This is a challenge for us, the Thinking Caps. Someone is trying to mess with us, to sabotage our chances of winning the contest. Someone who thinks they can outsmart us, outwit us, outplay us. Someone who wants to see us fail."
+
+"Who could it be? Who hates us that much?" Sam asked, looking around suspiciously.
+
+"It could be anyone. It could be the chess club, our main rivals in the contest. They're always jealous of our skills and achievements. They're always trying to beat us and prove that they're smarter than us," Max said, narrowing his eyes.
+
+"Or it could be the class clown, the one who's always pulling pranks and jokes on everyone. He's always looking for a laugh and a thrill. He's always trying to get attention and cause trouble," Lily said, frowning.
+
+"Or it could be the new kid, the one who's always quiet and mysterious. He's always alone and secretive. He's always hiding something and watching everything," Mia said, pointing at a corner where a boy with dark hair and glasses was sitting by himself, reading a book.
+
+"Or it could be someone else, someone we don't know, someone we don't expect, someone who's hiding in plain sight," Sam said, widening his eyes.
+
+"Whoever it is, we're not going to let them get away with it. We're not going to let them steal our mascot and our glory. We're not going to let them win. We're going to find Hootie and bring him back. We're going to solve this mystery and win this contest. We're going to show them who the real Thinking Caps are," Max said, raising his voice and his fist.
+
+"Yeah!" the others said, joining him.
+
+"Are you with me, team?" Max ask
