@@ -420,4 +420,16 @@ The Thinking Caps were sitting at their usual table in the library, surrounded b
 
 "I've got that covered," Sam said, smiling. He was the inventor and the hands of the group, and he liked to build and tinker with gadgets and machines. He had a laptop and a pair of headphones on the table, where he had created a quiz app to help them memorize the information. "I've programmed a fun and interactive way to learn about the French Revolution. It's called 'Guillotine or Not'. You have to answer questions correctly, or else you lose your head."
 
-"Sounds gruesome, but effective," Mia said, chuckling. She was the journalist and the voice of the group, and she enjoyed writing and reporting. She had a notebo
+"Sounds gruesome, but effective," Mia said, chuckling. She was the journalist and the voice of the group, and she enjoyed writing and reporting. She had a notebook and a pen on the table, where she had written some catchy headlines and summaries of the historical events. "I've also done some research on the French Revolution. Did you know that there was a secret society of revolutionaries called the Jacobins? They were behind some of the most radical and violent actions of the revolution, such as the Reign of Terror."
+
+"Wow, that's fascinating," Max said, impressed. "The French Revolution was full of secrets and mysteries. Just like our library."
+
+The group looked around the library, which was their favorite place to hang out and study. The library was a large and old building, with high ceilings, wooden floors, and stained glass windows. It had thousands of books, ranging from fiction to non-fiction, from classics to comics. It also had a cozy reading area, a computer lab, and a media center. The library was a treasure trove of knowledge and entertainment for the Thinking Caps.
+
+But lately, the library had also become a source of mystery and intrigue for the group. They had noticed that something strange was going on there. Books were disappearing from the shelves, without any record of being checked out or returned. Strange noises were heard at night, such as footsteps, whispers, and thuds. And a ghostly figure was seen roaming the aisles, wearing a long cloak and a hood.
+
+The group was intrigued by the mystery and decided to investigate. They had asked the librarian, Mrs. Jones, about the strange occurrences, but she had dismissed them as rumors and pranks. She had told them that the library was perfectly safe and normal, and that they should focus on their studies and not on their imaginations.
+
+But the group was not convinced. They had a feeling that there was more to the story than Mrs. Jones was letting on. They had done some digging and found out that the library had a rich and mysterious history, dating back to the founding of the town. The library was once the home of a wealthy and eccentric family, the Van Dorens, who collected rare and valuable books from all over the world. Some of these books were rumored to contain secrets, spells, and curses.
+
+The group ha
