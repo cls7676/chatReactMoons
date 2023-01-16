@@ -398,4 +398,26 @@ The Thinking Caps were sitting in their usual spot in the library, surrounded by
 
 "Yeah!" the others said, joining him.
 
-"Are you with me, team?" Max ask
+"Are you with me, team?" Max asked, looking at them.
+
+"Always," they said, nodding.
+
+"Then let's do this. Let's crack this case. Let's find the missing mascot. Let's go, Thinking Caps!" Max said, leading them out of the library.
+
+"Let's go, Thinking Caps!" they repeated, following him.
+
+And so, the adventure began. The Case of the Missing Mascot. The first mystery of the Thinking Caps. The first challenge of their lives. The first chapter of their story.
+
+RESULT__CHAPTER_2
+
+The Thinking Caps were sitting at their usual table in the library, surrounded by books, papers, and laptops. They were preparing for their next trivia contest, which was only a week away. They had already won the first round, thanks to their knowledge and teamwork. They were determined to win the second round, too, and make it to the finals.
+
+"Okay, team, let's review what we've learned so far," Max said, holding a clipboard and a pen. He was the leader and the brains of the group, and he always had a plan. "The topic for the second round is history. We've covered ancient civilizations, medieval times, and the American Revolution. What's next?"
+
+"How about the French Revolution?" Lily suggested, raising her hand. She was the artist and the heart of the group, and she loved to draw and paint. She had a sketchbook and a pencil in front of her, where she had doodled some scenes from the history books. "It's one of my favorite periods. There was so much drama, romance, and art."
+
+"Good idea, Lily," Max said, nodding. "The French Revolution was a pivotal moment in world history. It changed the course of politics, culture, and society. There are a lot of facts and dates to remember, though. We'll need to study hard."
+
+"I've got that covered," Sam said, smiling. He was the inventor and the hands of the group, and he liked to build and tinker with gadgets and machines. He had a laptop and a pair of headphones on the table, where he had created a quiz app to help them memorize the information. "I've programmed a fun and interactive way to learn about the French Revolution. It's called 'Guillotine or Not'. You have to answer questions correctly, or else you lose your head."
+
+"Sounds gruesome, but effective," Mia said, chuckling. She was the journalist and the voice of the group, and she enjoyed writing and reporting. She had a notebo
