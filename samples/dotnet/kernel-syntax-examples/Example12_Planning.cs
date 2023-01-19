@@ -466,4 +466,16 @@ Mrs. Jones said that she would let the Thinking Caps see the Smith Collection, a
 
 The Thinking Caps agreed to follow Mrs. Jones' rules and thanked her for the opportunity. They followed her to the back of the library, where she took out a key and opened a door that led to a staircase. They climbed the stairs and entered the Smith Collection.
 
-The room was dimly lit and dusty, but full of wonders. The walls were lined with shelves that held books of all kinds and sizes, some of them leath
+The room was dimly lit and dusty, but full of wonders. The walls were lined with shelves that held books of all kinds and sizes, some of them leather-bound and gold-embossed, some of them worn and torn. The books covered topics such as history, geography, mythology, science, and art. There were also maps, charts, journals, and letters that Smith had written or received during his travels. The room also had cabinets and cases that displayed various artifacts and jewels that Smith had collected. There were statues, vases, coins, medals, weapons, tools, and ornaments that came from different countries and cultures. There were also gems, pearls, diamonds, and rubies that sparkled and glittered in the light.
+
+The Thinking Caps were amazed and awed by the sight. They felt like they had entered a treasure trove, a museum, and a library all in one. They wanted to look at everything and learn more about Smith and his adventures. They asked Mrs. Jones if they could browse through the books and documents, and she said that they could, as long as they were careful and gentle. She said that she would stay with them and answer any questions they had. She also said that they had to be back in the main library before it closed, as she had to lock the room and return the key.
+
+The Thinking Caps nodded and thanked her again. They split up and went to different sections of the room, where they picked up books and papers that interested them. They read, studied, and examined the items, and shared their findings with each other. They learned a lot about Smith and his travels, and they also learned a lot about the world and its history.
+
+They also found something that they did not expect to find. It was a clue that led them to the secret treasure. The clue was a map that showed the location of a hidden chamber under the old town hall, where the treasure was buried. The map was hidden inside a book that looked like a normal history book, but was actually a hollowed-out book that contained a secret compartment. The book was titled "The History of the World", and it was written by Smith himself. The Thinking Caps found the book on a shelf that was labeled "Smith's Personal Collection".
+
+The map was drawn on a piece of parchment, and it had a note attached to it. The note said:
+
+To whoever finds this map,
+
+You have proven yourself to be a worthy and clever seeker, by finding this hidden book and openin
