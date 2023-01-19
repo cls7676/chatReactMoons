@@ -432,4 +432,26 @@ The group was intrigued by the mystery and decided to investigate. They had aske
 
 But the group was not convinced. They had a feeling that there was more to the story than Mrs. Jones was letting on. They had done some digging and found out that the library had a rich and mysterious history, dating back to the founding of the town. The library was once the home of a wealthy and eccentric family, the Van Dorens, who collected rare and valuable books from all over the world. Some of these books were rumored to contain secrets, spells, and curses.
 
-The group ha
+The group had also learned that the library was in danger of being closed down due to budget cuts and low attendance. The town council had decided that the library was too old and too expensive to maintain, and that it was not serving the needs of the community. They had proposed to sell the building and the books, and use the money to fund other projects. The library had only a few months left to prove its worth and attract more visitors, or else it would be gone forever.
+
+The group was saddened and outraged by this news. They loved the library and wanted to save it. They also wanted to solve the mystery of the hauntings and find out the truth behind the library's secrets. They had a hunch that the two things were connected, and that the ghost was trying to tell them something.
+
+They had come up with a plan to spend a night at the library, hoping to catch the ghost and find out what it wanted. They had convinced Mrs. Jones to let them stay after hours, under the pretext of doing a special project for the trivia contest. They had brought along their gadgets, tools, and books to help them. They had also brought their school mascot, a stuffed owl named Hootie, who was their lucky charm and their companion.
+
+They were ready to face the challenge and the adventure that awaited them. They were the Thinking Caps, and they loved to solve mysteries and puzzles using their creativity and logic.
+
+"Are you guys ready?" Max asked, looking at his friends.
+
+"Ready as ever," Lily said, smiling.
+
+"Let's do this," Sam said, nodding.
+
+"Bring it on," Mia said, grinning.
+
+They packed their bags and put on their jackets. They grabbed Hootie and headed to the door. They looked at the clock. It was 9 p.m. The library was officially closed. The night had begun.
+
+RESULT__CHAPTER_3
+
+The Case of the Secret Treasure
+
+The Thinking Caps were in the library, browsing through the books and magazines, when they saw something that caught their eye. It was a newspaper article about the old town hall, which was being renovated and turned into a museum. The article said that the town hall was built in the late 1800s by the town's founder, John B. Smith, who was a famous explorer and adventurer. He traveled the world and collected priceless artifacts and jewels, which he brought back to his hometown
