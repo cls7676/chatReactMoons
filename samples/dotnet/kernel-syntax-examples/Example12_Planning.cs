@@ -454,4 +454,16 @@ RESULT__CHAPTER_3
 
 The Case of the Secret Treasure
 
-The Thinking Caps were in the library, browsing through the books and magazines, when they saw something that caught their eye. It was a newspaper article about the old town hall, which was being renovated and turned into a museum. The article said that the town hall was built in the late 1800s by the town's founder, John B. Smith, who was a famous explorer and adventurer. He traveled the world and collected priceless artifacts and jewels, which he brought back to his hometown
+The Thinking Caps were in the library, browsing through the books and magazines, when they saw something that caught their eye. It was a newspaper article about the old town hall, which was being renovated and turned into a museum. The article said that the town hall was built in the late 1800s by the town's founder, John B. Smith, who was a famous explorer and adventurer. He traveled the world and collected priceless artifacts and jewels, which he brought back to his hometown and displayed in his mansion. The mansion was later donated to the town and became the town hall.
+
+The article also said that there was a rumor that Smith had hidden a secret treasure somewhere in the town, before he died in a mysterious accident. The treasure was said to be worth millions of dollars, and contained rare and exotic items from his travels. The rumor had sparked the interest of many treasure hunters and adventurers, who had searched for the treasure for decades, but none of them had ever found it.
+
+The Thinking Caps were fascinated by the article and the story of the treasure. They loved mysteries and challenges, and they wondered if they could find the treasure themselves. They decided to do some research on Smith and his travels, and see if they could find any clues or hints about the treasure.
+
+They went to the librarian, Mrs. Jones, and asked her if she had any books or documents about Smith and his adventures. Mrs. Jones smiled and said that she did have some, but they were not in the main library. They were in a special section of the library, called the Smith Collection. The Smith Collection was a room that contained all the books, papers, and artifacts that Smith had donated to the library, along with his mansion. The room was locked and only accessible to authorized people, such as the librarian and the town historian.
+
+Mrs. Jones said that she would let the Thinking Caps see the Smith Collection, as she knew that they were smart and curious kids who loved to learn. She said that she would give them a tour of the room and show them some of the items that Smith had collected. She said that they had to be careful and respectful, as the items were very old and valuable. She also said that they had to be quiet and discreet, as the room was not open to the public, and some people might not like them snooping around.
+
+The Thinking Caps agreed to follow Mrs. Jones' rules and thanked her for the opportunity. They followed her to the back of the library, where she took out a key and opened a door that led to a staircase. They climbed the stairs and entered the Smith Collection.
+
+The room was dimly lit and dusty, but full of wonders. The walls were lined with shelves that held books of all kinds and sizes, some of them leath
