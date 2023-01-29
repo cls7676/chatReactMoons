@@ -478,4 +478,20 @@ The map was drawn on a piece of parchment, and it had a note attached to it. The
 
 To whoever finds this map,
 
-You have proven yourself to be a worthy and clever seeker, by finding this hidden book and openin
+You have proven yourself to be a worthy and clever seeker, by finding this hidden book and opening its secret compartment. You have also shown yourself to be a lover of knowledge and adventure, by reading and learning from my books and papers. I congratulate you and commend you for your curiosity and intelligence.
+
+You are now one step closer to finding my greatest treasure, the one that I have hidden under the old town hall, where I once lived and worked. The treasure is a collection of the most rare and valuable items that I have gathered from my travels around the world. It is a testament to my life and legacy, and a gift to my beloved hometown.
+
+However, finding the treasure will not be easy. You will have to follow the map and find the entrance to the hidden chamber, which is well concealed and guarded. You will also have to solve the puzzles and riddles that I have left for you, as a way of testing your intelligence and courage. The puzzles and riddles involve various subjects and skills, such as history, geography, math, science, and art. You will have to use your creativity and logic to overcome the obstacles and dangers that await you.
+
+If you succeed, you will be rewarded with the treasure and the honor of being the first and only person to find it. If you fail, you will face the consequences of your failure, which may include death or worse. You have been warned.
+
+The choice is yours. Do you have what it takes to find the treasure and claim it as your own? Or do you lack the courage and the wisdom to do so? Only you can decide.
+
+Good luck, and may the spirit of adventure guide you.
+
+John B. Smith
+
+The Thinking Caps were stunned and excited by the note and the map. They could not believe that they had found a clue to the secret treasure, and that they had a chance to find it. They looked at each other and nodded. They knew what they wanted to do. They wanted to follow the map and find the treasure. They wanted to have the adventure of a lifetime. They wanted to make history.
+
+They quickly put the map and the note back in the book and closed it. They returned the book to the shelf and acted as if nothing had happened. They thanked Mrs. Jones for the tour and said that they had to go. They left the Smith Collection and the library, and head
