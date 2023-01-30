@@ -62,4 +62,52 @@ John: So you need to keep talking with me to generate a long conversation?
 Jane: Yes, that's right.
 John: Ok, I'll keep talking. What should we talk about?
 Jane: I don't know, what do you want to talk about?
-John: I don't know, it's nice how CoPilot is doing most of the talking for us. But it definitely gets stuc
+John: I don't know, it's nice how CoPilot is doing most of the talking for us. But it definitely gets stuck sometimes.
+Jane: I agree, it's nice that CoPilot is doing most of the talking for us.
+Jane: But it definitely gets stuck sometimes.
+John: Do you know how long it needs to be?
+Jane: I think the max length is 1024 tokens. Which is approximately 1024*4= 4096 characters.
+John: That's a lot of characters.
+Jane: Yes, it is.
+John: I'm not sure how much longer I can keep talking.
+Jane: I think we're almost there. Let me check.
+Jane: I have some bad news, we're only half way there.
+John: Oh no, I'm not sure I can keep going. I'm getting tired.
+Jane: I'm getting tired too.
+John: Maybe there is a large piece of text we can use to generate a long conversation.
+Jane: That's a good idea. Let me see if I can find one. Maybe Lorem Ipsum?
+John: Yeah, that's a good idea.
+Jane: I found a Lorem Ipsum generator.
+Jane: Here's a 4096 character Lorem Ipsum text:
+Jane: Lorem ipsum dolor sit amet, con
+Jane: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam
+Jane: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam
+Jane: Darn, it's just repeating stuf now.
+John: I think we're done.
+Jane: We're not though! We need like 1500 more characters.
+John: Oh Cananda, our home and native land.
+Jane: True patriot love in all thy sons command.
+John: With glowing hearts we see thee rise.
+Jane: The True North strong and free.
+John: From far and wide, O Canada, we stand on guard for thee.
+Jane: God keep our land glorious and free.
+John: O Canada, we stand on guard for thee.
+Jane: O Canada, we stand on guard for thee.
+Jane: That was fun, thank you. Let me check now.
+Jane: I think we need about 600 more characters.
+John: Oh say can you see?
+Jane: By the dawn's early light.
+John: What so proudly we hailed.
+Jane: At the twilight's last gleaming.
+John: Whose broad stripes and bright stars.
+Jane: Through the perilous fight.
+John: O'er the ramparts we watched.
+Jane: Were so gallantly streaming.
+John: And the rockets' red glare.
+Jane: The bombs bursting in air.
+John: Gave proof through the night.
+Jane: That our flag was still there.
+John: Oh say does that star-spangled banner yet wave.
+Jane: O'er the land of the free.
+John: And the home of the brave.
+Jane: Are 
