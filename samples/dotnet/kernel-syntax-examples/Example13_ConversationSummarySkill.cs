@@ -110,4 +110,62 @@ Jane: That our flag was still there.
 John: Oh say does that star-spangled banner yet wave.
 Jane: O'er the land of the free.
 John: And the home of the brave.
-Jane: Are 
+Jane: Are you a Seattle Kraken Fan?
+John: Yes, I am. I love going to the games.
+Jane: I'm a Seattle Kraken Fan too. Who is your favorite player?
+John: I like watching all the players, but I think my favorite is Matty Beniers.
+Jane: Yeah, he's a great player. I like watching him too. I also like watching Jaden Schwartz.
+John: Adam Larsson is another good one. The big cat!
+Jane: WE MADE IT! It's long enough. Thank you!
+John: You're welcome. I'm glad we could help. Goodbye!
+Jane: Goodbye!
+";
+
+    public static async Task RunAsync()
+    {
+        await ConversationSummarySkillAsync();
+        await GetConversationActionItemsAsync();
+        await GetConversationTopicsAsync();
+    }
+
+    private static async Task ConversationSummarySkillAsync()
+    {
+        Console.WriteLine("======== SampleSkills - Conversation Summary Skill - Summarize ========");
+        IKernel kernel = InitializeKernel();
+
+        IDictionary<string, ISKFunction> conversationSummarySkill =
+            kernel.ImportSkill(new ConversationSummarySkill(kernel));
+
+        SKContext summary = await kernel.RunAsync(
+            ChatTranscript,
+            conversationSummarySkill["SummarizeConversation"]);
+
+        Console.WriteLine("Generated Summary:");
+        Console.WriteLine(summary.Result);
+    }
+
+    private static async Task GetConversationActionItemsAsync()
+    {
+        Console.WriteLine("======== SampleSkills - Conversation Summary Skill - Action Items ========");
+        IKernel kernel = InitializeKernel();
+
+        IDictionary<string, ISKFunction> conversationSummarySkill =
+            kernel.ImportSkill(new ConversationSummarySkill(kernel));
+
+        SKContext summary = await kernel.RunAsync(
+            ChatTranscript,
+            conversationSummarySkill["GetConversationActionItems"]);
+
+        Console.WriteLine("Generated Action Items:");
+        Console.WriteLine(summary.Result);
+    }
+
+    private static async Task GetConversationTopicsAsync()
+    {
+        Console.WriteLine("======== SampleSkills - Conversation Summary Skill - Topics ========");
+        IKernel kernel = InitializeKernel();
+
+        IDictionary<string, ISKFunction> conversationSummarySkill =
+            kernel.ImportSkill(new ConversationSummarySkill(kernel));
+
+        SKContext summary = await kernel
