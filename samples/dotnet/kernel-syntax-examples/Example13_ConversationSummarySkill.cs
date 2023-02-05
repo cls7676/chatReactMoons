@@ -225,4 +225,49 @@ Generated Action Items:
         },
         {
             "owner": "Jane",
-   
+            "actionItem": "Write a bot to summarize conversations",
+            "dueDate": "",
+            "status": "In Progress",
+            "notes": "Testing with long conversations"
+        }
+    ]
+}
+
+{
+    "action_items": []
+}
+======== SampleSkills - Conversation Summary Skill - Topics ========
+Generated Topics:
+
+{
+  "topics": [
+    "Chatbot",
+    "Code",
+    "Poem",
+    "Model",
+    "GPT-3",
+    "GPT-2",
+    "Bug",
+    "Parameters",
+    "Summary",
+    "CoPilot",
+    "Tokens",
+    "Characters"
+  ]
+}
+
+{
+  "topics": [
+    "Long conversation",
+    "Lorem Ipsum",
+    "O Canada",
+    "Star-Spangled Banner",
+    "Seattle Kraken",
+    "Matty Beniers",
+    "Jaden Schwartz",
+    "Adam Larsson"
+  ]
+}
+
+*/
+// ReSharper restore CommentTypo
