@@ -48,4 +48,11 @@ public static class Program
         await Example13_ConversationSummarySkill.RunAsync();
         Console.WriteLine("== DONE ==");
 
-        await Example14_Memory.R
+        await Example14_Memory.RunAsync();
+        Console.WriteLine("== DONE ==");
+
+        await Example15_MemorySkill.RunAsync();
+        Console.WriteLine("== DONE ==");
+    }
+}
+#pragma warning restore CS1591
