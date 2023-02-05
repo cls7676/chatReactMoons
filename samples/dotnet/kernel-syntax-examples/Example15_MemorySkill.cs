@@ -88,4 +88,27 @@ Answer:
         var result = await aboutMeOracle.InvokeAsync(context);
 
         Console.WriteLine(context["query"] + "\n");
-        Console.WriteLine
+        Console.WriteLine(result);
+
+        /*
+        Output:
+
+            Do I live in the same town where I grew up?
+
+            No, I do not live in the same town where I grew up since my family is from New York and I have been living in Seattle since 2005.
+        */
+    }
+
+    private static async Task AnswerAsync(string ask, IKernel kernel)
+    {
+        Console.WriteLine($"Ask: {ask}");
+        var memories = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 2, minRelevanceScore: 0.6);
+        var i = 0;
+        await foreach (MemoryQueryResult memory in memories)
+        {
+            Console.WriteLine($"  Fact {++i}: {memory.Text} (relevance: {memory.Relevance})");
+        }
+
+        Console.WriteLine();
+    }
+}
