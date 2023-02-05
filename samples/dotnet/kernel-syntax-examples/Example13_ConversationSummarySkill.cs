@@ -168,4 +168,61 @@ Jane: Goodbye!
         IDictionary<string, ISKFunction> conversationSummarySkill =
             kernel.ImportSkill(new ConversationSummarySkill(kernel));
 
-        SKContext summary = await kernel
+        SKContext summary = await kernel.RunAsync(
+            ChatTranscript,
+            conversationSummarySkill["GetConversationTopics"]);
+
+        Console.WriteLine("Generated Topics:");
+        Console.WriteLine(summary.Result);
+    }
+
+    private static IKernel InitializeKernel()
+    {
+        IKernel kernel = Kernel.Builder.WithLogger(ConsoleLogger.Log).Build();
+        _ = kernel.Config.AddAzureOpenAICompletionBackend(
+            Env.Var("AZURE_OPENAI_DEPLOYMENT_LABEL"),
+            Env.Var("AZURE_OPENAI_DEPLOYMENT_NAME"),
+            Env.Var("AZURE_OPENAI_ENDPOINT"),
+            Env.Var("AZURE_OPENAI_KEY"));
+        _ = kernel.Config.SetRetryMechanism(new RetryThreeTimesWithBackoff());
+
+        return kernel;
+    }
+}
+
+// ReSharper disable CommentTypo
+/* Example Output:
+
+======== SampleSkills - Conversation Summary Skill - Summarize ========
+Generated Summary:
+
+A possible summary is:
+
+- John and Jane are both writing chatbots in different languages and share their links and poems.
+- John's chatbot has a problem with writing repetitive poems and Jane helps him debug his code.
+- Jane is writing a bot to summarize conversations and needs to generate a long conversation with John to test it.
+- They use CoPilot to do most of the talking for them and comment on its limitations.
+- They estimate the max length of the conversation to be 4096 characters.
+
+A possible summary is:
+
+- John and Jane are trying to generate a long conversation for some purpose.
+- They are getting tired and bored of talking and look for ways to fill up the text.
+- They use a Lorem Ipsum generator, but it repeats itself after a while.
+- They sing the national anthems of Canada and the United States, and then talk about their favorite Seattle Kraken hockey players.
+- They finally reach their desired length of text and say goodbye to each other.
+======== SampleSkills - Conversation Summary Skill - Action Items ========
+Generated Action Items:
+
+{
+    "actionItems": [
+        {
+            "owner": "John",
+            "actionItem": "Improve chatbot's poem generation",
+            "dueDate": "",
+            "status": "In Progress",
+            "notes": "Using GPT-3 model"
+        },
+        {
+            "owner": "Jane",
+   
