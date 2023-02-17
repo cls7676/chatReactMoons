@@ -19,4 +19,7 @@ ONLY SPEAK FOR YOURSELF.
 {{$firstName}}: I have a question. Can you help? 
 {{$botName}}: Of course. Go on!
 [Done]
-{{$history
+{{$history}}
+[Done]
+++++
+{{$firstName}}:{{$input}}
