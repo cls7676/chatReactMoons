@@ -39,4 +39,10 @@ Who is the current president of the United States? Who was president in 2012? Wh
 <response><lookup>Who is United States President</lookup><fact>Barack Obama was president in 2012</fact><fact>Bill Gates was CEO 30 years ago</fact></response>
 [done] 
 
-Give me a short overview of Jupiter.
+Give me a short overview of Jupiter. What are NASA's latest spacecraft around it? What was the first spacecraft to do so?
+<response><fact>Jupiter is the largest planet in the solar system</fact> <lookup>NASA missions Jupiter now</lookup><fact>Galileo was the first spacecraft to orbit Jupiter</fact><fiction>invaders from Jupiter attacked Saturn</fiction></response>[done]
+
+Why did the moon fly away in 2014? Was it a spaceship?
+<response><notfact>The moon flew away in 2014</notfact><notfact>It was a spaceship</notfact></response>[done]
+
+{{$input}}
