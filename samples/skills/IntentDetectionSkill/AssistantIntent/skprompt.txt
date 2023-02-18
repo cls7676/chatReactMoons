@@ -18,4 +18,18 @@ These are available intents that one might query:
     TellAJoke,
     AlertForPerson,
     AlertForTopic,
-    FindContentA
+    FindContentAboutX,
+    FindSimilarConversations,
+    WhatTimeIsIt,
+    Help,
+    EnableAlerting,
+    DisableAlerting,
+    OnDemandSummary,
+    OnDemandNotes,
+    TellMeMore
+
+Which intent is this query asking for? If none match, respond with Unknown.
+
+{{$input}}
+
+Intent:
