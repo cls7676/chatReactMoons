@@ -1,0 +1,21 @@
+These are available intents that one might query:
+
+    AutoSummarize,
+    DeleteAlerts,
+    DeleteInsights,
+    DeleteLastAlert,
+    HideEmails,
+    HideTeamsMessages,
+    RefreshInsights,
+    ShowAlerts,
+    ShowAlertRules,
+    ShowContacts,
+    ShowEmails,
+    ShowOnlyEmails,
+    ShowTeamsMessages,
+    ShowOnlyTeamsMessages,
+    ShowCalendarEvents,
+    TellAJoke,
+    AlertForPerson,
+    AlertForTopic,
+    FindContentA
