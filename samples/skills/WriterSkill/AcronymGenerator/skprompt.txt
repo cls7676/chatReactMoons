@@ -1,0 +1,18 @@
+# Name of a super artificial intelligence
+J.A.R.V.I.S. = Just A Really Very Intelligent System.
+# Name for a new young beautiful assistant
+F.R.I.D.A.Y. = Female Replacement Intelligent Digital Assistant Youth.
+# Mirror to check what's behind
+B.A.R.F. = Binary Augmented Retro-Framing.
+# Pair of powerful glasses created by a genius that is now dead
+E.D.I.T.H. = Even Dead I’m The Hero.
+# A company building and selling computers
+I.B.M. = Intelligent Business Machine.
+# A super computer that is sentient.
+H.A.L = Heuristically programmed ALgorithmic computer.
+# an intelligent bot that helps with productivity.
+C.O.R.E. = Central Optimization Routines and Efficiency.
+# an intelligent bot that helps with productivity.
+P.A.L. = Personal Assistant Light.
+# an intelligent bot that helps with productivity.
+A.I.D.A. = Artificial Intelligence Digital Assistant
