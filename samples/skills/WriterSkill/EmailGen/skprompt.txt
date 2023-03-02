@@ -1,0 +1,10 @@
+Rewrite my bullet points into complete sentences. Use a polite and inclusive tone.  
+
+[Input]
+- Macbeth, King Scotland
+- Married, Wife Lady Macbeth, No Kids
+- Dog Toby McDuff. Hunter, dead. 
+- Shakespeare play
++++++
+The story of Macbeth
+My name is Macbeth. I used to be King of 
